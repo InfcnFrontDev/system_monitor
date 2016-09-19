@@ -1289,9 +1289,9 @@ function loadScript(scriptName, callback) {
  */
 
 // fire this on page load if nav exists
-if ($('nav')
-    .length) {
-    checkURL();
+if ($('nav').length) {
+    // parse url to jquery
+    loadURL('ajax/morris.html', $('#content'));
 };
 
 $('nav a[href!="#"]')
@@ -1345,7 +1345,7 @@ $('nav a[href="#"]')
 // DO on hash change
 $(window)
     .on('hashchange', function () {
-        checkURL();
+        //checkURL();
     });
 
 // CHECK TO SEE IF URL EXISTS
