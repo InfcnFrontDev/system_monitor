@@ -303,7 +303,7 @@
 					<!-- widget content -->
 					<div class="widget-body no-padding">
 
-						<div id="bar-chart" class="chart"></div>
+						<div id="line-chart" class="chart"></div>
 
 					</div>
 					<!-- end widget content -->
@@ -335,17 +335,19 @@
      * LOAD ALL FLOT DEPENDENCIES
      */
 
-    loadScript("js/plugin/echarts/echarts.min.js", loadEchartsTools);
+    loadScript("js/plugin/echarts/echarts.min.js", loadEcharts);
 
-    function loadEchartsTools() {
-        loadScript("js/echarts.js", loadSuccess);
+    function loadEcharts() {
+        loadScript("js/echarts.js", loadMockjs);
     }
-    function loadSuccess() {
-        ECharts.Bar({
-            element: 'bar-chart'
-        });
+    function loadMockjs() {
+        loadScript("js/plugin/mockjs/mock-min.js", loadMock);
     }
-
-
+    function loadMock() {
+        loadScript("js/mock.js", loadMonitor);
+    }
+    function loadMonitor() {
+		loadScript("js/monitor.js");
+    }
 
 </script>
