@@ -137,7 +137,7 @@ $('input[type="checkbox"]#smart-fixed-container')
                     .append(smartbgimage)
                     .fadeIn(1000);
                 $("#smart-bgimages img")
-                    .bind("click", function () {
+                      .bind("click", function () {
                         $this = $(this);
                         $html = $('html')
                         bgurl = ($this.data("htmlbg-url"));

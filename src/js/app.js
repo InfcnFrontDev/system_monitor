@@ -72,15 +72,6 @@ $(document)
         $(".login-info")
             .effect("highlight", {}, 1000);
 
-        $('#show-shortcut')
-            .click(function (e) {
-                if ($.shortcut_dropdown.is(":visible")) {
-                    shortcut_buttons_hide()
-                } else {
-                    shortcut_buttons_show()
-                }
-                e.preventDefault();
-            });
 
         // SHOW & HIDE MOBILE SEARCH FIELD
         $('#search-mobile')
