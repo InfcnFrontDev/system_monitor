@@ -82,7 +82,7 @@ gulp.task('clean', function () {
 gulp.task('dev', function () {
     runSequence('compile', function () {
         server();
-    });
+    })
 });
 gulp.task('build', function () {
     // gulp.src('./dev/vendors/**/*.*').pipe(gulp.dest('./dist/vendors/'));
@@ -102,6 +102,8 @@ function server() {
             baseDir: 'app'
         },
         open: false,
+        reloadDelay: 2000,
+        //reloadDebounce: 2000,
         notify: false
     });
 

@@ -1282,7 +1282,9 @@ function loadScript(scriptName, callback) {
 // fire this on page load if nav exists
 if ($('nav').length) {
     // parse url to jquery
-    loadURL('ajax/morris.html', $('#content'));
+    loadURL('ajax/index.html', $('#content'));
+    // loadURL('ajax/morris.html', $('#content'));
+    // loadURL('ajax/morris.html', $('#content'));
 };
 
 $('nav a[href!="#"]')
@@ -1335,8 +1337,17 @@ $('nav a[href="#"]')
 
 // DO on hash change
 $(window)
-    .on('hashchange', function () {
-        //checkURL();
+    .on('hashchange', function (e) {
+        // document.body.scrollTop = 100;
+
+        e.preventDefault();
+        var group = location.hash.replace(/^#/, '');
+        var top = $('#'+group).offset().top;
+
+
+        $('body').animate({scrollTop: top-120}, 1000);
+
+        e.preventDefault();
     });
 
 // CHECK TO SEE IF URL EXISTS
@@ -1384,7 +1395,7 @@ function loadURL(url, container) {
         type: "GET",
         url: url,
         dataType: 'html',
-        cache: true, // (warning: this will cause a timestamp and will call the request twice)
+        cache: false, // (warning: this will cause a timestamp and will call the request twice)
         beforeSend: function () {
             container.html('<h1><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
         },

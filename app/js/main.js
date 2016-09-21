@@ -10337,7 +10337,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\App.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(15)
+	__vue_template__ = __webpack_require__(57)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10365,144 +10365,212 @@
 	    value: true
 	});
 
-	var _Group = __webpack_require__(5);
+	var _Widget = __webpack_require__(5);
 
-	var _Group2 = _interopRequireDefault(_Group);
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	var _WidgetServerHighLoad = __webpack_require__(12);
+
+	var _WidgetServerHighLoad2 = _interopRequireDefault(_WidgetServerHighLoad);
+
+	var _WidgetStorageUsage = __webpack_require__(17);
+
+	var _WidgetStorageUsage2 = _interopRequireDefault(_WidgetStorageUsage);
+
+	var _WidgetCpuUsage = __webpack_require__(22);
+
+	var _WidgetCpuUsage2 = _interopRequireDefault(_WidgetCpuUsage);
+
+	var _WidgetMemoryUsage = __webpack_require__(27);
+
+	var _WidgetMemoryUsage2 = _interopRequireDefault(_WidgetMemoryUsage);
+
+	var _WidgetSwapUsage = __webpack_require__(32);
+
+	var _WidgetSwapUsage2 = _interopRequireDefault(_WidgetSwapUsage);
+
+	var _WidgetDiskUsage = __webpack_require__(37);
+
+	var _WidgetDiskUsage2 = _interopRequireDefault(_WidgetDiskUsage);
+
+	var _WidgetSystemLoad = __webpack_require__(42);
+
+	var _WidgetSystemLoad2 = _interopRequireDefault(_WidgetSystemLoad);
+
+	var _WidgetJvmHeapMemory = __webpack_require__(47);
+
+	var _WidgetJvmHeapMemory2 = _interopRequireDefault(_WidgetJvmHeapMemory);
+
+	var _WidgetJvmNonHeapMemory = __webpack_require__(52);
+
+	var _WidgetJvmNonHeapMemory2 = _interopRequireDefault(_WidgetJvmNonHeapMemory);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = {
-	    components: {
-	        Group: _Group2.default
-	    },
-	    ready: function ready() {}
-	};
-	// </script>
 	// <template>
-	//     <group>
-	//     </group>
+	//     <!-- widget grid -->
+	//     <section id="widget-grid" class=" ">
 	//
-	//     <group>
-	//     </group>
+	//         <!-- row -->
+	//         <div class="row">
+	//             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+	//                 <h1 id="running" class="page-title txt-color-blueDark">
+	//                     <i class="fa fa-bar-chart-o fa-fw "></i>
+	//                     运行状态统计
+	//                 </h1>
+	//             </div>
+	//             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+	//             </div>
+	//         </div>
 	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	//                 <!--服务器高负载日分布情况-->
+	//                 <widget-server-high-load></widget-server-high-load>
+	//             </article>
+	//         </div>
+	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+	//                 <h1 id="os" class="page-title txt-color-blueDark">
+	//                     <i class="fa fa-desktop fa-fw "></i>
+	//                     操作系统
+	//                 </h1>
+	//             </div>
+	//             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+	//             </div>
+	//         </div>
+	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--存储使用情况-->
+	//                 <widget-storage-usage></widget-storage-usage>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--CPU使用率-->
+	//                 <widget-cpu-usage></widget-cpu-usage>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--内存使用率-->
+	//                 <widget-memory-usage></widget-memory-usage>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--交换空间（swap）使用率-->
+	//                 <widget-swap-usage></widget-swap-usage>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--磁盘I/O-->
+	//                 <widget-disk-usage></widget-disk-usage>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--系统负载-->
+	//                 <widget-system-load></widget-system-load>
+	//             </article>
+	//         </div>
+	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+	//                 <h1 id="jvm" class="page-title txt-color-blueDark">
+	//                     <i class="fa fa-cogs fa-fw "></i>
+	//                     JVM
+	//                 </h1>
+	//             </div>
+	//             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+	//             </div>
+	//         </div>
+	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--堆内存使用情况-->
+	//                 <widget-jvm-heap-memory></widget-jvm-heap-memory>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--非堆内存使用情况-->
+	//                 <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <!--加载类情况-->
+	//                 <widget title="加载类情况"></widget>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <widget title="线程数"></widget>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <widget title="线程数（活动）"></widget>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <widget title="垃圾收集信息（GC）"></widget>
+	//             </article>
+	//         </div>
+	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+	//                 <h1 id="network" class="page-title txt-color-blueDark">
+	//                     <i class="fa fa-globe fa-fw "></i>
+	//                     网络
+	//                 </h1>
+	//             </div>
+	//             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+	//             </div>
+	//         </div>
+	//
+	//         <!-- row -->
+	//         <div class="row">
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <widget title="概要信息"></widget>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <widget title="通道数"></widget>
+	//             </article>
+	//             <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	//                 <widget title="无名"></widget>
+	//             </article>
+	//         </div>
+	//
+	//     </section>
 	// </template>
 	// <script>
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default,
+
+	        WidgetServerHighLoad: _WidgetServerHighLoad2.default,
+
+	        WidgetStorageUsage: _WidgetStorageUsage2.default,
+	        WidgetCpuUsage: _WidgetCpuUsage2.default,
+	        WidgetMemoryUsage: _WidgetMemoryUsage2.default,
+	        WidgetSwapUsage: _WidgetSwapUsage2.default,
+	        WidgetDiskUsage: _WidgetDiskUsage2.default,
+	        WidgetSystemLoad: _WidgetSystemLoad2.default,
+
+	        WidgetJvmHeapMemory: _WidgetJvmHeapMemory2.default,
+	        WidgetJvmNonHeapMemory: _WidgetJvmNonHeapMemory2.default
+	    },
+	    ready: function ready() {
+	        pageSetUp();
+	    }
+	};
+	// </script>
 
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(6)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\Group.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(14)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "./Group.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _Widget = __webpack_require__(7);
-
-	var _Widget2 = _interopRequireDefault(_Widget);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = {
-	    components: {
-	        Widget: _Widget2.default
-	    },
-	    ready: function ready() {}
-	};
-	// </script>
-	// <template>
-	//     <div class="row">
-	//         <!-- col -->
-	//         <div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
-	//             <h1 class="page-title txt-color-blueDark">
-	//
-	//                 <!-- PAGE HEADER -->
-	//                 <i class="fa-fw fa fa-home"></i>
-	//                 Page Header
-	//                 <span>>
-	// 				Subtitle
-	// 			</span>
-	//             </h1>
-	//         </div>
-	//         <!-- end col -->
-	//     </div>
-	//     <!-- end row -->
-	//
-	//     <!-- widget grid -->
-	//     <section id="widget-grid" class="">
-	//
-	//         <!-- row -->
-	//         <div class="row">
-	//
-	//             <!-- NEW WIDGET START -->
-	//             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-	//
-	//                 <widget></widget>
-	//
-	//             </article>
-	//             <!-- WIDGET END -->
-	//
-	//         </div>
-	//
-	//         <!-- end row -->
-	//
-	//         <!-- row -->
-	//
-	//         <div class="row">
-	//
-	//             <!-- a blank row to get started -->
-	//
-	//         </div>
-	//
-	//         <!-- end row -->
-	//
-	//     </section>
-	//     <!-- end widget grid -->
-	//
-	// </template>
-	// <script>
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(8)
-	__vue_script__ = __webpack_require__(12)
+	__webpack_require__(6)
+	__vue_script__ = __webpack_require__(10)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\Widget.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(13)
+	__vue_template__ = __webpack_require__(11)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10521,16 +10589,16 @@
 	})()}
 
 /***/ },
-/* 8 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(9);
+	var content = __webpack_require__(7);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(11)(content, {});
+	var update = __webpack_require__(9)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10547,21 +10615,21 @@
 	}
 
 /***/ },
-/* 9 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(10)();
+	exports = module.exports = __webpack_require__(8)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/*
@@ -10617,7 +10685,7 @@
 
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -10839,7 +10907,7 @@
 
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10848,17 +10916,35 @@
 	    value: true
 	});
 	// <template>
-	//     <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+	//     <div class="jarviswidget"
+	//          data-widget-editbutton="false"
+	//          data-widget-sortable="false"
+	//          data-widget-custombutton="true">
+	//         <!-- widget options:
+	// 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+	//
+	// 					data-widget-colorbutton="false"
+	// 					data-widget-editbutton="false"
+	// 					data-widget-togglebutton="false"
+	// 					data-widget-deletebutton="false"
+	// 					data-widget-fullscreenbutton="false"
+	// 					data-widget-custombutton="false"
+	// 					data-widget-collapsed="true"
+	// 					data-widget-sortable="false"
+	//
+	// 				-->
 	//         <header>
-	//             <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-	//             <h2>My Data </h2>
+	//             <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+	//             <h2>{{ title }}</h2>
 	//         </header>
 	//
 	//         <div>
 	//             <div class="jarviswidget-editbox"></div>
 	//             <div class="widget-body no-padding">
 	//
-	//                 <slot></slot>
+	//                 <slot>
+	//                     <div id="area-graph" class="chart no-padding"></div>
+	//                 </slot>
 	//
 	//             </div>
 	//         </div>
@@ -10869,44 +10955,1061 @@
 	// </style>
 	// <script>
 	exports.default = {
-	    ready: function ready() {},
-	    data: function data() {
-	        return {
-	            items: [{ id: 'pdf2doc', src: 'static/images/pdf2doc.png', selected: false }, { id: 'pdf2ppt', src: 'static/images/pdf2ppt.png', selected: false }, { id: 'pdf2xls', src: 'static/images/pdf2xls.png', selected: false }, { id: 'pdf2html', src: 'static/images/pdf2html.png', selected: false }, { id: 'pdf2txt', src: 'static/images/pdf2txt.png', selected: false }, { id: 'pdf2img', src: 'static/images/pdf2img.png', selected: false }, { id: 'doc2pdf', src: 'static/images/doc2pdf.png', selected: false }, { id: 'txt2pdf', src: 'static/images/txt2pdf.png', selected: false }, { id: 'ppt2pdf', src: 'static/images/ppt2pdf.png', selected: false }, { id: 'html2pdf', src: 'static/images/html2pdf.png', selected: false }, { id: 'pdf2rtf', src: 'static/images/pdf2rtf.png', selected: false }, { id: 'pdf2xml', src: 'static/images/pdf2xml.png', selected: false }, { id: 'pdfjiemi', src: 'static/images/pdfjiemi.png', selected: false }, { id: 'pdfjiami', src: 'static/images/pdfjiami.png', selected: false }, { id: 'pdfhebing', src: 'static/images/pdfhebing.png', selected: false }, { id: 'pdffenge', src: 'static/images/pdffenge.png', selected: false }, { id: 'pdfhuoqu', src: 'static/images/pdfhuoqu.png', selected: false }, { id: 'pdfshibie', src: 'static/images/pdfshibie.png', selected: false }]
-	        };
+	    props: {
+	        title: { type: String, default: 'My Widget' }
 	    },
-
-	    methods: {
-	        mouseover: function mouseover(item) {
-	            item.src = 'static/images/' + item.id + '_.png';
-	            item.selected = true;
-	        },
-	        mouseout: function mouseout(item) {
-	            item.src = 'static/images/' + item.id + '.png';
-	            item.selected = false;
-	        }
-	    }
-
+	    ready: function ready() {}
 	};
 	// </script>
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n    <header>\n        <span class=\"widget-icon\"> <i class=\"fa fa-comments\"></i> </span>\n        <h2>My Data </h2>\n    </header>\n\n    <div>\n        <div class=\"jarviswidget-editbox\"></div>\n        <div class=\"widget-body no-padding\">\n\n            <slot></slot>\n\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n    <div class=\"jarviswidget\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\t\t\t\t\tdata-widget-deletebutton=\"false\"\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"area-graph\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(13)
+	__vue_script__ = __webpack_require__(15)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetServerHighLoad.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(16)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetServerHighLoad.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(14);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetServerHighLoad.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetServerHighLoad.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
 
 /***/ },
 /* 14 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n    <div class=\"row\">\n        <!-- col -->\n        <div class=\"col-xs-12 col-sm-3 col-md-4 col-lg-4\">\n            <h1 class=\"page-title txt-color-blueDark\">\n\n                <!-- PAGE HEADER -->\n                <i class=\"fa-fw fa fa-home\"></i>\n                Page Header\n                <span>>\n\t\t\t\tSubtitle\n\t\t\t</span>\n            </h1>\n        </div>\n        <!-- end col -->\n    </div>\n    <!-- end row -->\n\n    <!-- widget grid -->\n    <section id=\"widget-grid\" class=\"\">\n\n        <!-- row -->\n        <div class=\"row\">\n\n            <!-- NEW WIDGET START -->\n            <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n\n                <widget></widget>\n\n            </article>\n            <!-- WIDGET END -->\n\n        </div>\n\n        <!-- end row -->\n\n        <!-- row -->\n\n        <div class=\"row\">\n\n            <!-- a blank row to get started -->\n\n        </div>\n\n        <!-- end row -->\n\n    </section>\n    <!-- end widget grid -->\n\n";
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
 
 /***/ },
 /* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {
+	        this.chart = echarts.init(document.getElementById('sales-graph'));
+
+	        var option = {
+	            tooltip: {
+	                trigger: 'axis'
+	            },
+	            grid: {
+	                top: '8%', left: '3%', right: '3%', bottom: '8%', containLabel: true
+	            },
+	            xAxis: {
+	                type: 'category',
+	                boundaryGap: false,
+	                data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
+	            },
+	            yAxis: {
+	                type: 'value',
+	                axisLabel: {
+	                    formatter: '{value} W'
+	                }
+	            },
+	            visualMap: {
+	                show: false,
+	                dimension: 0,
+	                pieces: [{
+	                    lte: 6,
+	                    color: 'green'
+	                }, {
+	                    gt: 6,
+	                    lte: 8,
+	                    color: 'red'
+	                }, {
+	                    gt: 8,
+	                    lte: 14,
+	                    color: 'green'
+	                }, {
+	                    gt: 14,
+	                    lte: 17,
+	                    color: 'red'
+	                }, {
+	                    gt: 17,
+	                    color: 'green'
+	                }]
+	            },
+	            series: [{
+	                name: '用电量',
+	                type: 'line',
+	                smooth: true,
+	                data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
+	                markArea: {
+	                    data: [[{
+	                        name: '早高峰',
+	                        xAxis: '07:30'
+	                    }, {
+	                        xAxis: '10:00'
+	                    }], [{
+	                        name: '晚高峰',
+	                        xAxis: '17:30'
+	                    }, {
+	                        xAxis: '21:15'
+	                    }]]
+	                }
+	            }]
+	        };
+	        this.chart.setOption(option);
+	    }
+	};
+	// </script>
+	// <template>
+	//     <widget title="服务器高负载日分布情况">
+	//         <div id="sales-graph" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<group>\n</group>\n\n<group>\n</group>\n\n";
+	module.exports = "\n<widget title=\"服务器高负载日分布情况\">\n    <div id=\"sales-graph\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(18)
+	__vue_script__ = __webpack_require__(20)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetStorageUsage.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(21)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetStorageUsage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(19);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetStorageUsage.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetStorageUsage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="存储使用情况">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"存储使用情况\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(23)
+	__vue_script__ = __webpack_require__(25)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetCpuUsage.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(26)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetCpuUsage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(24);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetCpuUsage.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetCpuUsage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="CPU使用率">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"CPU使用率\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(28)
+	__vue_script__ = __webpack_require__(30)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetMemoryUsage.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(31)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetMemoryUsage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(29);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetMemoryUsage.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetMemoryUsage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="内存使用率">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 31 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"内存使用率\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(33)
+	__vue_script__ = __webpack_require__(35)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetSwapUsage.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(36)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetSwapUsage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(34);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetSwapUsage.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetSwapUsage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="交换空间（swap）使用率">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"交换空间（swap）使用率\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(38)
+	__vue_script__ = __webpack_require__(40)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetDiskUsage.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(41)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetDiskUsage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(39);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetDiskUsage.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetDiskUsage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="磁盘I/O">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 41 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"磁盘I/O\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(43)
+	__vue_script__ = __webpack_require__(45)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetSystemLoad.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(46)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetSystemLoad.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(44);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetSystemLoad.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetSystemLoad.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="系统负载">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"系统负载\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(48)
+	__vue_script__ = __webpack_require__(50)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetJvmHeapMemory.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(51)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetJvmHeapMemory.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(49);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetJvmHeapMemory.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetJvmHeapMemory.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="堆内存使用情况">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 51 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"堆内存使用情况\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(53)
+	__vue_script__ = __webpack_require__(55)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetJvmNonHeapMemory.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(56)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetJvmNonHeapMemory.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(54);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetJvmNonHeapMemory.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetJvmNonHeapMemory.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <template>
+	//     <widget title="非堆内存使用情况">
+	//         <div id="chart" class="chart no-padding"></div>
+	//     </widget>
+	// </template>
+	// <style>
+	//
+	// </style>
+	// <script>
+
+/***/ },
+/* 56 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<widget title=\"非堆内存使用情况\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+
+/***/ },
+/* 57 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <!--加载类情况-->\n            <widget title=\"加载类情况\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <widget title=\"线程数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <widget title=\"线程数（活动）\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <widget title=\"概要信息\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <widget title=\"通道数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-4 col-md-4 col-lg-4\">\n            <widget title=\"无名\"></widget>\n        </article>\n    </div>\n\n</section>\n";
 
 /***/ }
 /******/ ]);

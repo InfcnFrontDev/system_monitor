@@ -1,6 +1,6 @@
 <template>
-    <widget>
-        <div id="area-graph" class="chart no-padding"></div>
+    <widget title="CPU使用率">
+        <div id="chart" class="chart no-padding"></div>
     </widget>
 </template>
 <style>

@@ -1,15 +1,33 @@
 <template>
-    <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+    <div class="jarviswidget"
+         data-widget-editbutton="false"
+         data-widget-sortable="false"
+         data-widget-custombutton="true">
+        <!-- widget options:
+					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+					data-widget-colorbutton="false"
+					data-widget-editbutton="false"
+					data-widget-togglebutton="false"
+					data-widget-deletebutton="false"
+					data-widget-fullscreenbutton="false"
+					data-widget-custombutton="false"
+					data-widget-collapsed="true"
+					data-widget-sortable="false"
+
+				-->
         <header>
-            <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
-            <h2>My Data </h2>
+            <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
+            <h2>{{ title }}</h2>
         </header>
 
         <div>
             <div class="jarviswidget-editbox"></div>
             <div class="widget-body no-padding">
 
-                <slot></slot>
+                <slot>
+                    <div id="area-graph" class="chart no-padding"></div>
+                </slot>
 
             </div>
         </div>
@@ -20,42 +38,10 @@
 </style>
 <script>
     export default{
+        props: {
+            title: {type: String, default: 'My Widget'}
+        },
         ready() {
-        },
-        data(){
-            return {
-                items: [
-                    {id: 'pdf2doc', src: 'static/images/pdf2doc.png', selected: false},
-                    {id: 'pdf2ppt', src: 'static/images/pdf2ppt.png', selected: false},
-                    {id: 'pdf2xls', src: 'static/images/pdf2xls.png', selected: false},
-                    {id: 'pdf2html', src: 'static/images/pdf2html.png', selected: false},
-                    {id: 'pdf2txt', src: 'static/images/pdf2txt.png', selected: false},
-                    {id: 'pdf2img', src: 'static/images/pdf2img.png', selected: false},
-                    {id: 'doc2pdf', src: 'static/images/doc2pdf.png', selected: false},
-                    {id: 'txt2pdf', src: 'static/images/txt2pdf.png', selected: false},
-                    {id: 'ppt2pdf', src: 'static/images/ppt2pdf.png', selected: false},
-                    {id: 'html2pdf', src: 'static/images/html2pdf.png', selected: false},
-                    {id: 'pdf2rtf', src: 'static/images/pdf2rtf.png', selected: false},
-                    {id: 'pdf2xml', src: 'static/images/pdf2xml.png', selected: false},
-                    {id: 'pdfjiemi', src: 'static/images/pdfjiemi.png', selected: false},
-                    {id: 'pdfjiami', src: 'static/images/pdfjiami.png', selected: false},
-                    {id: 'pdfhebing', src: 'static/images/pdfhebing.png', selected: false},
-                    {id: 'pdffenge', src: 'static/images/pdffenge.png', selected: false},
-                    {id: 'pdfhuoqu', src: 'static/images/pdfhuoqu.png', selected: false},
-                    {id: 'pdfshibie', src: 'static/images/pdfshibie.png', selected: false}
-                ]
-            }
-        },
-        methods: {
-            mouseover(item){
-                item.src = 'static/images/' + item.id + '_.png';
-                item.selected = true;
-            },
-            mouseout(item){
-                item.src = 'static/images/' + item.id + '.png';
-                item.selected = false;
-            }
         }
-
     }
 </script>
