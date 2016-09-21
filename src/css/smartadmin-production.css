@@ -13638,8 +13638,8 @@ img.away {
 }
 
 .chart {
-    height: 220px;
-    margin: 20px 5px 10px 10px
+    height: 300px;
+    margin: 0px
 }
 
 .has-legend {
