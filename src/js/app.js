@@ -449,7 +449,7 @@ $.fn.extend({
 
         var defaults = {
             accordion: 'true',
-            speed: 200,
+            speed: 1000,
             closedSign: '[+]',
             openedSign: '[-]'
         };
@@ -1282,7 +1282,7 @@ function loadScript(scriptName, callback) {
 // fire this on page load if nav exists
 if ($('nav').length) {
     // parse url to jquery
-    loadURL('ajax/flot.html', $('#content'));
+    loadURL('ajax/morris.html', $('#content'));
 };
 
 $('nav a[href!="#"]')
