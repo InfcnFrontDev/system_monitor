@@ -1,12 +1,16 @@
 <template>
-    <div class="banner">
-        <div class="body">
-            <div class="line">
-                <div v-for="item in items" :class="{'blue':item.selected}">
-                    <a href="details.html#!/{{item.id}}" @mouseover="mouseover(item)" @mouseout="mouseout(item)">
-                        <img :src="item.src">
-                    </a>
-                </div>
+    <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+        <header>
+            <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+            <h2>My Data </h2>
+        </header>
+
+        <div>
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+
+                <slot></slot>
+
             </div>
         </div>
     </div>
@@ -44,11 +48,11 @@
         },
         methods: {
             mouseover(item){
-                item.src = 'static/images/'+ item.id +'_.png';
+                item.src = 'static/images/' + item.id + '_.png';
                 item.selected = true;
             },
             mouseout(item){
-                item.src = 'static/images/'+ item.id +'.png';
+                item.src = 'static/images/' + item.id + '.png';
                 item.selected = false;
             }
         }

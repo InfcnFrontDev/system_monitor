@@ -1,20 +1,21 @@
 <template>
-    <v-header></v-header>
-    <v-content></v-content>
-    <v-footer></v-footer>
+    <group>
+    </group>
+
+    <group>
+    </group>
+
 </template>
 <script>
-    
-    import VHeader from '../../common/components/VHeader.vue'
-    import VFooter from '../../common/components/VFooter.vue'
-    import VContent from './components/VContent.vue'
+
+    import Group from './components/Group.vue'
 
     export default{
         components: {
-            VHeader, VFooter, VContent
+            Group
         },
         ready() {
-            
+
         }
     }
 </script>

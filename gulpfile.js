@@ -72,19 +72,18 @@ const processes = [
     cssnano
 ];
 // background: color($blue blackness(20%));  precss为了用这样的语法
-const src = {
-    src: './src/common/**/*.*'
-};
-const dev = {
-    static: './dev/static/',
-    css: './dev/static/css/',
-    fonts: './dev/static/fonts/',
-    images: './dev/static/images/',
-    js: './dev/static/js/',
-    vendors: './dev/vendors/',
-    views: './dev/'
-};
 
+gulp.task('clean', function () {
+    del([
+        'dist/',
+        'dev/'
+    ]);
+});
+gulp.task('dev', function () {
+    runSequence('compile', function () {
+        server();
+    });
+});
 gulp.task('build', function () {
     // gulp.src('./dev/vendors/**/*.*').pipe(gulp.dest('./dist/vendors/'));
     // gulp.src('./dev/static/fonts/*.*').pipe(gulp.dest('./dist/static/fonts/'));
@@ -94,81 +93,30 @@ gulp.task('build', function () {
     // gulp.src('./dev/*.html').pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('dev', function () {
-    server();
-    //gulp.start('static', 'vendors', 'sass', 'es6', 'views');
-});
-gulp.task('clean', function () {
-    del([
-        'dist/',
-        'dev/'
-    ]);
-});
-gulp.task('compile', function () {
-    compileJS('src/main.js', 'app/ajax/');
-});
-gulp.task('views', function () {
-    return gulp.src(src.views)
-        .pipe(rename(function (path) {
-            path.basename = path.dirname;
-            path.dirname = "";
-        }))
-        .pipe(gulp.dest(dev.views));
-});
 
 function server() {
-    browserSync.init(dev.views, {
+    browserSync.init({
         startPath: "/",
-        files: ["dev/**/*.*", "!dev/vendors/**/*.*"],
+        files: ["app/**/*.*"],
         server: {
-            baseDir: 'dev'
+            baseDir: 'app'
         },
         open: false,
-        notify: true
+        notify: false
     });
 
-    watch([src.static, '!src/**/*.*___'], function (event) {
-        var paths = watchPath(event, 'src/', 'dev/');
-        cp(paths.srcPath, paths.distDir);
-    });
-    watch([src.vendors, '!src/**/*.*___'], function (event) {
-        var paths = watchPath(event, 'src/', 'dev/');
-        cp(paths.srcPath, paths.distDir);
-    });
-    watch([src.sass], function (event) {
-        var paths = watchPath(event, 'src/sass/', 'dev/css/');
-        return gulp.src(paths.srcPath)
-            .pipe(sourcemaps.init())
-            .pipe(sass().on('error', sass.logError))
-            .pipe(postcss(processes))
-            .pipe(sourcemaps.write('./maps'))
-            .pipe(gulp.dest(dev.css));
-    });
-    watch([src.common], function (event) {
-        gulp.start('es6', 'views');
-    });
-    watch(['./src/modules/*/index.html'], function (event) {
-        var paths = watchPath(event, 'src/modules/', 'dev/modules/');
-        var business = paths.srcDir.split('\\');
-        var modulePath = business[0] + '\\' + business[1] + '\\' + business[2] + '\\';
-        compileView(paths.srcPath, dev.views);
-    });
-    watch(['./src/modules/**/*.{vue,js}'], function (event) {
-        var paths = watchPath(event, 'src/modules/', 'dev/modules/');
-        var business = paths.srcDir.split('\\');
-        var modulePath = business[0] + '\\' + business[1] + '\\' + business[2] + '\\';
-        compileJS(modulePath + 'main.js', dev.js);
+    watch(['src/**/*.{js,vue,html}'], function (event) {
+        runSequence('compile');
     });
 }
+
+gulp.task('compile', function () {
+    compileJS('src/main.js', 'app/js/');
+    compileView('src/index.html', 'app/ajax/');
+});
+
 function compileJS(path, dest) {
-    dest = dest || dev.js;
     return gulp.src(path)
-        .pipe(named(function (file) {
-            var path = JSON.parse(JSON.stringify(file)).history[0];
-            var sp = 'modules\\';
-            var target = path.split(sp)[1].replace('\\main', '');
-            return target.substring(0, target.length - 3);
-        }))
         .pipe(webpackStream(webpackConfig))
         .on('error', function (err) {
             this.end()
@@ -181,9 +129,6 @@ function compileJS(path, dest) {
 
 function compileView(src, dest) {
     gulp.src(src)
-        .pipe(rename(function (path) {
-            path.basename = src.split('\\')[2];
-        }))
         .pipe(gulp.dest(dest));
 }
 
