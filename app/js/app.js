@@ -1282,7 +1282,7 @@ function loadScript(scriptName, callback) {
 // fire this on page load if nav exists
 if ($('nav').length) {
     // parse url to jquery
-    loadURL('ajax/index.html', $('#content'));
+    loadURL('ajax/morris.html', $('#content'));
 };
 
 $('nav a[href!="#"]')
