@@ -8,12 +8,12 @@
 </style>
 <script>
     import Widget from './Widget.vue'
-
     export default{
         components: {
-            Widget
+            Widget,
         },
         ready() {
+
         }
     }
 </script>
