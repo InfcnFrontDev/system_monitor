@@ -1,17 +1,15 @@
 <app></app>
+<script type="text/javascript" src="js/config.js"></script>
 <script type="text/javascript">
     loadScript("js/plugin/echarts/echarts.min.js", loadMockjs);
     function loadMockjs() {
-        loadScript("js/plugin/mockjs/mock-min.js", loadMock);
+        loadScript("js/plugin/mockjs/mock-min.js", loadMonitor);
     }
     function loadMock() {
         loadScript("js/mock.js", loadMonitor);
     }
     function loadMonitor() {
-        loadScript("js/main.js", loadSuccess);
-    }
-    function loadSuccess(){
-
+        loadScript("js/main.js");
     }
 
 </script>

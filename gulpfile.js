@@ -102,13 +102,16 @@ function server() {
             baseDir: 'app'
         },
         open: false,
-        reloadDelay: 2000,
+        reloadDelay: 1000,
         //reloadDebounce: 2000,
         notify: false
     });
 
-    watch(['src/**/*.{js,vue,html}'], function (event) {
-        runSequence('compile');
+    watch(['src/**/*.{js,vue}'], function (event) {
+        compileJS('src/main.js', 'app/js/');
+    });
+    watch(['src/**/*.html'], function (event) {
+        compileView('src/index.html', 'app/ajax/');
     });
 }
 
