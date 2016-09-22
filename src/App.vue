@@ -36,27 +36,27 @@
 
         <!-- row -->
         <div class="row">
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--存储使用情况-->
                 <widget-storage-usage></widget-storage-usage>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--CPU使用率-->
                 <widget-cpu-usage></widget-cpu-usage>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--内存使用率-->
                 <widget-memory-usage></widget-memory-usage>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--交换空间（swap）使用率-->
                 <widget-swap-usage></widget-swap-usage>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--磁盘I/O-->
                 <widget-disk-usage></widget-disk-usage>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--系统负载-->
                 <widget-system-load></widget-system-load>
             </article>
@@ -76,25 +76,25 @@
 
         <!-- row -->
         <div class="row">
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--堆内存使用情况-->
                 <widget-jvm-heap-memory></widget-jvm-heap-memory>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--非堆内存使用情况-->
                 <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--加载类情况-->
                 <widget title="加载类情况"></widget>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="线程数"></widget>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="线程数（活动）"></widget>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="垃圾收集信息（GC）"></widget>
             </article>
         </div>
@@ -113,13 +113,13 @@
 
         <!-- row -->
         <div class="row">
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="概要信息"></widget>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="通道数"></widget>
             </article>
-            <article class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="无名"></widget>
             </article>
         </div>
