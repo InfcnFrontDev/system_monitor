@@ -5,7 +5,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <h1 id="running" class="page-title txt-color-blueDark">
+                <h1 id="running1" class="page-title txt-color-blueDark">
                     <i class="fa fa-bar-chart-o fa-fw "></i>
                     运行状态统计
                 </h1>
@@ -25,7 +25,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <h1 id="os" class="page-title txt-color-blueDark">
+                <h1 id="os1" class="page-title txt-color-blueDark">
                     <i class="fa fa-desktop fa-fw "></i>
                     操作系统
                 </h1>
@@ -65,7 +65,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <h1 id="jvm" class="page-title txt-color-blueDark">
+                <h1 id="jvm1" class="page-title txt-color-blueDark">
                     <i class="fa fa-cogs fa-fw "></i>
                     JVM
                 </h1>
@@ -102,7 +102,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <h1 id="network" class="page-title txt-color-blueDark">
+                <h1 id="network1" class="page-title txt-color-blueDark">
                     <i class="fa fa-globe fa-fw "></i>
                     网络
                 </h1>

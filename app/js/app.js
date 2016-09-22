@@ -1338,16 +1338,9 @@ $('nav a[href="#"]')
 // DO on hash change
 $(window)
     .on('hashchange', function (e) {
-        // document.body.scrollTop = 100;
-
-        e.preventDefault();
-        var group = location.hash.replace(/^#/, '');
-        var top = $('#'+group).offset().top;
-
-
-        $('body').animate({scrollTop: top-120}, 1000);
-
-        e.preventDefault();
+        var hash = location.hash.replace(/^#/, '');
+        var top = $('#'+hash+"1").offset().top;
+        $('body').stop().animate({scrollTop: top-120}, 300);
     });
 
 // CHECK TO SEE IF URL EXISTS
