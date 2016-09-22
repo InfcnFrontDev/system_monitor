@@ -1,15 +1,18 @@
 <template>
     <div class="jarviswidget"
+         data-widget-colorbutton="false"
          data-widget-editbutton="false"
          data-widget-sortable="false"
-         data-widget-custombutton="true">
+         data-widget-custombutton="true"
+         data-widget-togglebutton="false"
+         data-widget-deletebutton="false">
         <!-- widget options:
 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 
 					data-widget-colorbutton="false"
 					data-widget-editbutton="false"
 					data-widget-togglebutton="false"
-					data-widget-deletebutton="false"
+
 					data-widget-fullscreenbutton="false"
 					data-widget-custombutton="false"
 					data-widget-collapsed="true"
@@ -22,7 +25,7 @@
         </header>
 
         <div>
-            <div class="jarviswidget-editbox"></div>
+            <div class="jarviswidget-editbox"  style="display:none"></div>
             <div class="widget-body no-padding">
 
                 <slot>
@@ -42,6 +45,7 @@
             title: {type: String, default: 'My Widget'}
         },
         ready() {
+            setup_widgets_desktop()
         }
     }
 </script>

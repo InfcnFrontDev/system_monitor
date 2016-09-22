@@ -10623,7 +10623,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -10917,16 +10917,19 @@
 	});
 	// <template>
 	//     <div class="jarviswidget"
+	//          data-widget-colorbutton="false"
 	//          data-widget-editbutton="false"
 	//          data-widget-sortable="false"
-	//          data-widget-custombutton="true">
+	//          data-widget-custombutton="true"
+	//          data-widget-togglebutton="false"
+	//          data-widget-deletebutton="false">
 	//         <!-- widget options:
 	// 					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
 	//
 	// 					data-widget-colorbutton="false"
 	// 					data-widget-editbutton="false"
 	// 					data-widget-togglebutton="false"
-	// 					data-widget-deletebutton="false"
+	//
 	// 					data-widget-fullscreenbutton="false"
 	// 					data-widget-custombutton="false"
 	// 					data-widget-collapsed="true"
@@ -10939,7 +10942,7 @@
 	//         </header>
 	//
 	//         <div>
-	//             <div class="jarviswidget-editbox"></div>
+	//             <div class="jarviswidget-editbox"  style="display:none"></div>
 	//             <div class="widget-body no-padding">
 	//
 	//                 <slot>
@@ -10958,7 +10961,9 @@
 	    props: {
 	        title: { type: String, default: 'My Widget' }
 	    },
-	    ready: function ready() {}
+	    ready: function ready() {
+	        setup_widgets_desktop();
+	    }
 	};
 	// </script>
 
@@ -10966,7 +10971,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div class=\"jarviswidget\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\t\t\t\t\tdata-widget-deletebutton=\"false\"\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"area-graph\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
+	module.exports = "\n    <div class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"  style=\"display:none\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"area-graph\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
 
 /***/ },
 /* 12 */

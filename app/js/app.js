@@ -1171,7 +1171,7 @@ function setup_widgets_desktop() {
                 // color button
                 colorButton: true,
                 // full screen
-                fullscreenButton: true,
+                fullscreenButton:true,
                 fullscreenClass: 'fa fa-resize-full | fa fa-resize-small',
                 fullscreenDiff: 3,
                 onFullscreen: function () {},
@@ -1204,7 +1204,6 @@ function setup_widgets_desktop() {
                 rtl: false // best not to toggle this!
 
             });
-
     }
 
 }
@@ -1464,7 +1463,7 @@ function pageSetUp() {
     runAllCharts();
 
     // setup widgets
-    setup_widgets_desktop();
+   /* setup_widgets_desktop();*/
 
     //setup nav height (dynamic)
     nav_page_height();
