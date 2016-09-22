@@ -12939,8 +12939,9 @@
 	        };
 
 	        this.update();
-
 	        this.fetchData();
+
+	        $(window).bind('resize', this.chart.resize);
 	    },
 
 	    methods: {
@@ -13112,8 +13113,9 @@
 	        };
 
 	        this.update();
-
 	        this.fetchData();
+
+	        $(window).bind('resize', this.chart.resize);
 	    },
 
 	    methods: {
@@ -13299,8 +13301,9 @@
 	        };
 
 	        this.update();
-
 	        this.fetchData();
+
+	        $(window).bind('resize', this.chart.resize);
 	    },
 
 	    methods: {
@@ -13482,8 +13485,9 @@
 	        };
 
 	        this.update();
-
 	        this.fetchData();
+
+	        $(window).bind('resize', this.chart.resize);
 	    },
 
 	    methods: {
@@ -13622,18 +13626,98 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    data: function data() {
+	        return {
+	            monitorDate: '201609221200-201609221259'
+	        };
+	    },
+	    ready: function ready() {
+	        this.chart = echarts.init(document.getElementById('disk-io-chart'), _tools2.default.getChartTheme());
+
+	        this.option = {
+	            tooltip: {
+	                trigger: 'axis'
+	            },
+	            grid: {
+	                top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+	            },
+	            xAxis: [{
+	                type: 'category',
+	                boundaryGap: false,
+	                data: []
+	            }],
+	            yAxis: [{
+	                name: '速度（%）',
+	                type: 'value',
+	                max: 100
+	            }],
+	            series: []
+	        };
+
+	        this.update();
+	        this.fetchData();
+
+	        $(window).bind('resize', this.chart.resize);
+	    },
+
+	    methods: {
+	        update: function update() {
+	            this.chart.setOption(this.option);
+	        },
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getFileSystems(this.monitorDate).then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+	            this.chart.hideLoading();
+
+	            var xAxisData = [],
+	                readBytesData = [],
+	                writeBytesData = [];
+	            $(result).each(function () {
+	                xAxisData.push(_tools2.default.dateToHHmm(this.date));
+
+	                var readBytes = 0,
+	                    writeBytes = 0;
+	                $(this.ifcFileSystems).each(function () {
+	                    readBytes += this.diskReadBytes;
+	                    writeBytes += this.diskWriteBytes;
+	                });
+	                readBytesData.push(readBytes);
+	                writeBytesData.push(writeBytes);
+	            });
+
+	            this.option.xAxis[0].data = xAxisData;
+	            this.option.series = [{
+	                name: '写入速度', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: writeBytesData
+	            }, {
+	                name: '读取速度', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: readBytesData
+	            }];
+
+	            this.update();
+	        }
+	    }
 	};
 	// </script>
 	// <template>
 	//     <widget title="磁盘I/O">
-	//         <div id="chart" class="chart no-padding"></div>
+	//         <div id="disk-io-chart" class="chart no-padding"></div>
 	//     </widget>
 	// </template>
 	// <style>
@@ -13645,7 +13729,7 @@
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"磁盘I/O\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+	module.exports = "\n<widget title=\"磁盘I/O\">\n    <div id=\"disk-io-chart\" class=\"chart no-padding\"></div>\n</widget>\n";
 
 /***/ },
 /* 109 */

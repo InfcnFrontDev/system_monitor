@@ -44,8 +44,9 @@
             };
 
             this.update();
-
             this.fetchData();
+
+            $(window).bind('resize', this.chart.resize);
         },
         methods: {
             update(){

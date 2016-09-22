@@ -10,6 +10,7 @@ const named = require('vinyl-named');
 const del = require('del');
 const watchPath = require('gulp-watch-path');
 const replace = require('gulp-replace');
+const concat = require('gulp-concat');
 
 const browserSync = require('browser-sync').create();
 const base64 = require('gulp-base64');
@@ -97,7 +98,7 @@ gulp.task('build', function () {
 function server() {
     browserSync.init({
         startPath: "/",
-        files: ["app/**/*.*"],
+        files: ["app/**/*.*", "!app/**/*.*__"],
         server: {
             baseDir: 'app'
         },
@@ -141,4 +142,12 @@ function cp(from, to) {
     gulp.src(from)
         .pipe(gulp.dest(to));
 }
+
+
+gulp.task('echarts-themes', function () {
+    gulp.src('app/js/plugin/echarts/themes/*.js')
+        .pipe(concat('echarts-themes.min.js'))//合并后的文件名
+        .pipe(uglify())
+        .pipe(gulp.dest('app/js/plugin/echarts/'));
+});
 
