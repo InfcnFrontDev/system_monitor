@@ -72,6 +72,20 @@ $(document)
         $(".login-info")
             .effect("highlight", {}, 1000);
 
+        $("#echarts-theme li").each(function(){
+            $(this).click(function(){
+                localStorage.chartTheme = $(this).text().toLowerCase();
+                location.reload()
+            })
+
+            if(localStorage.chartTheme == null)
+                localStorage.chartTheme = 'westeros';
+
+            if(localStorage.chartTheme == $(this).text().toLowerCase()){
+                $(this).addClass('active')
+            }
+
+        })
 
         // SHOW & HIDE MOBILE SEARCH FIELD
         $('#search-mobile')
