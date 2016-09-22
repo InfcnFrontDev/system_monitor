@@ -76,16 +76,13 @@ $(document)
             $(this).click(function(){
                 localStorage.chartTheme = $(this).text().toLowerCase();
                 location.reload()
-            })
+            });
 
-            if(localStorage.chartTheme == null)
-                localStorage.chartTheme = 'westeros';
-
-            if(localStorage.chartTheme == $(this).text().toLowerCase()){
+            var chartTheme = localStorage.chartTheme || 'default';
+            if(chartTheme == $(this).text().toLowerCase()){
                 $(this).addClass('active')
             }
-
-        })
+        });
 
         // SHOW & HIDE MOBILE SEARCH FIELD
         $('#search-mobile')

@@ -12815,7 +12815,7 @@
 	    },
 
 	    getChartTheme: function getChartTheme() {
-	        return window.localStorage.chartTheme || 'vintage';
+	        return window.localStorage.chartTheme || '';
 	    }
 	};
 
