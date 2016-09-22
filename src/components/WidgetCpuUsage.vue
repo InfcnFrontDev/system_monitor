@@ -21,7 +21,7 @@
             }
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('cpu-usage-chart'));
+            this.chart = echarts.init(document.getElementById('cpu-usage-chart'), Tools.getChartTheme());
 
             this.option = {
                 tooltip: {

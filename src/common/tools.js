@@ -7,5 +7,7 @@ export default {
     bToKB: b=>b / 1024,
     bToMB: b=>b / 1024 / 1024,
     bToGB: b=>b / 1024 / 1024 / 1024,
-    bToTB: b=>b / 1024 / 1024 / 1024 / 1024
+    bToTB: b=>b / 1024 / 1024 / 1024 / 1024,
+
+    getChartTheme: () => window.localStorage.chartTheme || 'vintage'
 }

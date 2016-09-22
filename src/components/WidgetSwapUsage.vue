@@ -21,7 +21,7 @@
             }
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('swap-usage-chart'));
+            this.chart = echarts.init(document.getElementById('swap-usage-chart'), Tools.getChartTheme());
 
             this.option = {
                 tooltip: {

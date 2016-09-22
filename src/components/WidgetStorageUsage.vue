@@ -16,7 +16,7 @@
             Widget
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('storage-usage-chart'));
+            this.chart = echarts.init(document.getElementById('storage-usage-chart'), Tools.getChartTheme());
 
             this.option = {
                 tooltip: {

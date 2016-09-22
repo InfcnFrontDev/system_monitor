@@ -8,13 +8,15 @@
 </style>
 <script>
     import Widget from './Widget.vue'
+    import Monitor from '../common/monitor.api'
+    import Tools from '../common/tools'
 
     export default{
         components: {
             Widget
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('sales-graph'));
+            this.chart = echarts.init(document.getElementById('sales-graph'), Tools.getChartTheme());
 
             var option = {
                 tooltip: {

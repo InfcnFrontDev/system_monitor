@@ -21,7 +21,7 @@
             }
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('memory-usage-chart'));
+            this.chart = echarts.init(document.getElementById('memory-usage-chart'), Tools.getChartTheme());
 
             this.option = {
                 tooltip: {
