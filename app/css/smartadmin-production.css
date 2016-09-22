@@ -12461,12 +12461,12 @@ aside {
 #logo img {
     width: 94px;
     height: auto;
-    padding-left: 6px;
-    margin-top: 12px;
+    padding-left: 12px;
+    margin-top: -20px;
 
 }
 #title11 {
-    font-size:36px;
+    font-size:26px;
     color:#2f4554;
     margin-left: 20px;
     line-height: 49px;
