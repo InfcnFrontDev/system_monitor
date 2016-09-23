@@ -37,8 +37,7 @@
                 }],
                 yAxis: [{
                     name: '速度（%）',
-                    type: 'value',
-                    max: 100
+                    type: 'value'
                 }],
                 series: []
             };
@@ -70,15 +69,15 @@
                         readBytes += this.diskReadBytes;
                         writeBytes += this.diskWriteBytes;
                     });
-                    readBytesData.push(readBytes);
-                    writeBytesData.push(writeBytes);
+                    readBytesData.push(Tools.bToGB(readBytes).toFixed(2));
+                    writeBytesData.push(Tools.bToGB(writeBytes).toFixed(2));
                 });
 
                 this.option.xAxis[0].data = xAxisData;
                 this.option.series = [{
-                    name: '写入速度', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: writeBytesData
+                    name: '写入速度', type: 'line', data: writeBytesData
                 }, {
-                    name: '读取速度', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: readBytesData
+                    name: '读取速度', type: 'line', data: readBytesData
                 }];
 
                 this.update();

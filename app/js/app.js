@@ -1431,7 +1431,7 @@ function drawBreadCrumb() {
     $("#ribbon ol.breadcrumb")
         .empty();
     $("#ribbon ol.breadcrumb")
-        .append($("<li>Home</li>"));
+        .append($("<li>ESP_Search004：192.168.10.104</li>"));
     $('nav li.active > a')
         .each(function () {
             $("#ribbon ol.breadcrumb")
