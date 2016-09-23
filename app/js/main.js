@@ -14284,7 +14284,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14303,30 +14303,58 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    ready: function ready() {
+	        this.fetchData();
+	    },
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getJVMRuntime().then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+	            var spacname = 0;
+	            var vmname = 0;
+	            var specvendor = 0;
+	            var vmversion = 0;
+	            var bootclasspath = 0;
+	            var uptime = 0;
+	            $(result.ifcJVMRuntime).each(function () {
+	                vmname = this.vmName;
+	                spacname = this.specName;
+	                specvendor = this.specVendor;
+	                vmversion = this.vmVersion;
+	                bootclasspath = this.bootClassPath;
+	                uptime = this.uptime;
+	                var html = "<li>PID:<span>" + vmname + "</span></li><li>JAVA虚拟机名称:<span >" + vmname + "</span></li><li>JAVA虚拟机厂商:<span>" + specvendor + "</span></li><li>JAVA虚拟机版本：<span>" + spacname + "</span></li><li>JAVA版本：<span>" + vmversion + "</span></li><li>JAVA Home目录：<span>" + bootclasspath + "</span></li><li>虚拟机启动时间：<span>" + uptime + "</span></li><li>虚拟机运行时长：<span>" + uptime + "</span></li><li>进程CPU时间：<span>" + spacname + "</span></li><li>JIT编译器：<span>" + spacname + "</span></li><li>总编译时间：<span>" + spacname + "</span></li>";
+	                $('#jvm-msg-ul').append(html);
+	            });
+	        }
+	    }
+
 	};
 	// </script>
 	// <template>
 	//     <widget title="jvm摘要">
 	//         <div class="jvm-msg-box">
 	//             <ul id="jvm-msg-ul">
-	//                 <li>PID:</li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
+	//
 	//             </ul>
 	//         </div>
 	//     </widget>
@@ -14340,7 +14368,7 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>PID:</li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 134 */

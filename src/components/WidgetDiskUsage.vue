@@ -55,6 +55,7 @@
                 let $this = this;
                 Monitor.getFileSystems(this.monitorDate).then(function (value) {
                     $this.render(value)
+
                 });
             },
             render(result) {
