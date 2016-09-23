@@ -77,6 +77,10 @@
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <!--jvm摘要-->
+                <widget-jvm-message></widget-jvm-message>
+            </article>
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--堆内存使用情况-->
                 <widget-jvm-heap-memory></widget-jvm-heap-memory>
             </article>
@@ -86,13 +90,16 @@
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--加载类情况-->
-                <widget title="加载类情况"></widget>
+                <widget-jvm-class-loand></widget-jvm-class-loand>
+            </article>
+
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <!--线程数情况-->
+                <widget-jvm-thread></widget-jvm-thread>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget title="线程数"></widget>
-            </article>
-            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget title="线程数（活动）"></widget>
+                <!--线程数活动情况-->
+                <widget-jvm-thread-active></widget-jvm-thread-active>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="垃圾收集信息（GC）"></widget>
@@ -131,7 +138,7 @@
     import Widget from './components/Widget.vue'
 
     import WidgetServerHighLoad from './components/WidgetServerHighLoad.vue'
-
+    import WidgetJvmClassLoand from  './components/WidgetJvmClassLoand.vue'
     import WidgetStorageUsage from './components/WidgetStorageUsage.vue'
     import WidgetCpuUsage from './components/WidgetCpuUsage.vue'
     import WidgetMemoryUsage from './components/WidgetMemoryUsage.vue'
@@ -141,22 +148,27 @@
 
     import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
     import WidgetJvmNonHeapMemory from  './components/WidgetJvmNonHeapMemory.vue'
+    import WidgetJvmMessage from  './components/WidgetJvmMessage.vue'
+    import WidgetJvmThread from  './components/WidgetJvmThread.vue'
+    import WidgetJvmThreadActive from  './components/WidgetJvmThreadActive.vue'
 
     export default{
         components: {
             Widget,
 
             WidgetServerHighLoad,
-
+            WidgetJvmClassLoand,
             WidgetStorageUsage,
             WidgetCpuUsage,
             WidgetMemoryUsage,
             WidgetSwapUsage,
             WidgetDiskUsage,
             WidgetSystemLoad,
-
+            WidgetJvmMessage,
             WidgetJvmHeapMemory,
-            WidgetJvmNonHeapMemory
+            WidgetJvmNonHeapMemory,
+            WidgetJvmThread,
+            WidgetJvmThreadActive,
         },
         ready() {
             pageSetUp();
