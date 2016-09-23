@@ -121,13 +121,13 @@
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget title="概要信息"></widget>
+                <widget-net-message></widget-net-message>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget title="通道数"></widget>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget title="无名"></widget>
+                <widget title="吞吐量"></widget>
             </article>
         </div>
 
@@ -145,12 +145,12 @@
     import WidgetSwapUsage from './components/WidgetSwapUsage.vue'
     import WidgetDiskUsage from './components/WidgetDiskUsage.vue'
     import WidgetSystemLoad from './components/WidgetSystemLoad.vue'
-
     import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
     import WidgetJvmNonHeapMemory from  './components/WidgetJvmNonHeapMemory.vue'
     import WidgetJvmMessage from  './components/WidgetJvmMessage.vue'
     import WidgetJvmThread from  './components/WidgetJvmThread.vue'
     import WidgetJvmThreadActive from  './components/WidgetJvmThreadActive.vue'
+    import WidgetNetMessage from './components/WidgetNetMessage.vue'
 
     export default{
         components: {
@@ -169,6 +169,7 @@
             WidgetJvmNonHeapMemory,
             WidgetJvmThread,
             WidgetJvmThreadActive,
+            WidgetNetMessage
         },
         ready() {
             pageSetUp();

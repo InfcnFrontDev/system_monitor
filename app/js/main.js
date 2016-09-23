@@ -10337,7 +10337,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\App.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(144)
+	__vue_template__ = __webpack_require__(149)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10421,8 +10421,36 @@
 
 	var _WidgetJvmThreadActive2 = _interopRequireDefault(_WidgetJvmThreadActive);
 
+	var _WidgetNetMessage = __webpack_require__(144);
+
+	var _WidgetNetMessage2 = _interopRequireDefault(_WidgetNetMessage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default,
+
+	        WidgetServerHighLoad: _WidgetServerHighLoad2.default,
+	        WidgetJvmClassLoand: _WidgetJvmClassLoand2.default,
+	        WidgetStorageUsage: _WidgetStorageUsage2.default,
+	        WidgetCpuUsage: _WidgetCpuUsage2.default,
+	        WidgetMemoryUsage: _WidgetMemoryUsage2.default,
+	        WidgetSwapUsage: _WidgetSwapUsage2.default,
+	        WidgetDiskUsage: _WidgetDiskUsage2.default,
+	        WidgetSystemLoad: _WidgetSystemLoad2.default,
+	        WidgetJvmMessage: _WidgetJvmMessage2.default,
+	        WidgetJvmHeapMemory: _WidgetJvmHeapMemory2.default,
+	        WidgetJvmNonHeapMemory: _WidgetJvmNonHeapMemory2.default,
+	        WidgetJvmThread: _WidgetJvmThread2.default,
+	        WidgetJvmThreadActive: _WidgetJvmThreadActive2.default,
+	        WidgetNetMessage: _WidgetNetMessage2.default
+	    },
+	    ready: function ready() {
+	        pageSetUp();
+	    }
+	};
+	// </script>
 	// <template>
 	//     <!-- widget grid -->
 	//     <section id="widget-grid" class=" ">
@@ -10546,43 +10574,19 @@
 	//         <!-- row -->
 	//         <div class="row">
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget title="概要信息"></widget>
+	//                 <widget-net-message></widget-net-message>
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <widget title="通道数"></widget>
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget title="无名"></widget>
+	//                 <widget title="吞吐量"></widget>
 	//             </article>
 	//         </div>
 	//
 	//     </section>
 	// </template>
 	// <script>
-
-	exports.default = {
-	    components: {
-	        Widget: _Widget2.default,
-
-	        WidgetServerHighLoad: _WidgetServerHighLoad2.default,
-	        WidgetJvmClassLoand: _WidgetJvmClassLoand2.default,
-	        WidgetStorageUsage: _WidgetStorageUsage2.default,
-	        WidgetCpuUsage: _WidgetCpuUsage2.default,
-	        WidgetMemoryUsage: _WidgetMemoryUsage2.default,
-	        WidgetSwapUsage: _WidgetSwapUsage2.default,
-	        WidgetDiskUsage: _WidgetDiskUsage2.default,
-	        WidgetSystemLoad: _WidgetSystemLoad2.default,
-	        WidgetJvmMessage: _WidgetJvmMessage2.default,
-	        WidgetJvmHeapMemory: _WidgetJvmHeapMemory2.default,
-	        WidgetJvmNonHeapMemory: _WidgetJvmNonHeapMemory2.default,
-	        WidgetJvmThread: _WidgetJvmThread2.default,
-	        WidgetJvmThreadActive: _WidgetJvmThreadActive2.default
-	    },
-	    ready: function ready() {
-	        pageSetUp();
-	    }
-	};
-	// </script>
 
 /***/ },
 /* 5 */
@@ -14481,7 +14485,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14500,30 +14504,72 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    data: function data() {
+	        return {
+	            jvmRuntime: null
+	        };
+	    },
+	    ready: function ready() {
+	        this.fetchData();
+	    },
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getJVMRuntime().then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+
+	            this.jvmRuntime = result.ifcJVMRuntime;
+
+	            //                var spacname=0;
+	            //                var vmname=0;
+	            //                var specvendor=0;
+	            //                var vmversion=0;
+	            //                var bootclasspath=0;
+	            //                var uptime=0;
+	            //                $(result.ifcJVMRuntime).each(function () {
+	            //                    vmname = this.vmName;
+	            //                    spacname=this.specName
+	            //                    specvendor = this.specVendor;
+	            //                    vmversion = this.vmVersion;
+	            //                    bootclasspath=this.bootClassPath;
+	            //                    uptime=this.uptime
+	            //                   var html="<li>PID:<span>"+vmname+"</span></li><li>JAVA虚拟机名称:<span >"+vmname+"</span></li><li>JAVA虚拟机厂商:<span>"+specvendor+"</span></li><li>JAVA虚拟机版本：<span>"+spacname+"</span></li><li>JAVA版本：<span>"+vmversion+"</span></li><li>JAVA Home目录：<span>"+bootclasspath+"</span></li><li>虚拟机启动时间：<span>"+uptime+"</span></li><li>虚拟机运行时长：<span>"+uptime+"</span></li><li>进程CPU时间：<span>"+spacname+"</span></li><li>JIT编译器：<span>"+spacname+"</span></li><li>总编译时间：<span>"+spacname+"</span></li>"
+	            //                    $('#jvm-msg-ul').append(html)
+	            //
+	            //                })
+	        }
+	    }
+
 	};
 	// </script>
 	// <template>
 	//     <widget title="jvm摘要">
 	//         <div class="jvm-msg-box">
 	//             <ul id="jvm-msg-ul">
-	//                 <li>PID:</li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
+	//                 <li>PID:<span>{{jvmRuntime.name}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.specName}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.pid}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.pid}}</span></li>
 	//             </ul>
 	//         </div>
 	//     </widget>
@@ -14537,7 +14583,7 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>PID:</li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>PID:<span>{{jvmRuntime.name}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specName}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>\n            <li>PID:<span>{{jvmRuntime.pid}}</span></li>\n            <li>PID:<span>{{jvmRuntime.pid}}</span></li>\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 134 */
@@ -14757,9 +14803,202 @@
 
 /***/ },
 /* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(145)
+	__vue_script__ = __webpack_require__(147)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\WidgetNetMessage.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(148)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./WidgetNetMessage.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 145 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(146);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetNetMessage.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./WidgetNetMessage.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n#net-msg-ul{\r\n    list-style:none;\r\n    line-height:29px;\r\n}\r\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _Widget = __webpack_require__(5);
+
+	var _Widget2 = _interopRequireDefault(_Widget);
+
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        Widget: _Widget2.default
+	    },
+	    ready: function ready() {
+
+	        this.fetchData();
+	    },
+	    data: function data() {},
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getNets().then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+	            //                name	String	网络设备名称
+	            //                hwaddr	String	网卡的物理地址
+	            //                type	String	网卡类型
+	            //                description	String	网卡描述信息
+	            //                address	String	IP地址
+	            //                destination	String
+	            //                broadcast	String	网关广播地址
+	            //                netmask	String	子网掩码
+	            //                flags	long
+	            //                mtu	long	设置网卡的最大传输单元
+	            //                metric	long
+	            //                rxBytes	long	接收到的总字节数
+	            //                rxPackets	long	接收的总包裹数
+	            //                rxErrors	long	接收到的错误包数
+	            //                rxDropped	long	接收时丢弃的包数
+	            //                rxOverruns	long
+	            //                rxFrame	long
+	            //                txBytes	long	发送的总字节数
+	            //                txPackets	long	发送的总包裹数
+	            //                txErrors	long	发送数据包时的错误数
+	            //                txDropped	long	发送时丢弃的包数
+	            //                txOverruns	long
+	            //                txCollisions	long
+	            //                txCarrier	long
+	            //                speed	long
+	            var html = '',
+	                names = '',
+	                types = '',
+	                hwaddrs = '',
+	                addresss = '',
+	                broadcasts = '',
+	                netmasks = '',
+	                descriptions = '';
+	            names = $(result.ifcNets)[0].name;
+	            types = $(result.ifcNets)[0].type;
+	            hwaddrs = $(result.ifcNets)[0].hwaddr;
+	            netmasks = $(result.ifcNets)[0].netmask;
+	            broadcasts = $(result.ifcNets)[0].broadcast;
+	            addresss = $(result.ifcNets)[0].address;
+	            descriptions = $(result.ifcNets)[0].description;
+	            addresss = $(result.ifcNets)[0].address;
+	            addresss = $(result.ifcNets)[0].address;
+	            addresss = $(result.ifcNets)[0].address;
+	            html = '<li>适配器名称:' + descriptions + '</li>' + '<li>连接类型:' + types + '</li>' + '<li>MAC地址:' + hwaddrs + '</li>' + '<li>IPv4地址:' + addresss + '</li>' + '<li>IPv4子网掩码:' + netmasks + '</li>' + '<li>IPv4默认网关:' + names + '</li>' + '<li>IPv4 DNS:' + names + '</li>' + '<li>IPv6地址:' + broadcasts + '</li>' + '<li>IPv6默认网关:' + names + '</li>' + '<li>IPv6 DNS:' + names + '</li>';
+	            $('#net-msg-ul').append(html);
+	        }
+	    }
+	};
+	// </script>
+	// <template>
+	//     <widget title="概要信息">
+	//         <div id="storage-usage-chart" class="chart no-padding">
+	//             <ul id="net-msg-ul">
+	//                 <!--<li>适配器名称:</li>-->
+	//                 <!--<li>连接类型:</li>-->
+	//                 <!--<li>MAC地址:</li>-->
+	//                 <!--<li>IPv4地址:</li>-->
+	//                 <!--<li>IPv4子网掩码:</li>-->
+	//                 <!--<li>IPv4默认网关:</li>-->
+	//                 <!--<li>IPv4 DNS:</li>-->
+	//                 <!--<li>IPv6地址:</li>-->
+	//                 <!--<li>IPv6默认网关:</li>-->
+	//                 <!--<li>IPv6 DNS:</li>-->
+	//
+	//             </ul>
+	//         </div>
+	//     </widget>
+	// </template>
+	// <style>
+	// #net-msg-ul{
+	//     list-style:none;
+	//     line-height:29px;
+	// }
+	// </style>
+	// <script>
+
+/***/ },
+/* 148 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-loand></widget-jvm-class-loand>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"概要信息\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"通道数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"无名\"></widget>\n        </article>\n    </div>\n\n</section>\n";
+	module.exports = "\n<widget title=\"概要信息\">\n    <div id=\"storage-usage-chart\" class=\"chart no-padding\">\n        <ul id=\"net-msg-ul\">\n            <!--<li>适配器名称:</li>-->\n            <!--<li>连接类型:</li>-->\n            <!--<li>MAC地址:</li>-->\n            <!--<li>IPv4地址:</li>-->\n            <!--<li>IPv4子网掩码:</li>-->\n            <!--<li>IPv4默认网关:</li>-->\n            <!--<li>IPv4 DNS:</li>-->\n            <!--<li>IPv6地址:</li>-->\n            <!--<li>IPv6默认网关:</li>-->\n            <!--<li>IPv6 DNS:</li>-->\n\n        </ul>\n    </div>\n</widget>\n";
+
+/***/ },
+/* 149 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-loand></widget-jvm-class-loand>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-message></widget-net-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"通道数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"吞吐量\"></widget>\n        </article>\n    </div>\n\n</section>\n";
 
 /***/ }
 /******/ ]);
