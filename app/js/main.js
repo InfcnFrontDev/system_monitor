@@ -10648,7 +10648,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -10941,7 +10941,7 @@
 	    value: true
 	});
 	// <template>
-	//     <div class="jarviswidget"
+	//     <div id="{{id}}" class="jarviswidget"
 	//          data-widget-colorbutton="false"
 	//          data-widget-editbutton="false"
 	//          data-widget-sortable="false"
@@ -10969,23 +10969,13 @@
 	//
 	//                 <div class="btn-group">
 	//                     <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
-	//                         实时监控&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+	//                         {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 	//                     </button>
 	//                     <ul class="dropdown-menu pull-right js-status-update">
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-green"></i> 实时监控</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-red"></i> 最近一小时</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-orange"></i> 最近一天</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-pink"></i> 最近一周</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-blue"></i> 最近一个月</a>
+	//                         <li v-for="item in periods" :class="{active: item.value == selectedPeriod.value}">
+	//                             <a href="javascript:void(0);" @click="selectPeriod(item)">
+	//                                 <i class="fa fa-circle txt-color-{{item.color}}"></i> {{item.text}}
+	//                             </a>
 	//                         </li>
 	//                     </ul>
 	//                 </div>
@@ -10997,7 +10987,7 @@
 	//             <div class="widget-body no-padding">
 	//
 	//                 <slot>
-	//                     <div id="area-graph" class="chart no-padding"></div>
+	//                     <div id="{{id}}_chart" class="chart no-padding"></div>
 	//                 </slot>
 	//
 	//             </div>
@@ -11010,17 +11000,28 @@
 	// <script>
 	exports.default = {
 	    props: {
+	        id: { type: String, default: 'myWidget' },
 	        title: { type: String, default: 'My Widget' }
 	    },
+	    data: function data() {
+	        var periods = [{ text: '实时监控', color: 'green', value: 'real_time' }, { text: '最近一小时', color: 'red', value: 'one_hour' }, { text: '最近一天', color: 'orange', value: 'one_day' }, { text: '最近一周', color: 'pink', value: 'one_week' }, { text: '最近一个月', color: 'blue', value: 'one_month' }];
+	        return {
+	            periods: periods,
+	            selectedPeriod: periods[0],
+	            monitorDate: '201609231200-201609231259'
+	        };
+	    },
 	    ready: function ready() {
+	        var $this = this;
+
 	        setup_widgets_desktop();
-	        $(".js-status-update a").click(function () {
-	            var selText = $(this).text();
-	            $this = $(this);
-	            $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
-	            $this.parents('.dropdown-menu').find('li').removeClass('active');
-	            $this.parent().addClass('active');
-	        });
+	    },
+
+	    methods: {
+	        selectPeriod: function selectPeriod(period) {
+	            this.selectedPeriod = period;
+	            this.$dispatch('period-changed', period);
+	        }
 	    }
 	};
 	// </script>
@@ -11029,7 +11030,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n            <div class=\"widget-toolbar\">\n                <!-- add: non-hidden - to disable auto hide -->\n\n                <div class=\"btn-group\">\n                    <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\n                        实时监控&nbsp;&nbsp;<i class=\"fa fa-caret-down\"></i>\n                    </button>\n                    <ul class=\"dropdown-menu pull-right js-status-update\">\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-green\"></i> 实时监控</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-red\"></i> 最近一小时</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-orange\"></i> 最近一天</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-pink\"></i> 最近一周</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-blue\"></i> 最近一个月</a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"area-graph\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
+	module.exports = "\n    <div id=\"{{id}}\" class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n            <div class=\"widget-toolbar\">\n                <!-- add: non-hidden - to disable auto hide -->\n\n                <div class=\"btn-group\">\n                    <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\n                        {{selectedPeriod.text}}&nbsp;&nbsp;<i class=\"fa fa-caret-down\"></i>\n                    </button>\n                    <ul class=\"dropdown-menu pull-right js-status-update\">\n                        <li v-for=\"item in periods\" :class=\"{active: item.value == selectedPeriod.value}\">\n                            <a href=\"javascript:void(0);\" @click=\"selectPeriod(item)\">\n                                <i class=\"fa fa-circle txt-color-{{item.color}}\"></i> {{item.text}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"{{id}}_chart\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
 
 /***/ },
 /* 12 */
@@ -14023,7 +14024,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14058,13 +14059,15 @@
 	    },
 	    data: function data() {
 	        return {
-	            monitorDate: '201609221200-201609221259',
+	            id: 'system_load',
+	            title: '系统负载',
+
 	            date: '20160922120000'
 	        };
 	    },
 	    ready: function ready() {
 	        this.widget = this.$children[0];
-	        this.chart = echarts.init(document.getElementById('system-load-chart'), _tools2.default.getChartTheme());
+	        this.chart = echarts.init(document.getElementById(this.id + "_chart"), _tools2.default.getChartTheme());
 
 	        var option = {
 	            tooltip: {
@@ -14091,15 +14094,18 @@
 	        };
 
 	        this.chart.setOption(option);
+
 	        $(window).bind('resize', this.chart.resize);
 
 	        // 实时监控
 	        // this.realTime();
 	        this.fetchData();
-	        console.log(this.widget);
 	    },
 
 	    methods: {
+	        periodChanged: function periodChanged(period) {
+	            console.log("aaaa", period);
+	        },
 	        fetchData: function fetchData() {
 	            var $this = this;
 	            _monitor2.default.getCpus(this.monitorDate).then(function (value) {
@@ -14182,9 +14188,7 @@
 	};
 	// </script>
 	// <template>
-	//     <widget title="系统负载">
-	//         <div id="system-load-chart" class="chart no-padding"></div>
-	//     </widget>
+	//     <widget :id="id" :title="title" @period-changed="periodChanged"></widget>
 	// </template>
 	// <style>
 	//
@@ -14195,7 +14199,7 @@
 /* 118 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"系统负载\">\n    <div id=\"system-load-chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+	module.exports = "\n<widget :id=\"id\" :title=\"title\" @period-changed=\"periodChanged\"></widget>\n";
 
 /***/ },
 /* 119 */

@@ -1,7 +1,5 @@
 <template>
-    <widget title="系统负载">
-        <div id="system-load-chart" class="chart no-padding"></div>
-    </widget>
+    <widget :id="id" :title="title" @period-changed="periodChanged"></widget>
 </template>
 <style>
 
@@ -17,13 +15,16 @@
         },
         data(){
             return {
-                monitorDate: '201609221200-201609221259',
+                id: 'system_load',
+                title: '系统负载',
+
+
                 date: '20160922120000'
             }
         },
         ready() {
             this.widget = this.$children[0];
-            this.chart = echarts.init(document.getElementById('system-load-chart'), Tools.getChartTheme());
+            this.chart = echarts.init(document.getElementById(this.id + "_chart"), Tools.getChartTheme());
 
             var option = {
                 tooltip: {
@@ -50,14 +51,17 @@
             };
 
             this.chart.setOption(option);
+
             $(window).bind('resize', this.chart.resize);
 
             // 实时监控
             // this.realTime();
             this.fetchData();
-            console.log(this.widget)
         },
         methods: {
+            periodChanged(period){
+                console.log("aaaa", period);
+            },
             fetchData() {
                 let $this = this;
                 Monitor.getCpus(this.monitorDate).then(function (value) {

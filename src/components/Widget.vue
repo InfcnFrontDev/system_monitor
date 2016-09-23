@@ -1,5 +1,5 @@
 <template>
-    <div class="jarviswidget"
+    <div id="{{id}}" class="jarviswidget"
          data-widget-colorbutton="false"
          data-widget-editbutton="false"
          data-widget-sortable="false"
@@ -27,23 +27,13 @@
 
                 <div class="btn-group">
                     <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
-                        实时监控&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                        {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu pull-right js-status-update">
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-circle txt-color-green"></i> 实时监控</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-circle txt-color-red"></i> 最近一小时</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-circle txt-color-orange"></i> 最近一天</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-circle txt-color-pink"></i> 最近一周</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-circle txt-color-blue"></i> 最近一个月</a>
+                        <li v-for="item in periods" :class="{active: item.value == selectedPeriod.value}">
+                            <a href="javascript:void(0);" @click="selectPeriod(item)">
+                                <i class="fa fa-circle txt-color-{{item.color}}"></i> {{item.text}}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -55,7 +45,7 @@
             <div class="widget-body no-padding">
 
                 <slot>
-                    <div id="area-graph" class="chart no-padding"></div>
+                    <div id="{{id}}_chart" class="chart no-padding"></div>
                 </slot>
 
             </div>
@@ -68,17 +58,33 @@
 <script>
     export default{
         props: {
+            id: {type: String, default: 'myWidget'},
             title: {type: String, default: 'My Widget'}
         },
+        data(){
+            let periods = [
+                {text: '实时监控', color: 'green', value: 'real_time'},
+                {text: '最近一小时', color: 'red', value: 'one_hour'},
+                {text: '最近一天', color: 'orange', value: 'one_day'},
+                {text: '最近一周', color: 'pink', value: 'one_week'},
+                {text: '最近一个月', color: 'blue', value: 'one_month'}
+            ];
+            return {
+                periods,
+                selectedPeriod: periods[0],
+                monitorDate: '201609231200-201609231259'
+            }
+        },
         ready() {
+            var $this = this;
+
             setup_widgets_desktop();
-            $(".js-status-update a").click(function () {
-                var selText = $(this).text();
-                $this = $(this);
-                $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
-                $this.parents('.dropdown-menu').find('li').removeClass('active');
-                $this.parent().addClass('active');
-            });
+        },
+        methods: {
+            selectPeriod(period){
+                this.selectedPeriod = period;
+                this.$dispatch('period-changed', period);
+            }
         }
     }
 </script>
