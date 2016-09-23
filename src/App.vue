@@ -138,7 +138,6 @@
     import WidgetSwapUsage from './components/WidgetSwapUsage.vue'
     import WidgetDiskUsage from './components/WidgetDiskUsage.vue'
     import WidgetSystemLoad from './components/WidgetSystemLoad.vue'
-
     import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
     import WidgetJvmNonHeapMemory from  './components/WidgetJvmNonHeapMemory.vue'
 
