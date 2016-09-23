@@ -12794,11 +12794,74 @@
 	    value: true
 	});
 	exports.default = {
+
+	    yyyyMMddHHmmss: 'yyyyMMddHHmmss',
+	    yyyyMMddHHmmss_: 'yyyy-MM-dd HH:mm:ss',
+	    yyyyMMddHHmm: 'yyyyMMddHHmm',
+	    yyyyMMddHHmm_: 'yyyy-MM-dd HH:mm',
+	    yyyyMMdd: 'yyyyMMdd',
+	    yyyyMMdd_: 'yyyy-MM-dd',
+	    MMdd: 'MMdd',
+	    MMdd_: 'MM-dd',
+	    HHmmss: 'HHmmss',
+	    HHmmss_: 'HH:mm:ss',
+	    HHmm: 'HHmm',
+	    HHmm_: 'HH:mm',
+
 	    /**
 	     * yyyyMMddHHmm 转 HH:mm
 	     */
 	    dateToHHmm: function dateToHHmm(date) {
 	        return date.substring(8, 10) + ':' + date.substring(10, 12);
+	    },
+	    dateFormat: function dateFormat(date, formatStr) {
+	        var str = formatStr || this.yyyyMMddHHmm;
+	        var Week = ['日', '一', '二', '三', '四', '五', '六'];
+
+	        str = str.replace(/yyyy|YYYY/, date.getFullYear());
+	        str = str.replace(/yy|YY/, date.getYear() % 100 > 9 ? (date.getYear() % 100).toString() : '0' + date.getYear() % 100);
+
+	        str = str.replace(/MM/, date.getMonth() > 9 ? date.getMonth().toString() : '0' + date.getMonth());
+	        str = str.replace(/M/g, date.getMonth());
+
+	        str = str.replace(/w|W/g, Week[date.getDay()]);
+
+	        str = str.replace(/dd|DD/, date.getDate() > 9 ? date.getDate().toString() : '0' + date.getDate());
+	        str = str.replace(/d|D/g, date.getDate());
+
+	        str = str.replace(/hh|HH/, date.getHours() > 9 ? date.getHours().toString() : '0' + date.getHours());
+	        str = str.replace(/h|H/g, date.getHours());
+	        str = str.replace(/mm/, date.getMinutes() > 9 ? date.getMinutes().toString() : '0' + date.getMinutes());
+	        str = str.replace(/m/g, date.getMinutes());
+
+	        str = str.replace(/ss|SS/, date.getSeconds() > 9 ? date.getSeconds().toString() : '0' + date.getSeconds());
+	        str = str.replace(/s|S/g, date.getSeconds());
+
+	        return str;
+	    },
+	    dateParse: function dateParse(dateStr, formatStr) {
+	        var yyyy = 0,
+	            MM = 0,
+	            dd = 0,
+	            HH = 0,
+	            mm = 0,
+	            ss = 0;
+	        var format = formatStr || this.yyyyMMddHHmm;
+
+	        if (format == this.yyyyMMddHHmmss) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(4, 6), dd = dateStr.substring(6, 8), HH = dateStr.substring(8, 10), mm = dateStr.substring(10, 12), ss = dateStr.substring(12, 14);
+	        } else if (format == this.yyyyMMddHHmmss_) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10), HH = dateStr.substring(11, 13), mm = dateStr.substring(14, 16), ss = dateStr.substring(17, 19);
+	        } else if (format == this.yyyyMMddHHmm) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(4, 6), dd = dateStr.substring(6, 8), HH = dateStr.substring(8, 10), mm = dateStr.substring(10, 12);
+	        } else if (format == this.yyyyMMddHHmm_) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10), HH = dateStr.substring(11, 13), mm = dateStr.substring(14, 16);
+	        } else if (format == this.yyyyMMdd) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(4, 6), dd = dateStr.substring(6, 8);
+	        } else if (format == this.yyyyMMdd_) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10);
+	        }
+	        return new Date(yyyy, MM, dd, HH, mm, ss);
 	    },
 
 	    bToKB: function bToKB(b) {
@@ -13813,18 +13876,148 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    data: function data() {
+	        return {
+	            monitorDate: '201609221200-201609221259',
+	            date: '20160922120000'
+	        };
+	    },
+	    ready: function ready() {
+	        this.widget = this.$children[0];
+	        this.chart = echarts.init(document.getElementById('system-load-chart'), _tools2.default.getChartTheme());
+
+	        var option = {
+	            tooltip: {
+	                trigger: 'axis'
+	            },
+	            grid: {
+	                top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+	            },
+	            xAxis: [{
+	                type: 'category',
+	                boundaryGap: false,
+	                data: []
+	            }],
+	            yAxis: [{
+	                name: '使用率（%）',
+	                type: 'value',
+	                max: 100
+	            }],
+	            series: [{
+	                name: '系统', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	            }, {
+	                name: '用户', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	            }]
+	        };
+
+	        this.chart.setOption(option);
+	        $(window).bind('resize', this.chart.resize);
+
+	        // 实时监控
+	        // this.realTime();
+	        this.fetchData();
+	        console.log(this.widget);
+	    },
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getCpus(this.monitorDate).then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+	            this.chart.hideLoading();
+
+	            var xAxisData = [],
+	                syssData = [],
+	                usersData = [];
+	            $(result).each(function () {
+	                xAxisData.push(_tools2.default.dateToHHmm(this.date));
+
+	                var syss = 0,
+	                    users = 0;
+	                $(this.ifcCpus).each(function () {
+	                    syss += this.sys;
+	                    users += this.user;
+	                });
+	                syssData.push((syss * 100).toFixed(2));
+	                usersData.push((users * 100).toFixed(2));
+	            });
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	        },
+	        realTime: function realTime() {
+	            var xAxisData = [],
+	                syssData = [],
+	                usersData = [];
+	            xAxisData.length = 61;
+	            syssData.length = 61;
+	            usersData.length = 61;
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	            setInterval(this.realTimefetchData, 1000);
+	        },
+	        realTimefetchData: function realTimefetchData() {
+	            var $this = this;
+	            _monitor2.default.getCpus().then(function (value) {
+	                $this.realTimeRender(value);
+	            });
+	        },
+	        realTimeRender: function realTimeRender(result) {
+	            this.chart.hideLoading();
+
+	            var option = this.chart.getOption();
+
+	            var xAxisData = option.xAxis[0].data,
+	                syssData = option.series[0].data,
+	                usersData = option.series[1].data;
+	            var date = new Date();
+	            xAxisData.shift();
+	            xAxisData.push(_tools2.default.dateFormat(date, _tools2.default.HHmmss_));
+
+	            var syss = 0,
+	                users = 0;
+	            $(result.ifcCpus).each(function () {
+	                syss += this.sys;
+	                users += this.user;
+	            });
+	            syssData.shift();
+	            syssData.push((syss * 100).toFixed(2));
+	            usersData.shift();
+	            usersData.push((users * 100).toFixed(2));
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	        }
+	    }
 	};
 	// </script>
 	// <template>
 	//     <widget title="系统负载">
-	//         <div id="chart" class="chart no-padding"></div>
+	//         <div id="system-load-chart" class="chart no-padding"></div>
 	//     </widget>
 	// </template>
 	// <style>
@@ -13836,7 +14029,7 @@
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"系统负载\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+	module.exports = "\n<widget title=\"系统负载\">\n    <div id=\"system-load-chart\" class=\"chart no-padding\"></div>\n</widget>\n";
 
 /***/ },
 /* 114 */
