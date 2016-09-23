@@ -14288,7 +14288,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14321,6 +14321,11 @@
 	    components: {
 	        Widget: _Widget2.default
 	    },
+	    data: function data() {
+	        return {
+	            jvmRuntime: null
+	        };
+	    },
 	    ready: function ready() {
 	        this.fetchData();
 	    },
@@ -14333,22 +14338,26 @@
 	            });
 	        },
 	        render: function render(result) {
-	            var spacname = 0;
-	            var vmname = 0;
-	            var specvendor = 0;
-	            var vmversion = 0;
-	            var bootclasspath = 0;
-	            var uptime = 0;
-	            $(result.ifcJVMRuntime).each(function () {
-	                vmname = this.vmName;
-	                spacname = this.specName;
-	                specvendor = this.specVendor;
-	                vmversion = this.vmVersion;
-	                bootclasspath = this.bootClassPath;
-	                uptime = this.uptime;
-	                var html = "<li>PID:<span>" + vmname + "</span></li><li>JAVA虚拟机名称:<span >" + vmname + "</span></li><li>JAVA虚拟机厂商:<span>" + specvendor + "</span></li><li>JAVA虚拟机版本：<span>" + spacname + "</span></li><li>JAVA版本：<span>" + vmversion + "</span></li><li>JAVA Home目录：<span>" + bootclasspath + "</span></li><li>虚拟机启动时间：<span>" + uptime + "</span></li><li>虚拟机运行时长：<span>" + uptime + "</span></li><li>进程CPU时间：<span>" + spacname + "</span></li><li>JIT编译器：<span>" + spacname + "</span></li><li>总编译时间：<span>" + spacname + "</span></li>";
-	                $('#jvm-msg-ul').append(html);
-	            });
+
+	            this.jvmRuntime = result.ifcJVMRuntime;
+
+	            //                var spacname=0;
+	            //                var vmname=0;
+	            //                var specvendor=0;
+	            //                var vmversion=0;
+	            //                var bootclasspath=0;
+	            //                var uptime=0;
+	            //                $(result.ifcJVMRuntime).each(function () {
+	            //                    vmname = this.vmName;
+	            //                    spacname=this.specName
+	            //                    specvendor = this.specVendor;
+	            //                    vmversion = this.vmVersion;
+	            //                    bootclasspath=this.bootClassPath;
+	            //                    uptime=this.uptime
+	            //                   var html="<li>PID:<span>"+vmname+"</span></li><li>JAVA虚拟机名称:<span >"+vmname+"</span></li><li>JAVA虚拟机厂商:<span>"+specvendor+"</span></li><li>JAVA虚拟机版本：<span>"+spacname+"</span></li><li>JAVA版本：<span>"+vmversion+"</span></li><li>JAVA Home目录：<span>"+bootclasspath+"</span></li><li>虚拟机启动时间：<span>"+uptime+"</span></li><li>虚拟机运行时长：<span>"+uptime+"</span></li><li>进程CPU时间：<span>"+spacname+"</span></li><li>JIT编译器：<span>"+spacname+"</span></li><li>总编译时间：<span>"+spacname+"</span></li>"
+	            //                    $('#jvm-msg-ul').append(html)
+	            //
+	            //                })
 	        }
 	    }
 
@@ -14358,7 +14367,12 @@
 	//     <widget title="jvm摘要">
 	//         <div class="jvm-msg-box">
 	//             <ul id="jvm-msg-ul">
-	//
+	//                 <li>PID:<span>{{jvmRuntime.name}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.specName}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.pid}}</span></li>
+	//                 <li>PID:<span>{{jvmRuntime.pid}}</span></li>
 	//             </ul>
 	//         </div>
 	//     </widget>
@@ -14372,7 +14386,7 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>PID:<span>{{jvmRuntime.name}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specName}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>\n            <li>PID:<span>{{jvmRuntime.pid}}</span></li>\n            <li>PID:<span>{{jvmRuntime.pid}}</span></li>\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 134 */
@@ -14654,7 +14668,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n#net-msg-ul{\r\n    list-style:none;\r\n    line-height:29px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -14673,36 +14687,107 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    ready: function ready() {
+
+	        this.fetchData();
+	    },
+	    data: function data() {},
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getNets().then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+	            //                name	String	网络设备名称
+	            //                hwaddr	String	网卡的物理地址
+	            //                type	String	网卡类型
+	            //                description	String	网卡描述信息
+	            //                address	String	IP地址
+	            //                destination	String
+	            //                broadcast	String	网关广播地址
+	            //                netmask	String	子网掩码
+	            //                flags	long
+	            //                mtu	long	设置网卡的最大传输单元
+	            //                metric	long
+	            //                rxBytes	long	接收到的总字节数
+	            //                rxPackets	long	接收的总包裹数
+	            //                rxErrors	long	接收到的错误包数
+	            //                rxDropped	long	接收时丢弃的包数
+	            //                rxOverruns	long
+	            //                rxFrame	long
+	            //                txBytes	long	发送的总字节数
+	            //                txPackets	long	发送的总包裹数
+	            //                txErrors	long	发送数据包时的错误数
+	            //                txDropped	long	发送时丢弃的包数
+	            //                txOverruns	long
+	            //                txCollisions	long
+	            //                txCarrier	long
+	            //                speed	long
+	            var html = '',
+	                names = '',
+	                types = '',
+	                hwaddrs = '',
+	                addresss = '',
+	                broadcasts = '',
+	                netmasks = '',
+	                descriptions = '';
+	            names = $(result.ifcNets)[0].name;
+	            types = $(result.ifcNets)[0].type;
+	            hwaddrs = $(result.ifcNets)[0].hwaddr;
+	            netmasks = $(result.ifcNets)[0].netmask;
+	            broadcasts = $(result.ifcNets)[0].broadcast;
+	            addresss = $(result.ifcNets)[0].address;
+	            descriptions = $(result.ifcNets)[0].description;
+	            addresss = $(result.ifcNets)[0].address;
+	            addresss = $(result.ifcNets)[0].address;
+	            addresss = $(result.ifcNets)[0].address;
+	            html = '<li>适配器名称:' + descriptions + '</li>' + '<li>连接类型:' + types + '</li>' + '<li>MAC地址:' + hwaddrs + '</li>' + '<li>IPv4地址:' + addresss + '</li>' + '<li>IPv4子网掩码:' + netmasks + '</li>' + '<li>IPv4默认网关:' + names + '</li>' + '<li>IPv4 DNS:' + names + '</li>' + '<li>IPv6地址:' + broadcasts + '</li>' + '<li>IPv6默认网关:' + names + '</li>' + '<li>IPv6 DNS:' + names + '</li>';
+	            $('#net-msg-ul').append(html);
+	        }
+	    }
 	};
 	// </script>
 	// <template>
 	//     <widget title="概要信息">
-	//         <div class="jvm-msg-box">
-	//             <ul id="jvm-msg-ul">
-	//                 <li>适配器名称:</li>
-	//                 <li>连接类型:</li>
-	//                 <li>MAC地址:</li>
-	//                 <li>IPv4地址:</li>
-	//                 <li>IPv4子网掩码:</li>
-	//                 <li>IPv4默认网关:</li>
-	//                 <li>IPv4 DNS:</li>
-	//                 <li>IPv6地址:</li>
-	//                 <li>IPv6默认网关:</li>
-	//                 <li>IPv6 DNS:</li>
-	//                 <li></li>
+	//         <div id="storage-usage-chart" class="chart no-padding">
+	//             <ul id="net-msg-ul">
+	//                 <!--<li>适配器名称:</li>-->
+	//                 <!--<li>连接类型:</li>-->
+	//                 <!--<li>MAC地址:</li>-->
+	//                 <!--<li>IPv4地址:</li>-->
+	//                 <!--<li>IPv4子网掩码:</li>-->
+	//                 <!--<li>IPv4默认网关:</li>-->
+	//                 <!--<li>IPv4 DNS:</li>-->
+	//                 <!--<li>IPv6地址:</li>-->
+	//                 <!--<li>IPv6默认网关:</li>-->
+	//                 <!--<li>IPv6 DNS:</li>-->
+	//
 	//             </ul>
 	//         </div>
 	//     </widget>
 	// </template>
 	// <style>
-	//
+	// #net-msg-ul{
+	//     list-style:none;
+	//     line-height:29px;
+	// }
 	// </style>
 	// <script>
 
@@ -14710,7 +14795,7 @@
 /* 148 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"概要信息\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>适配器名称:</li>\n            <li>连接类型:</li>\n            <li>MAC地址:</li>\n            <li>IPv4地址:</li>\n            <li>IPv4子网掩码:</li>\n            <li>IPv4默认网关:</li>\n            <li>IPv4 DNS:</li>\n            <li>IPv6地址:</li>\n            <li>IPv6默认网关:</li>\n            <li>IPv6 DNS:</li>\n            <li></li>\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"概要信息\">\n    <div id=\"storage-usage-chart\" class=\"chart no-padding\">\n        <ul id=\"net-msg-ul\">\n            <!--<li>适配器名称:</li>-->\n            <!--<li>连接类型:</li>-->\n            <!--<li>MAC地址:</li>-->\n            <!--<li>IPv4地址:</li>-->\n            <!--<li>IPv4子网掩码:</li>-->\n            <!--<li>IPv4默认网关:</li>-->\n            <!--<li>IPv4 DNS:</li>-->\n            <!--<li>IPv6地址:</li>-->\n            <!--<li>IPv6默认网关:</li>-->\n            <!--<li>IPv6 DNS:</li>-->\n\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 149 */
