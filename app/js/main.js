@@ -10583,7 +10583,6 @@
 	//                 <widget title="吞吐量"></widget>
 	//             </article>
 	//         </div>
-	//
 	//     </section>
 	// </template>
 	// <script>
@@ -10652,7 +10651,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -10970,7 +10969,6 @@
 	//             <h2>{{ title }}</h2>
 	//             <div class="widget-toolbar">
 	//                 <!-- add: non-hidden - to disable auto hide -->
-	//
 	//                 <div class="btn-group">
 	//                     <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
 	//                         {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
@@ -10985,15 +10983,12 @@
 	//                 </div>
 	//             </div>
 	//         </header>
-	//
 	//         <div>
 	//             <div class="jarviswidget-editbox"></div>
 	//             <div class="widget-body no-padding">
-	//
 	//                 <slot>
 	//                     <div id="{{id}}_chart" class="chart no-padding"></div>
 	//                 </slot>
-	//
 	//             </div>
 	//         </div>
 	//     </div>
@@ -11008,23 +11003,36 @@
 	        title: { type: String, default: 'My Widget' }
 	    },
 	    data: function data() {
-	        var periods = [{ text: '实时监控', color: 'green', value: 'real_time' }, { text: '最近一小时', color: 'red', value: 'one_hour' }, { text: '最近一天', color: 'orange', value: 'one_day' }, { text: '最近一周', color: 'pink', value: 'one_week' }, { text: '最近一个月', color: 'blue', value: 'one_month' }];
+	        var periods = [{ text: '实时监控', color: 'green', value: 'realtime' }, { text: '最近一小时', color: 'red', value: 'one_hour', monitorDate: '201609231200-201609231259' }, { text: '最近一天', color: 'orange', value: 'one_day', monitorDate: '201609231200-201609231259' }, { text: '最近一周', color: 'pink', value: 'one_week', monitorDate: '201609231200-201609231259' }, { text: '最近一个月', color: 'blue', value: 'one_month', monitorDate: '201609231200-201609231259' }];
 	        return {
 	            periods: periods,
-	            selectedPeriod: periods[0],
-	            monitorDate: '201609231200-201609231259'
+	            selectedPeriod: periods[0]
 	        };
 	    },
 	    ready: function ready() {
 	        var $this = this;
 
+	        this.$on('parentinit', function () {
+	            console.log('child1 notified');
+	        });
+
 	        setup_widgets_desktop();
 	    },
 
 	    methods: {
+	        parentinit: function parentinit() {
+	            console.log(this);
+	        },
 	        selectPeriod: function selectPeriod(period) {
 	            this.selectedPeriod = period;
-	            this.$dispatch('period-changed', period);
+
+	            if (period.value == 'realtime') {
+	                // 触发实时监控事件
+	                this.$dispatch('realtime-monitor');
+	            } else {
+	                // 触发区间统计事件
+	                this.$dispatch('interval-statistics', period.monitorDate);
+	            }
 	        }
 	    }
 	};
@@ -11034,7 +11042,7 @@
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div id=\"{{id}}\" class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n            <div class=\"widget-toolbar\">\n                <!-- add: non-hidden - to disable auto hide -->\n\n                <div class=\"btn-group\">\n                    <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\n                        {{selectedPeriod.text}}&nbsp;&nbsp;<i class=\"fa fa-caret-down\"></i>\n                    </button>\n                    <ul class=\"dropdown-menu pull-right js-status-update\">\n                        <li v-for=\"item in periods\" :class=\"{active: item.value == selectedPeriod.value}\">\n                            <a href=\"javascript:void(0);\" @click=\"selectPeriod(item)\">\n                                <i class=\"fa fa-circle txt-color-{{item.color}}\"></i> {{item.text}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"{{id}}_chart\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
+	module.exports = "\n    <div id=\"{{id}}\" class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n            <div class=\"widget-toolbar\">\n                <!-- add: non-hidden - to disable auto hide -->\n                <div class=\"btn-group\">\n                    <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\n                        {{selectedPeriod.text}}&nbsp;&nbsp;<i class=\"fa fa-caret-down\"></i>\n                    </button>\n                    <ul class=\"dropdown-menu pull-right js-status-update\">\n                        <li v-for=\"item in periods\" :class=\"{active: item.value == selectedPeriod.value}\">\n                            <a href=\"javascript:void(0);\" @click=\"selectPeriod(item)\">\n                                <i class=\"fa fa-circle txt-color-{{item.color}}\"></i> {{item.text}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n                <slot>\n                    <div id=\"{{id}}_chart\" class=\"chart no-padding\"></div>\n                </slot>\n            </div>\n        </div>\n    </div>\n";
 
 /***/ },
 /* 12 */
@@ -11245,6 +11253,8 @@
 	    var url = Config.apiPath + 'IFCMonitorServlet?type=' + type;
 	    if (monitorDate != null) {
 	        url += '&monitorDate=' + monitorDate;
+	    } else {
+	        url += '&realtime=true';
 	    }
 	    return new _promise2.default(function (resolve, reject) {
 	        $ajax(url, function (result) {
@@ -14028,7 +14038,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14064,9 +14074,7 @@
 	    data: function data() {
 	        return {
 	            id: 'system_load',
-	            title: '系统负载',
-
-	            date: '20160922120000'
+	            title: '系统负载'
 	        };
 	    },
 	    ready: function ready() {
@@ -14099,24 +14107,27 @@
 
 	        this.chart.setOption(option);
 
-	        $(window).bind('resize', this.chart.resize);
+	        this.$broadcast('parentinit');
 
-	        // 实时监控
-	        // this.realTime();
-	        this.fetchData();
+	        $(window).bind('resize', this.chart.resize);
 	    },
 
 	    methods: {
-	        periodChanged: function periodChanged(period) {
-	            console.log("aaaa", period);
+	        intervalStatistics: function intervalStatistics(monitorDate) {
+	            this.chart.showLoading();
+
+	            // 清除实时监控的定时器
+	            if (this.timer != null) clearInterval(this.timer);
+
+	            this.intervalFetchData(monitorDate);
 	        },
-	        fetchData: function fetchData() {
+	        intervalFetchData: function intervalFetchData(monitorDate) {
 	            var $this = this;
-	            _monitor2.default.getCpus(this.monitorDate).then(function (value) {
-	                $this.render(value);
+	            _monitor2.default.getCpus(monitorDate).then(function (value) {
+	                $this.intervalRender(value);
 	            });
 	        },
-	        render: function render(result) {
+	        intervalRender: function intervalRender(result) {
 	            this.chart.hideLoading();
 
 	            var xAxisData = [],
@@ -14140,7 +14151,9 @@
 	                series: [{ data: syssData }, { data: usersData }]
 	            });
 	        },
-	        realTime: function realTime() {
+	        realtimeMonitor: function realtimeMonitor() {
+	            this.chart.showLoading();
+
 	            var xAxisData = [],
 	                syssData = [],
 	                usersData = [];
@@ -14152,15 +14165,15 @@
 	                xAxis: [{ data: xAxisData }],
 	                series: [{ data: syssData }, { data: usersData }]
 	            });
-	            setInterval(this.realTimefetchData, 1000);
+	            this.timer = setInterval(this.realtimeFetchData, 1000);
 	        },
-	        realTimefetchData: function realTimefetchData() {
+	        realtimeFetchData: function realtimeFetchData() {
 	            var $this = this;
 	            _monitor2.default.getCpus().then(function (value) {
-	                $this.realTimeRender(value);
+	                $this.realtimeRender(value);
 	            });
 	        },
-	        realTimeRender: function realTimeRender(result) {
+	        realtimeRender: function realtimeRender(result) {
 	            this.chart.hideLoading();
 
 	            var option = this.chart.getOption();
@@ -14192,7 +14205,8 @@
 	};
 	// </script>
 	// <template>
-	//     <widget :id="id" :title="title" @period-changed="periodChanged"></widget>
+	//     <widget :id="id" :title="title" @realtime-monitor="realtimeMonitor" @interval-statistics="intervalStatistics">
+	//     </widget>
 	// </template>
 	// <style>
 	//
@@ -14203,7 +14217,7 @@
 /* 118 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget :id=\"id\" :title=\"title\" @period-changed=\"periodChanged\"></widget>\n";
+	module.exports = "\n<widget :id=\"id\" :title=\"title\" @realtime-monitor=\"realtimeMonitor\" @interval-statistics=\"intervalStatistics\">\n</widget>\n";
 
 /***/ },
 /* 119 */
@@ -14485,7 +14499,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14520,7 +14534,7 @@
 	    },
 	    data: function data() {
 	        return {
-	            jvmRuntime: null
+	            jvmRuntime: {}
 	        };
 	    },
 	    ready: function ready() {
@@ -14564,12 +14578,6 @@
 	//     <widget title="jvm摘要">
 	//         <div class="jvm-msg-box">
 	//             <ul id="jvm-msg-ul">
-	//                 <li>PID:<span>{{jvmRuntime.name}}</span></li>
-	//                 <li>PID:<span>{{jvmRuntime.specName}}</span></li>
-	//                 <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>
-	//                 <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>
-	//                 <li>PID:<span>{{jvmRuntime.pid}}</span></li>
-	//                 <li>PID:<span>{{jvmRuntime.pid}}</span></li>
 	//             </ul>
 	//         </div>
 	//     </widget>
@@ -14583,7 +14591,7 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>PID:<span>{{jvmRuntime.name}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specName}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>\n            <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>\n            <li>PID:<span>{{jvmRuntime.pid}}</span></li>\n            <li>PID:<span>{{jvmRuntime.pid}}</span></li>\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 134 */
@@ -14902,7 +14910,9 @@
 
 	        this.fetchData();
 	    },
-	    data: function data() {},
+	    data: function data() {
+	        return {};
+	    },
 
 	    methods: {
 	        fetchData: function fetchData() {
@@ -14998,7 +15008,7 @@
 /* 149 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-loand></widget-jvm-class-loand>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-message></widget-net-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"通道数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"吞吐量\"></widget>\n        </article>\n    </div>\n\n</section>\n";
+	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-loand></widget-jvm-class-loand>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-message></widget-net-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"通道数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"吞吐量\"></widget>\n        </article>\n    </div>\n</section>\n";
 
 /***/ }
 /******/ ]);

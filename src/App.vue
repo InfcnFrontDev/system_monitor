@@ -130,7 +130,6 @@
                 <widget title="吞吐量"></widget>
             </article>
         </div>
-
     </section>
 </template>
 <script>

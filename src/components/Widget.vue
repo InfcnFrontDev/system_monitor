@@ -24,7 +24,6 @@
             <h2>{{ title }}</h2>
             <div class="widget-toolbar">
                 <!-- add: non-hidden - to disable auto hide -->
-
                 <div class="btn-group">
                     <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
                         {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
@@ -39,15 +38,12 @@
                 </div>
             </div>
         </header>
-
         <div>
             <div class="jarviswidget-editbox"></div>
             <div class="widget-body no-padding">
-
                 <slot>
                     <div id="{{id}}_chart" class="chart no-padding"></div>
                 </slot>
-
             </div>
         </div>
     </div>
@@ -63,27 +59,40 @@
         },
         data(){
             let periods = [
-                {text: '实时监控', color: 'green', value: 'real_time'},
-                {text: '最近一小时', color: 'red', value: 'one_hour'},
-                {text: '最近一天', color: 'orange', value: 'one_day'},
-                {text: '最近一周', color: 'pink', value: 'one_week'},
-                {text: '最近一个月', color: 'blue', value: 'one_month'}
+                {text: '实时监控', color: 'green', value: 'realtime'},
+                {text: '最近一小时', color: 'red', value: 'one_hour', monitorDate: '201609231200-201609231259'},
+                {text: '最近一天', color: 'orange', value: 'one_day', monitorDate: '201609231200-201609231259'},
+                {text: '最近一周', color: 'pink', value: 'one_week', monitorDate: '201609231200-201609231259'},
+                {text: '最近一个月', color: 'blue', value: 'one_month', monitorDate: '201609231200-201609231259'}
             ];
             return {
                 periods,
-                selectedPeriod: periods[0],
-                monitorDate: '201609231200-201609231259'
+                selectedPeriod: periods[0]
             }
         },
         ready() {
             var $this = this;
 
+            this.$on('parentinit', function () {
+                console.log('child1 notified')
+            })
+
             setup_widgets_desktop();
         },
         methods: {
+            parentinit(){
+              console.log(this);
+            },
             selectPeriod(period){
                 this.selectedPeriod = period;
-                this.$dispatch('period-changed', period);
+
+                if(period.value == 'realtime'){
+                    // 触发实时监控事件
+                    this.$dispatch('realtime-monitor');
+                }else{
+                    // 触发区间统计事件
+                    this.$dispatch('interval-statistics', period.monitorDate);
+                }
             }
         }
     }

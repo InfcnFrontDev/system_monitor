@@ -2,12 +2,6 @@
     <widget title="jvm摘要">
         <div class="jvm-msg-box">
             <ul id="jvm-msg-ul">
-                <li>PID:<span>{{jvmRuntime.name}}</span></li>
-                <li>PID:<span>{{jvmRuntime.specName}}</span></li>
-                <li>PID:<span>{{jvmRuntime.specVendor}}</span></li>
-                <li>PID:<span>{{jvmRuntime.specVersion}}</span></li>
-                <li>PID:<span>{{jvmRuntime.pid}}</span></li>
-                <li>PID:<span>{{jvmRuntime.pid}}</span></li>
             </ul>
         </div>
     </widget>
@@ -26,7 +20,7 @@
         },
         data(){
           return {
-              jvmRuntime:null
+              jvmRuntime:{}
           }
         },
         ready() {

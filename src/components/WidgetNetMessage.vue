@@ -37,7 +37,7 @@
             this.fetchData();
         },
         data(){
-
+            return {}
         },
         methods: {
 

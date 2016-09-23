@@ -16,6 +16,8 @@ let newPromise = function (type, monitorDate) {
     let url = Config.apiPath + 'IFCMonitorServlet?type=' + type;
     if (monitorDate != null) {
         url += '&monitorDate=' + monitorDate;
+    }else{
+        url += '&realtime=true';
     }
     return new Promise(function (resolve, reject) {
         $ajax(url, function (result) {

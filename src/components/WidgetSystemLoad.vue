@@ -1,5 +1,6 @@
 <template>
-    <widget :id="id" :title="title" @period-changed="periodChanged"></widget>
+    <widget :id="id" :title="title" @realtime-monitor="realtimeMonitor" @interval-statistics="intervalStatistics">
+    </widget>
 </template>
 <style>
 
@@ -16,10 +17,7 @@
         data(){
             return {
                 id: 'system_load',
-                title: '系统负载',
-
-
-                date: '20160922120000'
+                title: '系统负载'
             }
         },
         ready() {
@@ -52,23 +50,27 @@
 
             this.chart.setOption(option);
 
-            $(window).bind('resize', this.chart.resize);
+            this.$broadcast('parentinit');
 
-            // 实时监控
-            // this.realTime();
-            this.fetchData();
+            $(window).bind('resize', this.chart.resize);
         },
         methods: {
-            periodChanged(period){
-                console.log("aaaa", period);
+            intervalStatistics(monitorDate){
+                this.chart.showLoading();
+
+                // 清除实时监控的定时器
+                if(this.timer != null)
+                    clearInterval(this.timer);
+
+                this.intervalFetchData(monitorDate);
             },
-            fetchData() {
+            intervalFetchData(monitorDate){
                 let $this = this;
-                Monitor.getCpus(this.monitorDate).then(function (value) {
-                    $this.render(value)
+                Monitor.getCpus(monitorDate).then(function (value) {
+                    $this.intervalRender(value)
                 });
             },
-            render(result) {
+            intervalRender(result) {
                 this.chart.hideLoading();
 
                 var xAxisData = [], syssData = [], usersData = [];
@@ -89,7 +91,9 @@
                     series: [{data: syssData}, {data: usersData}]
                 });
             },
-            realTime() {
+            realtimeMonitor() {
+                this.chart.showLoading();
+
                 let xAxisData = [], syssData = [], usersData = [];
                 xAxisData.length = 61;
                 syssData.length = 61;
@@ -99,15 +103,15 @@
                     xAxis: [{data: xAxisData}],
                     series: [{data: syssData}, {data: usersData}]
                 });
-                setInterval(this.realTimefetchData, 1000);
+                this.timer = setInterval(this.realtimeFetchData, 1000);
             },
-            realTimefetchData() {
+            realtimeFetchData() {
                 let $this = this;
                 Monitor.getCpus().then(function (value) {
-                    $this.realTimeRender(value)
+                    $this.realtimeRender(value)
                 });
             },
-            realTimeRender(result) {
+            realtimeRender(result) {
                 this.chart.hideLoading();
 
                 let option = this.chart.getOption();
