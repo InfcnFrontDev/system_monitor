@@ -12,7 +12,8 @@
     position: relative;
     -khtml-border-radius: 0;
     border-radius: 0;
-    padding: 0
+    padding: 0;
+    box-shadow:2px 4px 14px;
 }
 
 .widget-content-padding {
@@ -12977,18 +12978,13 @@ nav ul ul>li:hover b {
 }
 
 .login-info img {
-    width: 25px;
+    width: 36px;
     height: auto;
     display: inline-block;
     vertical-align: middle;
     margin-top: -3px;
     margin-right: 7px;
     margin-left: 0;
-    border-left: 3px solid #fff
-}
-
-img.online {
-    border-left-color: #40ac2b!important
 }
 
 img.busy {
@@ -17748,7 +17744,8 @@ tr.highlight td,tr.unread.highlight td {
     -webkit-animation-duration: .4s;
     animation-duration: .4s;
     -webkit-animation-fill-mode: both;
-    animation-fill-mode: both
+    animation-fill-mode: both;
+    box-shadow: 0px 4px 12px ;
 }
 
 .active+.ajax-dropdown {
