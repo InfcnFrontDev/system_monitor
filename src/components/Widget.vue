@@ -29,8 +29,8 @@
                         {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu pull-right js-status-update">
-                        <li v-for="item in periods" :class="{active: item.value == selectedPeriod.value}">
-                            <a href="javascript:void(0);" @click="selectPeriod(item)">
+                        <li v-for="item in periods" :class="{active: item.value == selected}">
+                            <a href="javascript:void(0);" @click="selected = item.value">
                                 <i class="fa fa-circle txt-color-{{item.color}}"></i> {{item.text}}
                             </a>
                         </li>
@@ -52,47 +52,121 @@
 
 </style>
 <script>
+    import Tools from '../common/tools'
+
     export default{
         props: {
             id: {type: String, default: 'myWidget'},
-            title: {type: String, default: 'My Widget'}
+            title: {type: String, default: 'My Widget'},
+            defaultPeriod: {type: String, default: 'realtime'}
         },
         data(){
-            let periods = [
-                {text: '实时监控', color: 'green', value: 'realtime'},
-                {text: '最近一小时', color: 'red', value: 'one_hour', monitorDate: '201609231200-201609231259'},
-                {text: '最近一天', color: 'orange', value: 'one_day', monitorDate: '201609231200-201609231259'},
-                {text: '最近一周', color: 'pink', value: 'one_week', monitorDate: '201609231200-201609231259'},
-                {text: '最近一个月', color: 'blue', value: 'one_month', monitorDate: '201609231200-201609231259'}
-            ];
             return {
-                periods,
-                selectedPeriod: periods[0]
+                periods: [
+                    {text: '实时监控', color: 'green', value: 'realtime'},
+                    {
+                        text: '最近一小时', color: 'red', value: 'one_hour', monitorDate: function () {
+                        return this.monitorDate(-60 * 60)
+                    }
+                    },
+                    {
+                        text: '最近一天', color: 'orange', value: 'one_day', monitorDate: function () {
+                        return this.monitorDate(-60 * 60 * 24)
+                    }
+                    },
+                    {
+                        text: '最近一周', color: 'pink', value: 'one_week', monitorDate: function () {
+                        return this.monitorDate(-60 * 60 * 24)
+                    }
+                    },
+                    {
+                        text: '最近一个月', color: 'blue', value: 'one_month', monitorDate: function () {
+                        return this.monitorDate(-60 * 60 * 24)
+                    }
+                    }
+                ],
+                selected: localStorage[this.id + '_period'] || this.defaultPeriod
+            }
+        },
+        computed: {
+            selectedPeriod: function () {
+                let selected = this.selected;
+                return this.periods.filter(p => p.value == selected)[0];
+            }
+        },
+        watch: {
+            selected: function (val, oldVal) {
+                localStorage[this.id + '_period'] = val;
+                this.doChart();
             }
         },
         ready() {
-            var $this = this;
+            this.chart = echarts.init(document.getElementById(this.id + "_chart"), Tools.getChartTheme());
 
-            this.$on('parentinit', function () {
-                console.log('child1 notified')
-            })
+            this.chart.setOption(this.$parent.getInitOption());
 
-            setup_widgets_desktop();
+            $(window).bind('resize', this.chart.resize);
+
+            this.doChart();
         },
         methods: {
-            parentinit(){
-              console.log(this);
-            },
-            selectPeriod(period){
-                this.selectedPeriod = period;
-
-                if(period.value == 'realtime'){
-                    // 触发实时监控事件
-                    this.$dispatch('realtime-monitor');
-                }else{
-                    // 触发区间统计事件
-                    this.$dispatch('interval-statistics', period.monitorDate);
+            doChart(){
+                let period = this.selectedPeriod;
+                if (period.value == 'realtime') {
+                    this.realtimeMonitor();
+                } else {
+                    this.intervalStatistics('201609241700-201609241759');
                 }
+            },
+            monitorDate: function (n) {
+                let date1, date2 = new Date();
+                date1 = Tools.dateAdd(date2, n);
+                return Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
+            },
+            intervalStatistics(monitorDate){
+                this.chart.showLoading();
+
+                // 清除实时监控的定时器
+                if (this.timer != null)
+                    clearInterval(this.timer);
+
+                this.intervalFetchData(monitorDate);
+            },
+            intervalFetchData(monitorDate){
+                if (this.$parent.dataApi) {
+                    let $this = this;
+                    this.$parent.dataApi(monitorDate).then(function (value) {
+                        $this.intervalRender(value)
+                    });
+                }
+            },
+            intervalRender(result) {
+                this.chart.hideLoading();
+
+                if (this.$parent.getIntervalOption)
+                    this.chart.setOption(this.$parent.getIntervalOption(result));
+            },
+            realtimeMonitor() {
+                this.chart.showLoading();
+
+                if (this.$parent.getRealtimeInitOption)
+                    this.chart.setOption(this.$parent.getRealtimeInitOption());
+
+                this.timer = setInterval(this.realtimeFetchData, 1000);
+            },
+            realtimeFetchData() {
+                if (this.$parent.dataApi) {
+                    let $this = this;
+                    this.$parent.dataApi().then(function (value) {
+                        $this.realtimeRender(value)
+                    });
+                }
+            },
+            realtimeRender(result) {
+                this.chart.hideLoading();
+
+                if (this.$parent.getRealtimeOption)
+                    this.chart.setOption(this.$parent.getRealtimeOption(this.chart.getOption(), result));
             }
         }
     }

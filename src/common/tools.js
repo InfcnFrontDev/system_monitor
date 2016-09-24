@@ -24,8 +24,8 @@ export default {
         str = str.replace(/yyyy|YYYY/, date.getFullYear());
         str = str.replace(/yy|YY/, (date.getYear() % 100) > 9 ? (date.getYear() % 100).toString() : '0' + (date.getYear() % 100));
 
-        str = str.replace(/MM/, date.getMonth() > 9 ? date.getMonth().toString() : '0' + date.getMonth());
-        str = str.replace(/M/g, date.getMonth());
+        str = str.replace(/MM/, date.getMonth()+1 > 9 ? (date.getMonth()+1).toString() : '0' + (date.getMonth()+1));
+        str = str.replace(/M/g, date.getMonth()+1);
 
         str = str.replace(/w|W/g, Week[date.getDay()]);
 
@@ -60,6 +60,11 @@ export default {
             yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10)
         }
         return new Date(yyyy, MM, dd, HH, mm, ss);
+    },
+    dateAdd: function (date, n) {
+        let time = date.valueOf();
+        time += n * 1000;
+        return new Date(time);
     },
 
     bToKB: b=>b / 1024,
