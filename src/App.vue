@@ -18,7 +18,7 @@
         <div class="row">
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--服务器高负载日分布情况-->
-                <!--<widget-server-high-load></widget-server-high-load>-->
+                <widget-server-high-load></widget-server-high-load>
             </article>
         </div>
 
@@ -38,23 +38,23 @@
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--存储使用情况-->
-                <!--<widget-storage-usage></widget-storage-usage>-->
+                <widget-storage-usage></widget-storage-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--CPU使用率-->
-                <!--<widget-cpu-usage></widget-cpu-usage>-->
+                <widget-cpu-usage></widget-cpu-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--内存使用率-->
-                <!--<widget-memory-usage></widget-memory-usage>-->
+                <widget-memory-usage></widget-memory-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--交换空间（swap）使用率-->
-                <!--<widget-swap-usage></widget-swap-usage>-->
+                <widget-swap-usage></widget-swap-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--磁盘I/O-->
-                <!--<widget-disk-usage></widget-disk-usage>-->
+                <widget-disk-usage></widget-disk-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--系统负载-->
@@ -78,31 +78,31 @@
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--jvm摘要-->
-                <!--<widget-jvm-message></widget-jvm-message>-->
+                <widget-jvm-message></widget-jvm-message>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--堆内存使用情况-->
-                <!--<widget-jvm-heap-memory></widget-jvm-heap-memory>-->
+                <widget-jvm-heap-memory></widget-jvm-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--非堆内存使用情况-->
-                <!--<widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>-->
+                <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--加载类情况-->
-                <!--<widget-jvm-class-loand></widget-jvm-class-loand>-->
+                <widget-jvm-class-load></widget-jvm-class-load>
             </article>
 
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--线程数情况-->
-                <!--<widget-jvm-thread></widget-jvm-thread>-->
+                <widget-jvm-thread></widget-jvm-thread>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--线程数活动情况-->
-                <!--<widget-jvm-thread-active></widget-jvm-thread-active>-->
+                <widget-jvm-thread-active></widget-jvm-thread-active>
             </article>
-            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <!--<widget title="垃圾收集信息（GC）"></widget>-->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <widget title="垃圾收集信息（GC）"></widget>
             </article>
         </div>
 
@@ -121,13 +121,13 @@
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <!--<widget-net-message></widget-net-message>-->
+                <widget-net-message></widget-net-message>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <!--<widget title="通道数"></widget>-->
+                <widget-net-channel></widget-net-channel>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <!--<widget title="吞吐量"></widget>-->
+                <widget-net-throughput></widget-net-throughput>
             </article>
         </div>
     </section>
@@ -137,43 +137,52 @@
     import Widget from './components/Widget.vue'
 
     import WidgetServerHighLoad from './components/WidgetServerHighLoad.vue'
-    import WidgetJvmClassLoand from  './components/WidgetJvmClassLoand.vue'
+
     import WidgetStorageUsage from './components/WidgetStorageUsage.vue'
     import WidgetCpuUsage from './components/WidgetCpuUsage.vue'
     import WidgetMemoryUsage from './components/WidgetMemoryUsage.vue'
     import WidgetSwapUsage from './components/WidgetSwapUsage.vue'
     import WidgetDiskUsage from './components/WidgetDiskUsage.vue'
     import WidgetSystemLoad from './components/WidgetSystemLoad.vue'
+
+    import WidgetJvmClassLoad from  './components/WidgetJvmClassLoad.vue'
     import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
     import WidgetJvmNonHeapMemory from  './components/WidgetJvmNonHeapMemory.vue'
     import WidgetJvmMessage from  './components/WidgetJvmMessage.vue'
     import WidgetJvmThread from  './components/WidgetJvmThread.vue'
     import WidgetJvmThreadActive from  './components/WidgetJvmThreadActive.vue'
+
     import WidgetNetMessage from './components/WidgetNetMessage.vue'
+    import WidgetNetChannel from './components/WidgetNetChannel.vue'
+    import WidgetNetThroughput from './components/WidgetNetThroughput.vue'
 
     export default{
         components: {
             Widget,
 
             WidgetServerHighLoad,
-            WidgetJvmClassLoand,
+
             WidgetStorageUsage,
             WidgetCpuUsage,
             WidgetMemoryUsage,
             WidgetSwapUsage,
             WidgetDiskUsage,
             WidgetSystemLoad,
+
             WidgetJvmMessage,
             WidgetJvmHeapMemory,
             WidgetJvmNonHeapMemory,
+            WidgetJvmClassLoad,
             WidgetJvmThread,
             WidgetJvmThreadActive,
-            WidgetNetMessage
+
+            WidgetNetMessage,
+            WidgetNetChannel,
+            WidgetNetThroughput
         },
         ready() {
             pageSetUp();
 
-            setup_widgets_desktop();
         }
     }
 </script>

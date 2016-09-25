@@ -1,6 +1,5 @@
 <template>
     <div id="{{id}}" class="jarviswidget"
-         data-widget-colorbutton="false"
          data-widget-editbutton="false"
          data-widget-sortable="false"
          data-widget-custombutton="true"
@@ -85,7 +84,25 @@
                     }
                     }
                 ],
-                selected: localStorage[this.id + '_period'] || this.defaultPeriod
+                selected: localStorage[this.id + '_period'] || this.defaultPeriod,
+                option: {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    grid: {
+                        top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        data: []
+                    }],
+                    yAxis: [{
+                        type: 'value',
+                        max: 100
+                    }],
+                    series: []
+                }
             }
         },
         computed: {
@@ -102,10 +119,12 @@
         },
         ready() {
             this.chart = echarts.init(document.getElementById(this.id + "_chart"), Tools.getChartTheme());
-
-            this.chart.setOption(this.$parent.getInitOption());
-
             $(window).bind('resize', this.chart.resize);
+
+            if (this.$parent.option)
+                this.option = this.$parent.option;
+
+            this.chart.setOption(this.option);
 
             this.doChart();
         },
@@ -138,6 +157,8 @@
                     this.$parent.dataApi(monitorDate).then(function (value) {
                         $this.intervalRender(value)
                     });
+                }else{
+                    this.chart.hideLoading();
                 }
             },
             intervalRender(result) {
@@ -160,6 +181,8 @@
                     this.$parent.dataApi().then(function (value) {
                         $this.realtimeRender(value)
                     });
+                }else{
+                    this.chart.hideLoading();
                 }
             },
             realtimeRender(result) {

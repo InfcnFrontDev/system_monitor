@@ -1,54 +1,57 @@
 <template>
-    <widget title="概要信息">
-        <div id="storage-usage-chart" class="chart no-padding">
+    <widget-base id="net_message" title="jvm摘要">
+        <div class="chart no-padding">
             <ul id="net-msg-ul">
-                <!--<li>适配器名称:</li>-->
-                <!--<li>连接类型:</li>-->
-                <!--<li>MAC地址:</li>-->
-                <!--<li>IPv4地址:</li>-->
-                <!--<li>IPv4子网掩码:</li>-->
-                <!--<li>IPv4默认网关:</li>-->
-                <!--<li>IPv4 DNS:</li>-->
-                <!--<li>IPv6地址:</li>-->
-                <!--<li>IPv6默认网关:</li>-->
-                <!--<li>IPv6 DNS:</li>-->
-
+                <li>适配器名称:</li>
+                <li>连接类型:</li>
+                <li>MAC地址:</li>
+                <li>IPv4地址:</li>
+                <li>IPv4子网掩码:</li>
+                <li>IPv4默认网关:</li>
+                <li>IPv4 DNS:</li>
+                <li>IPv6地址:</li>
+                <li>IPv6默认网关:</li>
+                <li>IPv6 DNS:</li>
             </ul>
         </div>
-    </widget>
+    </widget-base>
 </template>
 <style>
-#net-msg-ul{
-    list-style:none;
-    line-height:29px;
-}
+    #net-msg-ul {
+        list-style: none;
+        line-height: 29px;
+    }
 </style>
 <script>
-    import Widget from './Widget.vue'
+    import WidgetBase from './WidgetBase.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 
     export default{
         components: {
-            Widget
-        },
-        ready() {
-
-            this.fetchData();
+            WidgetBase
         },
         data(){
-            return {}
+            return {
+                id: 'net_message',
+                title: '概要信息',
+                obj:{}
+            }
+        },
+        ready() {
+            this.fetchData()
         },
         methods: {
-
             fetchData() {
                 let $this = this;
-                Monitor.getNets().then(function (value) {
+                Monitor. getNets().then(function (value) {
                     $this.render(value)
                 });
             },
             render(result) {
-//                name	String	网络设备名称
+                this.obj = result.ifcNets;
+
+                //                name	String	网络设备名称
 //                hwaddr	String	网卡的物理地址
 //                type	String	网卡类型
 //                description	String	网卡描述信息
@@ -73,29 +76,28 @@
 //                txCollisions	long
 //                txCarrier	long
 //                speed	long
-                var html='',names = '', types = '',hwaddrs='',addresss='',broadcasts='', netmasks='',descriptions='';
-                names = $(result.ifcNets)[0].name;
-                types = $(result.ifcNets)[0].type;
-                hwaddrs = $(result.ifcNets)[0].hwaddr;
-                netmasks = $(result.ifcNets)[0].netmask;
-                broadcasts = $(result.ifcNets)[0].broadcast;
-                addresss = $(result.ifcNets)[0].address;
-                descriptions = $(result.ifcNets)[0].description;
-                addresss = $(result.ifcNets)[0].address;
-                addresss = $(result.ifcNets)[0].address;
-                addresss = $(result.ifcNets)[0].address;
-                html ='<li>适配器名称:'+descriptions+'</li>'+
-                        '<li>连接类型:'+types+'</li>'+
-                        '<li>MAC地址:'+hwaddrs+'</li>'+
-                        '<li>IPv4地址:'+addresss+'</li>'+
-                        '<li>IPv4子网掩码:'+netmasks+'</li>'+
-                        '<li>IPv4默认网关:'+names+'</li>'+
-                        '<li>IPv4 DNS:'+names+'</li>'+
-                        '<li>IPv6地址:'+broadcasts+'</li>'+
-                        '<li>IPv6默认网关:'+names+'</li>'+
-                        '<li>IPv6 DNS:'+names+'</li>';
-                $('#net-msg-ul').append(html);
-
+//                var html='',names = '', types = '',hwaddrs='',addresss='',broadcasts='', netmasks='',descriptions='';
+//                names = $(result.ifcNets)[0].name;
+//                types = $(result.ifcNets)[0].type;
+//                hwaddrs = $(result.ifcNets)[0].hwaddr;
+//                netmasks = $(result.ifcNets)[0].netmask;
+//                broadcasts = $(result.ifcNets)[0].broadcast;
+//                addresss = $(result.ifcNets)[0].address;
+//                descriptions = $(result.ifcNets)[0].description;
+//                addresss = $(result.ifcNets)[0].address;
+//                addresss = $(result.ifcNets)[0].address;
+//                addresss = $(result.ifcNets)[0].address;
+//                html ='<li>适配器名称:'+descriptions+'</li>'+
+//                        '<li>连接类型:'+types+'</li>'+
+//                        '<li>MAC地址:'+hwaddrs+'</li>'+
+//                        '<li>IPv4地址:'+addresss+'</li>'+
+//                        '<li>IPv4子网掩码:'+netmasks+'</li>'+
+//                        '<li>IPv4默认网关:'+names+'</li>'+
+//                        '<li>IPv4 DNS:'+names+'</li>'+
+//                        '<li>IPv6地址:'+broadcasts+'</li>'+
+//                        '<li>IPv6默认网关:'+names+'</li>'+
+//                        '<li>IPv6 DNS:'+names+'</li>';
+//                $('#net-msg-ul').append(html);
             }
         }
     }

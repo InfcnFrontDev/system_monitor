@@ -1,6 +1,5 @@
 <template>
-    <widget :id="id" :title="title" @realtime-monitor="realtimeMonitor" @interval-statistics="intervalStatistics">
-    </widget>
+    <widget :id="id" :title="title"></widget>
 </template>
 <style>
 
@@ -17,125 +16,88 @@
         data(){
             return {
                 id: 'memory_usage',
-                title: '内存使用率'
+                title: '内存使用率',
+                dataApi: Monitor.getMem,
+                option: {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    grid: {
+                        top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        data: []
+                    }],
+                    yAxis: [{
+                        name: '容量（GB）',
+                        type: 'value',
+                        max: 100
+                    }],
+                    series: [{
+                        name: '已用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
+                    }, {
+                        name: '可用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
+                    }]
+                }
             }
         },
         ready() {
             this.widget = this.$children[0];
-
-            this.chart = echarts.init(document.getElementById(this.id + "_chart"), Tools.getChartTheme());
-
-            var option = {
-                tooltip: {
-                    trigger: 'axis'
-                },
-                grid: {
-                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
-                },
-                xAxis: [{
-                    type: 'category',
-                    boundaryGap: false,
-                    data: []
-                }],
-                yAxis: [{
-                    name: '容量（GB）',
-                    type: 'value',
-                    max: 100
-                }],
-                series: [{
-                    name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
-                }, {
-                    name: '用户', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
-                }]
-            };
-
-            this.chart.setOption(option);
-            $(window).bind('resize', this.chart.resize);
-
-            // 初始状态
-            this.widget.doChart();
         },
         methods: {
-            intervalStatistics(monitorDate){
-                this.chart.showLoading();
-
-                // 清除实时监控的定时器
-                if(this.timer != null)
-                    clearInterval(this.timer);
-
-                this.intervalFetchData(monitorDate);
-            },
-            intervalFetchData(monitorDate){
-                let $this = this;
-                Monitor.getCpus(monitorDate).then(function (value) {
-                    $this.intervalRender(value)
-                });
-            },
-            intervalRender(result) {
-                this.chart.hideLoading();
-
-                var xAxisData = [], syssData = [], usersData = [];
+            // 把数据转换为区间统计的ChartOption
+            getIntervalOption(result) {
+                let xAxisData = [], usedData = [], freeData = [], yAxisMax = 0;
                 $(result).each(function () {
+                    let obj = this.ifcMem;
                     xAxisData.push(Tools.dateToHHmm(this.date));
-
-                    var syss = 0, users = 0;
-                    $(this.ifcCpus).each(function () {
-                        syss += this.sys;
-                        users += this.user;
-                    });
-                    syssData.push((syss * 100).toFixed(2));
-                    usersData.push((users * 100).toFixed(2));
+                    usedData.push(Tools.bToGB(obj.used).toFixed(1));
+                    freeData.push(Tools.bToGB(obj.free).toFixed(1));
+                    yAxisMax = Tools.bToGB(obj.total).toFixed(1);
                 });
 
-                this.chart.setOption({
+                return {
                     xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
-                });
+                    yAxis: [{max: yAxisMax}],
+                    series: [{data: usedData}, {data: freeData}]
+                }
             },
-            realtimeMonitor() {
-                this.chart.showLoading();
-
-                let xAxisData = [], syssData = [], usersData = [];
+            // 把数据转换为实时监控初始的ChartOption
+            getRealtimeInitOption() {
+                let xAxisData = [], usedData = [], freeData = [];
                 xAxisData.length = 61;
-                syssData.length = 61;
-                usersData.length = 61;
+                usedData.length = 61;
+                freeData.length = 61;
 
-                this.chart.setOption({
+                return {
                     xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
-                });
-                this.timer = setInterval(this.realtimeFetchData, 1000);
+                    series: [{data: usedData}, {data: freeData}]
+                }
             },
-            realtimeFetchData() {
-                let $this = this;
-                Monitor.getCpus().then(function (value) {
-                    $this.realtimeRender(value)
-                });
-            },
-            realtimeRender(result) {
-                this.chart.hideLoading();
+            // 把数据转换为实时监控的ChartOption
+            getRealtimeOption(option, result) {
+                let xAxisData = option.xAxis[0].data, yAxisMax = 100,
+                        usedData = option.series[0].data, freeData = option.series[1].data,
+                        obj = result.ifcMem;
 
-                let option = this.chart.getOption();
-
-                var xAxisData = option.xAxis[0].data, syssData = option.series[0].data, usersData = option.series[1].data;
-                let date = new Date();
                 xAxisData.shift();
-                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
+                xAxisData.push(Tools.dateFormat(new Date(), Tools.HHmmss_));
 
-                var syss = 0, users = 0;
-                $(result.ifcCpus).each(function () {
-                    syss += this.sys;
-                    users += this.user;
-                });
-                syssData.shift();
-                syssData.push((syss * 100).toFixed(2));
-                usersData.shift();
-                usersData.push((users * 100).toFixed(2));
+                usedData.shift();
+                usedData.push(Tools.bToGB(obj.used).toFixed(1));
 
-                this.chart.setOption({
+                freeData.shift();
+                freeData.push(Tools.bToGB(obj.free).toFixed(1));
+
+                yAxisMax = Tools.bToGB(obj.total).toFixed(1);
+
+                return {
                     xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
-                });
+                    yAxis: [{max: yAxisMax}],
+                    series: [{data: usedData}, {data: freeData}]
+                }
             }
         }
     }

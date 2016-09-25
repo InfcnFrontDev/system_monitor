@@ -1,7 +1,5 @@
 <template>
-    <widget title="磁盘I/O">
-        <div id="disk-io-chart" class="chart no-padding"></div>
-    </widget>
+    <widget :id="id" :title="title"></widget>
 </template>
 <style>
 
@@ -17,71 +15,67 @@
         },
         data(){
             return {
-                monitorDate: '201609221200-201609221259'
+                id: 'disk_usage',
+                title: '磁盘I/O',
+                dataApi: Monitor.getFileSystems,
+                option: {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    grid: {
+                        top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        boundaryGap: false,
+                        data: []
+                    }],
+                    yAxis: [{
+                        name: '速度（KB/s）',
+                        type: 'value'
+                    }],
+                    series: [{
+                        name: '读取速度', type: 'line', data: []
+                    }, {
+                        name: '写入速度', type: 'line', data: []
+                    }]
+                }
             }
         },
-        ready() {
-            this.chart = echarts.init(document.getElementById('disk-io-chart'), Tools.getChartTheme());
-
-            this.option = {
-                tooltip: {
-                    trigger: 'axis'
-                },
-                grid: {
-                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
-                },
-                xAxis: [{
-                    type: 'category',
-                    boundaryGap: false,
-                    data: []
-                }],
-                yAxis: [{
-                    name: '速度（%）',
-                    type: 'value'
-                }],
-                series: []
-            };
-
-            this.update();
-            this.fetchData();
-
-            $(window).bind('resize', this.chart.resize);
-        },
         methods: {
-            update(){
-                this.chart.setOption(this.option);
+            // 把数据转换为实时监控初始的ChartOption
+            getRealtimeInitOption() {
+                let xAxisData = [], readData = [], writeData = [];
+                xAxisData.length = 61;
+                readData.length = 61;
+                writeData.length = 61;
+
+                return {
+                    xAxis: [{data: xAxisData}],
+                    series: [{data: readData}, {data: writeData}]
+                }
             },
-            fetchData() {
-                let $this = this;
-                Monitor.getFileSystems(this.monitorDate).then(function (value) {
-                    $this.render(value)
+            // 把数据转换为实时监控的ChartOption
+            getRealtimeOption(option, result) {
+                var xAxisData = option.xAxis[0].data, readsData = option.series[0].data, writesData = option.series[1].data;
+                let date = new Date();
+                xAxisData.shift();
+                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
 
+                var reads = 0, writes = 0;
+                $(result.ifcFileSystems).each(function () {
+                    reads += this.diskReadBytes;
+                    writes += this.diskWriteBytes;
                 });
-            },
-            render(result) {
-                this.chart.hideLoading();
+                readsData.shift();
+                readsData.push(Tools.bToMB(reads).toFixed(2));
+                writesData.shift();
+                writesData.push(Tools.bToMB(writes).toFixed(2));
 
-                var xAxisData = [], readBytesData = [], writeBytesData = [];
-                $(result).each(function () {
-                    xAxisData.push(Tools.dateToHHmm(this.date));
-
-                    var readBytes = 0, writeBytes = 0;
-                    $(this.ifcFileSystems).each(function () {
-                        readBytes += this.diskReadBytes;
-                        writeBytes += this.diskWriteBytes;
-                    });
-                    readBytesData.push(Tools.bToGB(readBytes).toFixed(2));
-                    writeBytesData.push(Tools.bToGB(writeBytes).toFixed(2));
-                });
-
-                this.option.xAxis[0].data = xAxisData;
-                this.option.series = [{
-                    name: '写入速度', type: 'line', data: writeBytesData
-                }, {
-                    name: '读取速度', type: 'line', data: readBytesData
-                }];
-
-                this.update();
+                return {
+                    xAxis: [{data: xAxisData}],
+                    series: [{data: readsData}, {data: writesData}]
+                }
             }
         }
     }
