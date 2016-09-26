@@ -10036,7 +10036,7 @@ div.wijmo-wijmenu .wijmo-wijmenu-child .wijmo-wijmenu-text {
 }
 
 .chat-body li.message img.online {
-    border-left-color: #00a300
+    border-left-color: #00a300;
 }
 
 .chat-body li.message img.offline {
@@ -12978,7 +12978,7 @@ nav ul ul>li:hover b {
 }
 
 .login-info img {
-    width: 36px;
+    width: 35px;
     height: auto;
     display: inline-block;
     vertical-align: middle;
