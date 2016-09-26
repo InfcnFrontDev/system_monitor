@@ -72,5 +72,6 @@ export default {
     bToGB: b=>b / 1024 / 1024 / 1024,
     bToTB: b=>b / 1024 / 1024 / 1024 / 1024,
 
-    getChartTheme: () => window.localStorage.chartTheme || ''
+    getChartTheme: () => window.localStorage.chartTheme || '',
+
 }

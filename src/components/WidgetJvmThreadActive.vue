@@ -49,6 +49,8 @@
             // daemonThreadCount : 守护线程
             // threadCount :实时线程
 
+
+
         },
         methods: {
             // 把数据转换为实时监控初始的ChartOption
