@@ -109,6 +109,7 @@ function server() {
     });
 
     watch(['src/**/*.{js,vue}'], function (event) {
+        console.log(event);
         compileJS('src/main.js', 'app/js/');
     });
     watch(['src/**/*.html'], function (event) {

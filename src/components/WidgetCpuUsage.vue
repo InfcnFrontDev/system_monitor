@@ -1,6 +1,5 @@
 <template>
-    <widget title="CPU使用率">
-        <div id="cpu-usage-chart" class="chart no-padding"></div>
+    <widget :id="id" :title="title" @realtime-monitor="realtimeMonitor" @interval-statistics="intervalStatistics">
     </widget>
 </template>
 <style>
@@ -17,13 +16,16 @@
         },
         data(){
             return {
-                monitorDate: '201609221200-201609221259'
+                id: 'cpu_usage',
+                title: 'CPU使用率'
             }
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('cpu-usage-chart'), Tools.getChartTheme());
+            this.widget = this.$children[0];
 
-            this.option = {
+            this.chart = echarts.init(document.getElementById(this.id + "_chart"), Tools.getChartTheme());
+
+            var option = {
                 tooltip: {
                     trigger: 'axis'
                 },
@@ -40,25 +42,36 @@
                     type: 'value',
                     max: 100
                 }],
-                series: []
+                series: [{
+                    name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
+                }, {
+                    name: '用户', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
+                }]
             };
 
-            this.update();
-            this.fetchData();
-
+            this.chart.setOption(option);
             $(window).bind('resize', this.chart.resize);
+
+            // 初始状态
+            this.widget.doChart();
         },
         methods: {
-            update(){
-                this.chart.setOption(this.option);
+            intervalStatistics(monitorDate){
+                this.chart.showLoading();
+
+                // 清除实时监控的定时器
+                if(this.timer != null)
+                    clearInterval(this.timer);
+
+                this.intervalFetchData(monitorDate);
             },
-            fetchData() {
+            intervalFetchData(monitorDate){
                 let $this = this;
-                Monitor.getCpus(this.monitorDate).then(function (value) {
-                    $this.render(value)
+                Monitor.getCpus(monitorDate).then(function (value) {
+                    $this.intervalRender(value)
                 });
             },
-            render(result) {
+            intervalRender(result) {
                 this.chart.hideLoading();
 
                 var xAxisData = [], syssData = [], usersData = [];
@@ -74,14 +87,55 @@
                     usersData.push((users * 100).toFixed(2));
                 });
 
-                this.option.xAxis[0].data = xAxisData;
-                this.option.series = [{
-                    name: '用户', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: usersData
-                }, {
-                    name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: syssData
-                }];
+                this.chart.setOption({
+                    xAxis: [{data: xAxisData}],
+                    series: [{data: syssData}, {data: usersData}]
+                });
+            },
+            realtimeMonitor() {
+                this.chart.showLoading();
 
-                this.update();
+                let xAxisData = [], syssData = [], usersData = [];
+                xAxisData.length = 61;
+                syssData.length = 61;
+                usersData.length = 61;
+
+                this.chart.setOption({
+                    xAxis: [{data: xAxisData}],
+                    series: [{data: syssData}, {data: usersData}]
+                });
+                this.timer = setInterval(this.realtimeFetchData, 1000);
+            },
+            realtimeFetchData() {
+                let $this = this;
+                Monitor.getCpus().then(function (value) {
+                    $this.realtimeRender(value)
+                });
+            },
+            realtimeRender(result) {
+                this.chart.hideLoading();
+
+                let option = this.chart.getOption();
+
+                var xAxisData = option.xAxis[0].data, syssData = option.series[0].data, usersData = option.series[1].data;
+                let date = new Date();
+                xAxisData.shift();
+                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
+
+                var syss = 0, users = 0;
+                $(result.ifcCpus).each(function () {
+                    syss += this.sys;
+                    users += this.user;
+                });
+                syssData.shift();
+                syssData.push((syss * 100).toFixed(2));
+                usersData.shift();
+                usersData.push((users * 100).toFixed(2));
+
+                this.chart.setOption({
+                    xAxis: [{data: xAxisData}],
+                    series: [{data: syssData}, {data: usersData}]
+                });
             }
         }
     }

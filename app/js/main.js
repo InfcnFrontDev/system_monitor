@@ -10369,7 +10369,7 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _WidgetServerHighLoad = __webpack_require__(12);
+	var _WidgetServerHighLoad = __webpack_require__(13);
 
 	var _WidgetServerHighLoad2 = _interopRequireDefault(_WidgetServerHighLoad);
 
@@ -10448,6 +10448,8 @@
 	    },
 	    ready: function ready() {
 	        pageSetUp();
+
+	        setup_widgets_desktop();
 	    }
 	};
 	// </script>
@@ -10471,7 +10473,7 @@
 	//         <div class="row">
 	//             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 	//                 <!--服务器高负载日分布情况-->
-	//                 <widget-server-high-load></widget-server-high-load>
+	//                 <!--<widget-server-high-load></widget-server-high-load>-->
 	//             </article>
 	//         </div>
 	//
@@ -10491,23 +10493,23 @@
 	//         <div class="row">
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--存储使用情况-->
-	//                 <widget-storage-usage></widget-storage-usage>
+	//                 <!--<widget-storage-usage></widget-storage-usage>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--CPU使用率-->
-	//                 <widget-cpu-usage></widget-cpu-usage>
+	//                 <!--<widget-cpu-usage></widget-cpu-usage>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--内存使用率-->
-	//                 <widget-memory-usage></widget-memory-usage>
+	//                 <!--<widget-memory-usage></widget-memory-usage>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--交换空间（swap）使用率-->
-	//                 <widget-swap-usage></widget-swap-usage>
+	//                 <!--<widget-swap-usage></widget-swap-usage>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--磁盘I/O-->
-	//                 <widget-disk-usage></widget-disk-usage>
+	//                 <!--<widget-disk-usage></widget-disk-usage>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--系统负载-->
@@ -10531,31 +10533,31 @@
 	//         <div class="row">
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--jvm摘要-->
-	//                 <widget-jvm-message></widget-jvm-message>
+	//                 <!--<widget-jvm-message></widget-jvm-message>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--堆内存使用情况-->
-	//                 <widget-jvm-heap-memory></widget-jvm-heap-memory>
+	//                 <!--<widget-jvm-heap-memory></widget-jvm-heap-memory>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--非堆内存使用情况-->
-	//                 <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
+	//                 <!--<widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--加载类情况-->
-	//                 <widget-jvm-class-loand></widget-jvm-class-loand>
+	//                 <!--<widget-jvm-class-loand></widget-jvm-class-loand>-->
 	//             </article>
 	//
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--线程数情况-->
-	//                 <widget-jvm-thread></widget-jvm-thread>
+	//                 <!--<widget-jvm-thread></widget-jvm-thread>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <!--线程数活动情况-->
-	//                 <widget-jvm-thread-active></widget-jvm-thread-active>
+	//                 <!--<widget-jvm-thread-active></widget-jvm-thread-active>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget title="垃圾收集信息（GC）"></widget>
+	//                 <!--<widget title="垃圾收集信息（GC）"></widget>-->
 	//             </article>
 	//         </div>
 	//
@@ -10574,16 +10576,15 @@
 	//         <!-- row -->
 	//         <div class="row">
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget-net-message></widget-net-message>
+	//                 <!--<widget-net-message></widget-net-message>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget title="通道数"></widget>
+	//                 <!--<widget title="通道数"></widget>-->
 	//             </article>
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget title="吞吐量"></widget>
+	//                 <!--<widget title="吞吐量"></widget>-->
 	//             </article>
 	//         </div>
-	//
 	//     </section>
 	// </template>
 	// <script>
@@ -10599,7 +10600,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\Widget.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(11)
+	__vue_template__ = __webpack_require__(12)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10652,7 +10653,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -10937,15 +10938,143 @@
 
 /***/ },
 /* 10 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _tools = __webpack_require__(11);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    props: {
+	        id: { type: String, default: 'myWidget' },
+	        title: { type: String, default: 'My Widget' },
+	        defaultPeriod: { type: String, default: 'realtime' }
+	    },
+	    data: function data() {
+	        return {
+	            periods: [{ text: '实时监控', color: 'green', value: 'realtime' }, {
+	                text: '最近一小时', color: 'red', value: 'one_hour', monitorDate: function monitorDate() {
+	                    return this.monitorDate(-60 * 60);
+	                }
+	            }, {
+	                text: '最近一天', color: 'orange', value: 'one_day', monitorDate: function monitorDate() {
+	                    return this.monitorDate(-60 * 60 * 24);
+	                }
+	            }, {
+	                text: '最近一周', color: 'pink', value: 'one_week', monitorDate: function monitorDate() {
+	                    return this.monitorDate(-60 * 60 * 24);
+	                }
+	            }, {
+	                text: '最近一个月', color: 'blue', value: 'one_month', monitorDate: function monitorDate() {
+	                    return this.monitorDate(-60 * 60 * 24);
+	                }
+	            }],
+	            selected: localStorage[this.id + '_period'] || this.defaultPeriod
+	        };
+	    },
+
+	    computed: {
+	        selectedPeriod: function selectedPeriod() {
+	            var selected = this.selected;
+	            return this.periods.filter(function (p) {
+	                return p.value == selected;
+	            })[0];
+	        }
+	    },
+	    watch: {
+	        selected: function selected(val, oldVal) {
+	            localStorage[this.id + '_period'] = val;
+	            this.doChart();
+	        }
+	    },
+	    ready: function ready() {
+	        this.chart = echarts.init(document.getElementById(this.id + "_chart"), _tools2.default.getChartTheme());
+
+	        this.chart.setOption(this.$parent.getInitOption());
+
+	        $(window).bind('resize', this.chart.resize);
+
+	        this.doChart();
+	    },
+
+	    methods: {
+	        doChart: function doChart() {
+	            var period = this.selectedPeriod;
+	            if (period.value == 'realtime') {
+	                this.realtimeMonitor();
+	            } else {
+	                this.intervalStatistics('201609241700-201609241759');
+	            }
+	        },
+
+	        monitorDate: function monitorDate(n) {
+	            var date1 = void 0,
+	                date2 = new Date();
+	            date1 = _tools2.default.dateAdd(date2, n);
+	            return _tools2.default.dateFormat(date1) + '-' + _tools2.default.dateFormat(date2);
+	        },
+	        intervalStatistics: function intervalStatistics(monitorDate) {
+	            this.chart.showLoading();
+
+	            // 清除实时监控的定时器
+	            if (this.timer != null) clearInterval(this.timer);
+
+	            this.intervalFetchData(monitorDate);
+	        },
+	        intervalFetchData: function intervalFetchData(monitorDate) {
+	            var _this = this;
+
+	            if (this.$parent.dataApi) {
+	                (function () {
+	                    var $this = _this;
+	                    _this.$parent.dataApi(monitorDate).then(function (value) {
+	                        $this.intervalRender(value);
+	                    });
+	                })();
+	            }
+	        },
+	        intervalRender: function intervalRender(result) {
+	            this.chart.hideLoading();
+
+	            if (this.$parent.getIntervalOption) this.chart.setOption(this.$parent.getIntervalOption(result));
+	        },
+	        realtimeMonitor: function realtimeMonitor() {
+	            this.chart.showLoading();
+
+	            if (this.$parent.getRealtimeInitOption) this.chart.setOption(this.$parent.getRealtimeInitOption());
+
+	            this.timer = setInterval(this.realtimeFetchData, 1000);
+	        },
+	        realtimeFetchData: function realtimeFetchData() {
+	            var _this2 = this;
+
+	            if (this.$parent.dataApi) {
+	                (function () {
+	                    var $this = _this2;
+	                    _this2.$parent.dataApi().then(function (value) {
+	                        $this.realtimeRender(value);
+	                    });
+	                })();
+	            }
+	        },
+	        realtimeRender: function realtimeRender(result) {
+	            this.chart.hideLoading();
+
+	            if (this.$parent.getRealtimeOption) this.chart.setOption(this.$parent.getRealtimeOption(this.chart.getOption(), result));
+	        }
+	    }
+	};
+	// </script>
 	// <template>
-	//     <div class="jarviswidget"
+	//     <div id="{{id}}" class="jarviswidget"
 	//          data-widget-colorbutton="false"
 	//          data-widget-editbutton="false"
 	//          data-widget-sortable="false"
@@ -10970,40 +11099,26 @@
 	//             <h2>{{ title }}</h2>
 	//             <div class="widget-toolbar">
 	//                 <!-- add: non-hidden - to disable auto hide -->
-	//
 	//                 <div class="btn-group">
 	//                     <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
-	//                         实时监控&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+	//                         {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
 	//                     </button>
 	//                     <ul class="dropdown-menu pull-right js-status-update">
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-green"></i> 实时监控</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-red"></i> 最近一小时</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-orange"></i> 最近一天</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-pink"></i> 最近一周</a>
-	//                         </li>
-	//                         <li>
-	//                             <a href="javascript:void(0);"><i class="fa fa-circle txt-color-blue"></i> 最近一个月</a>
+	//                         <li v-for="item in periods" :class="{active: item.value == selected}">
+	//                             <a href="javascript:void(0);" @click="selected = item.value">
+	//                                 <i class="fa fa-circle txt-color-{{item.color}}"></i> {{item.text}}
+	//                             </a>
 	//                         </li>
 	//                     </ul>
 	//                 </div>
 	//             </div>
 	//         </header>
-	//
 	//         <div>
 	//             <div class="jarviswidget-editbox"></div>
 	//             <div class="widget-body no-padding">
-	//
 	//                 <slot>
-	//                     <div id="area-graph" class="chart no-padding"></div>
+	//                     <div id="{{id}}_chart" class="chart no-padding"></div>
 	//                 </slot>
-	//
 	//             </div>
 	//         </div>
 	//     </div>
@@ -11012,36 +11127,123 @@
 	//
 	// </style>
 	// <script>
-	exports.default = {
-	    props: {
-	        title: { type: String, default: 'My Widget' }
-	    },
-	    ready: function ready() {
-	        setup_widgets_desktop();
-	        $(".js-status-update a").click(function () {
-	            var selText = $(this).text();
-	            $this = $(this);
-	            $this.parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
-	            $this.parents('.dropdown-menu').find('li').removeClass('active');
-	            $this.parent().addClass('active');
-	        });
-	    }
-	};
-	// </script>
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\n    <div class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n            <div class=\"widget-toolbar\">\n                <!-- add: non-hidden - to disable auto hide -->\n\n                <div class=\"btn-group\">\n                    <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\n                        实时监控&nbsp;&nbsp;<i class=\"fa fa-caret-down\"></i>\n                    </button>\n                    <ul class=\"dropdown-menu pull-right js-status-update\">\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-green\"></i> 实时监控</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-red\"></i> 最近一小时</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-orange\"></i> 最近一天</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-pink\"></i> 最近一周</a>\n                        </li>\n                        <li>\n                            <a href=\"javascript:void(0);\"><i class=\"fa fa-circle txt-color-blue\"></i> 最近一个月</a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n\n                <slot>\n                    <div id=\"area-graph\" class=\"chart no-padding\"></div>\n                </slot>\n\n            </div>\n        </div>\n    </div>\n";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = {
+
+	    yyyyMMddHHmmss: 'yyyyMMddHHmmss',
+	    yyyyMMddHHmmss_: 'yyyy-MM-dd HH:mm:ss',
+	    yyyyMMddHHmm: 'yyyyMMddHHmm',
+	    yyyyMMddHHmm_: 'yyyy-MM-dd HH:mm',
+	    yyyyMMdd: 'yyyyMMdd',
+	    yyyyMMdd_: 'yyyy-MM-dd',
+	    MMdd: 'MMdd',
+	    MMdd_: 'MM-dd',
+	    HHmmss: 'HHmmss',
+	    HHmmss_: 'HH:mm:ss',
+	    HHmm: 'HHmm',
+	    HHmm_: 'HH:mm',
+
+	    /**
+	     * yyyyMMddHHmm 转 HH:mm
+	     */
+	    dateToHHmm: function dateToHHmm(date) {
+	        return date.substring(8, 10) + ':' + date.substring(10, 12);
+	    },
+	    dateFormat: function dateFormat(date, formatStr) {
+	        var str = formatStr || this.yyyyMMddHHmm;
+	        var Week = ['日', '一', '二', '三', '四', '五', '六'];
+
+	        str = str.replace(/yyyy|YYYY/, date.getFullYear());
+	        str = str.replace(/yy|YY/, date.getYear() % 100 > 9 ? (date.getYear() % 100).toString() : '0' + date.getYear() % 100);
+
+	        str = str.replace(/MM/, date.getMonth() + 1 > 9 ? (date.getMonth() + 1).toString() : '0' + (date.getMonth() + 1));
+	        str = str.replace(/M/g, date.getMonth() + 1);
+
+	        str = str.replace(/w|W/g, Week[date.getDay()]);
+
+	        str = str.replace(/dd|DD/, date.getDate() > 9 ? date.getDate().toString() : '0' + date.getDate());
+	        str = str.replace(/d|D/g, date.getDate());
+
+	        str = str.replace(/hh|HH/, date.getHours() > 9 ? date.getHours().toString() : '0' + date.getHours());
+	        str = str.replace(/h|H/g, date.getHours());
+	        str = str.replace(/mm/, date.getMinutes() > 9 ? date.getMinutes().toString() : '0' + date.getMinutes());
+	        str = str.replace(/m/g, date.getMinutes());
+
+	        str = str.replace(/ss|SS/, date.getSeconds() > 9 ? date.getSeconds().toString() : '0' + date.getSeconds());
+	        str = str.replace(/s|S/g, date.getSeconds());
+
+	        return str;
+	    },
+	    dateParse: function dateParse(dateStr, formatStr) {
+	        var yyyy = 0,
+	            MM = 0,
+	            dd = 0,
+	            HH = 0,
+	            mm = 0,
+	            ss = 0;
+	        var format = formatStr || this.yyyyMMddHHmm;
+
+	        if (format == this.yyyyMMddHHmmss) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(4, 6), dd = dateStr.substring(6, 8), HH = dateStr.substring(8, 10), mm = dateStr.substring(10, 12), ss = dateStr.substring(12, 14);
+	        } else if (format == this.yyyyMMddHHmmss_) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10), HH = dateStr.substring(11, 13), mm = dateStr.substring(14, 16), ss = dateStr.substring(17, 19);
+	        } else if (format == this.yyyyMMddHHmm) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(4, 6), dd = dateStr.substring(6, 8), HH = dateStr.substring(8, 10), mm = dateStr.substring(10, 12);
+	        } else if (format == this.yyyyMMddHHmm_) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10), HH = dateStr.substring(11, 13), mm = dateStr.substring(14, 16);
+	        } else if (format == this.yyyyMMdd) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(4, 6), dd = dateStr.substring(6, 8);
+	        } else if (format == this.yyyyMMdd_) {
+	            yyyy = dateStr.substring(0, 4), MM = dateStr.substring(5, 7), dd = dateStr.substring(8, 10);
+	        }
+	        return new Date(yyyy, MM, dd, HH, mm, ss);
+	    },
+	    dateAdd: function dateAdd(date, n) {
+	        var time = date.valueOf();
+	        time += n * 1000;
+	        return new Date(time);
+	    },
+
+	    bToKB: function bToKB(b) {
+	        return b / 1024;
+	    },
+	    bToMB: function bToMB(b) {
+	        return b / 1024 / 1024;
+	    },
+	    bToGB: function bToGB(b) {
+	        return b / 1024 / 1024 / 1024;
+	    },
+	    bToTB: function bToTB(b) {
+	        return b / 1024 / 1024 / 1024 / 1024;
+	    },
+
+	    getChartTheme: function getChartTheme() {
+	        return window.localStorage.chartTheme || '';
+	    }
+	};
 
 /***/ },
 /* 12 */
+/***/ function(module, exports) {
+
+	module.exports = "\n    <div id=\"{{id}}\" class=\"jarviswidget\"\n         data-widget-colorbutton=\"false\"\n         data-widget-editbutton=\"false\"\n         data-widget-sortable=\"false\"\n         data-widget-custombutton=\"true\"\n         data-widget-togglebutton=\"false\"\n         data-widget-deletebutton=\"false\">\n        <!-- widget options:\n\t\t\t\t\tusage: <div class=\"jarviswidget\" id=\"wid-id-0\" data-widget-editbutton=\"false\">\n\n\t\t\t\t\tdata-widget-colorbutton=\"false\"\n\t\t\t\t\tdata-widget-editbutton=\"false\"\n\t\t\t\t\tdata-widget-togglebutton=\"false\"\n\n\t\t\t\t\tdata-widget-fullscreenbutton=\"false\"\n\t\t\t\t\tdata-widget-custombutton=\"false\"\n\t\t\t\t\tdata-widget-collapsed=\"true\"\n\t\t\t\t\tdata-widget-sortable=\"false\"\n\n\t\t\t\t-->\n        <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-bar-chart-o\"></i> </span>\n            <h2>{{ title }}</h2>\n            <div class=\"widget-toolbar\">\n                <!-- add: non-hidden - to disable auto hide -->\n                <div class=\"btn-group\">\n                    <button class=\"btn dropdown-toggle btn-xs btn-success\" data-toggle=\"dropdown\">\n                        {{selectedPeriod.text}}&nbsp;&nbsp;<i class=\"fa fa-caret-down\"></i>\n                    </button>\n                    <ul class=\"dropdown-menu pull-right js-status-update\">\n                        <li v-for=\"item in periods\" :class=\"{active: item.value == selected}\">\n                            <a href=\"javascript:void(0);\" @click=\"selected = item.value\">\n                                <i class=\"fa fa-circle txt-color-{{item.color}}\"></i> {{item.text}}\n                            </a>\n                        </li>\n                    </ul>\n                </div>\n            </div>\n        </header>\n        <div>\n            <div class=\"jarviswidget-editbox\"></div>\n            <div class=\"widget-body no-padding\">\n                <slot>\n                    <div id=\"{{id}}_chart\" class=\"chart no-padding\"></div>\n                </slot>\n            </div>\n        </div>\n    </div>\n";
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(13)
-	__vue_script__ = __webpack_require__(15)
+	__webpack_require__(14)
+	__vue_script__ = __webpack_require__(16)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
@@ -11065,13 +11267,13 @@
 	})()}
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(14);
+	var content = __webpack_require__(15);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(9)(content, {});
@@ -11091,7 +11293,7 @@
 	}
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(8)();
@@ -11105,7 +11307,7 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11118,11 +11320,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -11211,7 +11413,7 @@
 	// <script>
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11220,7 +11422,7 @@
 	    value: true
 	});
 
-	var _promise = __webpack_require__(17);
+	var _promise = __webpack_require__(18);
 
 	var _promise2 = _interopRequireDefault(_promise);
 
@@ -11244,6 +11446,8 @@
 	    var url = Config.apiPath + 'IFCMonitorServlet?type=' + type;
 	    if (monitorDate != null) {
 	        url += '&monitorDate=' + monitorDate;
+	    } else {
+	        url += '&realtime=true';
 	    }
 	    return new _promise2.default(function (resolve, reject) {
 	        $ajax(url, function (result) {
@@ -11390,36 +11594,36 @@
 	};
 
 /***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(18), __esModule: true };
-
-/***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(19);
-	__webpack_require__(20);
-	__webpack_require__(64);
-	__webpack_require__(68);
-	module.exports = __webpack_require__(28).Promise;
+	module.exports = { "default": __webpack_require__(19), __esModule: true };
 
 /***/ },
 /* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(20);
+	__webpack_require__(21);
+	__webpack_require__(65);
+	__webpack_require__(69);
+	module.exports = __webpack_require__(29).Promise;
+
+/***/ },
+/* 20 */
 /***/ function(module, exports) {
 
 	
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var $at  = __webpack_require__(21)(true);
+	var $at  = __webpack_require__(22)(true);
 
 	// 21.1.3.27 String.prototype[@@iterator]()
-	__webpack_require__(24)(String, 'String', function(iterated){
+	__webpack_require__(25)(String, 'String', function(iterated){
 	  this._t = String(iterated); // target
 	  this._i = 0;                // next index
 	// 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -11434,11 +11638,11 @@
 	});
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(22)
-	  , defined   = __webpack_require__(23);
+	var toInteger = __webpack_require__(23)
+	  , defined   = __webpack_require__(24);
 	// true  -> String#at
 	// false -> String#codePointAt
 	module.exports = function(TO_STRING){
@@ -11456,7 +11660,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	// 7.1.4 ToInteger
@@ -11467,7 +11671,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	// 7.2.1 RequireObjectCoercible(argument)
@@ -11477,20 +11681,20 @@
 	};
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY        = __webpack_require__(25)
-	  , $export        = __webpack_require__(26)
-	  , redefine       = __webpack_require__(41)
-	  , hide           = __webpack_require__(31)
-	  , has            = __webpack_require__(42)
-	  , Iterators      = __webpack_require__(43)
-	  , $iterCreate    = __webpack_require__(44)
-	  , setToStringTag = __webpack_require__(60)
-	  , getPrototypeOf = __webpack_require__(62)
-	  , ITERATOR       = __webpack_require__(61)('iterator')
+	var LIBRARY        = __webpack_require__(26)
+	  , $export        = __webpack_require__(27)
+	  , redefine       = __webpack_require__(42)
+	  , hide           = __webpack_require__(32)
+	  , has            = __webpack_require__(43)
+	  , Iterators      = __webpack_require__(44)
+	  , $iterCreate    = __webpack_require__(45)
+	  , setToStringTag = __webpack_require__(61)
+	  , getPrototypeOf = __webpack_require__(63)
+	  , ITERATOR       = __webpack_require__(62)('iterator')
 	  , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
 	  , FF_ITERATOR    = '@@iterator'
 	  , KEYS           = 'keys'
@@ -11552,19 +11756,19 @@
 	};
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = true;
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(27)
-	  , core      = __webpack_require__(28)
-	  , ctx       = __webpack_require__(29)
-	  , hide      = __webpack_require__(31)
+	var global    = __webpack_require__(28)
+	  , core      = __webpack_require__(29)
+	  , ctx       = __webpack_require__(30)
+	  , hide      = __webpack_require__(32)
 	  , PROTOTYPE = 'prototype';
 
 	var $export = function(type, name, source){
@@ -11624,7 +11828,7 @@
 	module.exports = $export;
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -11633,18 +11837,18 @@
 	if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports) {
 
 	var core = module.exports = {version: '2.4.0'};
 	if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// optional / simple context binding
-	var aFunction = __webpack_require__(30);
+	var aFunction = __webpack_require__(31);
 	module.exports = function(fn, that, length){
 	  aFunction(fn);
 	  if(that === undefined)return fn;
@@ -11665,7 +11869,7 @@
 	};
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -11674,12 +11878,12 @@
 	};
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var dP         = __webpack_require__(32)
-	  , createDesc = __webpack_require__(40);
-	module.exports = __webpack_require__(36) ? function(object, key, value){
+	var dP         = __webpack_require__(33)
+	  , createDesc = __webpack_require__(41);
+	module.exports = __webpack_require__(37) ? function(object, key, value){
 	  return dP.f(object, key, createDesc(1, value));
 	} : function(object, key, value){
 	  object[key] = value;
@@ -11687,15 +11891,15 @@
 	};
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var anObject       = __webpack_require__(33)
-	  , IE8_DOM_DEFINE = __webpack_require__(35)
-	  , toPrimitive    = __webpack_require__(39)
+	var anObject       = __webpack_require__(34)
+	  , IE8_DOM_DEFINE = __webpack_require__(36)
+	  , toPrimitive    = __webpack_require__(40)
 	  , dP             = Object.defineProperty;
 
-	exports.f = __webpack_require__(36) ? Object.defineProperty : function defineProperty(O, P, Attributes){
+	exports.f = __webpack_require__(37) ? Object.defineProperty : function defineProperty(O, P, Attributes){
 	  anObject(O);
 	  P = toPrimitive(P, true);
 	  anObject(Attributes);
@@ -11708,17 +11912,17 @@
 	};
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(34);
+	var isObject = __webpack_require__(35);
 	module.exports = function(it){
 	  if(!isObject(it))throw TypeError(it + ' is not an object!');
 	  return it;
 	};
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = function(it){
@@ -11726,24 +11930,24 @@
 	};
 
 /***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = !__webpack_require__(36) && !__webpack_require__(37)(function(){
-	  return Object.defineProperty(__webpack_require__(38)('div'), 'a', {get: function(){ return 7; }}).a != 7;
-	});
-
-/***/ },
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// Thank's IE8 for his funny defineProperty
-	module.exports = !__webpack_require__(37)(function(){
-	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+	module.exports = !__webpack_require__(37) && !__webpack_require__(38)(function(){
+	  return Object.defineProperty(__webpack_require__(39)('div'), 'a', {get: function(){ return 7; }}).a != 7;
 	});
 
 /***/ },
 /* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// Thank's IE8 for his funny defineProperty
+	module.exports = !__webpack_require__(38)(function(){
+	  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+	});
+
+/***/ },
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = function(exec){
@@ -11755,11 +11959,11 @@
 	};
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(34)
-	  , document = __webpack_require__(27).document
+	var isObject = __webpack_require__(35)
+	  , document = __webpack_require__(28).document
 	  // in old IE typeof document.createElement is 'object'
 	  , is = isObject(document) && isObject(document.createElement);
 	module.exports = function(it){
@@ -11767,11 +11971,11 @@
 	};
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.1 ToPrimitive(input [, PreferredType])
-	var isObject = __webpack_require__(34);
+	var isObject = __webpack_require__(35);
 	// instead of the ES6 spec version, we didn't implement @@toPrimitive case
 	// and the second argument - flag - preferred type is a string
 	module.exports = function(it, S){
@@ -11784,7 +11988,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = function(bitmap, value){
@@ -11797,13 +12001,13 @@
 	};
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(31);
+	module.exports = __webpack_require__(32);
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	var hasOwnProperty = {}.hasOwnProperty;
@@ -11812,23 +12016,23 @@
 	};
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	module.exports = {};
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var create         = __webpack_require__(45)
-	  , descriptor     = __webpack_require__(40)
-	  , setToStringTag = __webpack_require__(60)
+	var create         = __webpack_require__(46)
+	  , descriptor     = __webpack_require__(41)
+	  , setToStringTag = __webpack_require__(61)
 	  , IteratorPrototype = {};
 
 	// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-	__webpack_require__(31)(IteratorPrototype, __webpack_require__(61)('iterator'), function(){ return this; });
+	__webpack_require__(32)(IteratorPrototype, __webpack_require__(62)('iterator'), function(){ return this; });
 
 	module.exports = function(Constructor, NAME, next){
 	  Constructor.prototype = create(IteratorPrototype, {next: descriptor(1, next)});
@@ -11836,27 +12040,27 @@
 	};
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-	var anObject    = __webpack_require__(33)
-	  , dPs         = __webpack_require__(46)
-	  , enumBugKeys = __webpack_require__(58)
-	  , IE_PROTO    = __webpack_require__(55)('IE_PROTO')
+	var anObject    = __webpack_require__(34)
+	  , dPs         = __webpack_require__(47)
+	  , enumBugKeys = __webpack_require__(59)
+	  , IE_PROTO    = __webpack_require__(56)('IE_PROTO')
 	  , Empty       = function(){ /* empty */ }
 	  , PROTOTYPE   = 'prototype';
 
 	// Create object with fake `null` prototype: use iframe Object with cleared prototype
 	var createDict = function(){
 	  // Thrash, waste and sodomy: IE GC bug
-	  var iframe = __webpack_require__(38)('iframe')
+	  var iframe = __webpack_require__(39)('iframe')
 	    , i      = enumBugKeys.length
 	    , lt     = '<'
 	    , gt     = '>'
 	    , iframeDocument;
 	  iframe.style.display = 'none';
-	  __webpack_require__(59).appendChild(iframe);
+	  __webpack_require__(60).appendChild(iframe);
 	  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
 	  // createDict = iframe.contentWindow.Object;
 	  // html.removeChild(iframe);
@@ -11883,14 +12087,14 @@
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var dP       = __webpack_require__(32)
-	  , anObject = __webpack_require__(33)
-	  , getKeys  = __webpack_require__(47);
+	var dP       = __webpack_require__(33)
+	  , anObject = __webpack_require__(34)
+	  , getKeys  = __webpack_require__(48);
 
-	module.exports = __webpack_require__(36) ? Object.defineProperties : function defineProperties(O, Properties){
+	module.exports = __webpack_require__(37) ? Object.defineProperties : function defineProperties(O, Properties){
 	  anObject(O);
 	  var keys   = getKeys(Properties)
 	    , length = keys.length
@@ -11901,25 +12105,25 @@
 	};
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-	var $keys       = __webpack_require__(48)
-	  , enumBugKeys = __webpack_require__(58);
+	var $keys       = __webpack_require__(49)
+	  , enumBugKeys = __webpack_require__(59);
 
 	module.exports = Object.keys || function keys(O){
 	  return $keys(O, enumBugKeys);
 	};
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var has          = __webpack_require__(42)
-	  , toIObject    = __webpack_require__(49)
-	  , arrayIndexOf = __webpack_require__(52)(false)
-	  , IE_PROTO     = __webpack_require__(55)('IE_PROTO');
+	var has          = __webpack_require__(43)
+	  , toIObject    = __webpack_require__(50)
+	  , arrayIndexOf = __webpack_require__(53)(false)
+	  , IE_PROTO     = __webpack_require__(56)('IE_PROTO');
 
 	module.exports = function(object, names){
 	  var O      = toIObject(object)
@@ -11935,28 +12139,28 @@
 	};
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// to indexed object, toObject with fallback for non-array-like ES3 strings
-	var IObject = __webpack_require__(50)
-	  , defined = __webpack_require__(23);
+	var IObject = __webpack_require__(51)
+	  , defined = __webpack_require__(24);
 	module.exports = function(it){
 	  return IObject(defined(it));
 	};
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for non-array-like ES3 and non-enumerable old V8 strings
-	var cof = __webpack_require__(51);
+	var cof = __webpack_require__(52);
 	module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
 	  return cof(it) == 'String' ? it.split('') : Object(it);
 	};
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	var toString = {}.toString;
@@ -11966,14 +12170,14 @@
 	};
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// false -> Array#indexOf
 	// true  -> Array#includes
-	var toIObject = __webpack_require__(49)
-	  , toLength  = __webpack_require__(53)
-	  , toIndex   = __webpack_require__(54);
+	var toIObject = __webpack_require__(50)
+	  , toLength  = __webpack_require__(54)
+	  , toIndex   = __webpack_require__(55);
 	module.exports = function(IS_INCLUDES){
 	  return function($this, el, fromIndex){
 	    var O      = toIObject($this)
@@ -11992,21 +12196,21 @@
 	};
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.15 ToLength
-	var toInteger = __webpack_require__(22)
+	var toInteger = __webpack_require__(23)
 	  , min       = Math.min;
 	module.exports = function(it){
 	  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
 	};
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toInteger = __webpack_require__(22)
+	var toInteger = __webpack_require__(23)
 	  , max       = Math.max
 	  , min       = Math.min;
 	module.exports = function(index, length){
@@ -12015,20 +12219,20 @@
 	};
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var shared = __webpack_require__(56)('keys')
-	  , uid    = __webpack_require__(57);
+	var shared = __webpack_require__(57)('keys')
+	  , uid    = __webpack_require__(58);
 	module.exports = function(key){
 	  return shared[key] || (shared[key] = uid(key));
 	};
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global = __webpack_require__(27)
+	var global = __webpack_require__(28)
 	  , SHARED = '__core-js_shared__'
 	  , store  = global[SHARED] || (global[SHARED] = {});
 	module.exports = function(key){
@@ -12036,7 +12240,7 @@
 	};
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports) {
 
 	var id = 0
@@ -12046,7 +12250,7 @@
 	};
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	// IE 8- don't enum bug keys
@@ -12055,30 +12259,30 @@
 	).split(',');
 
 /***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(27).document && document.documentElement;
-
-/***/ },
 /* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var def = __webpack_require__(32).f
-	  , has = __webpack_require__(42)
-	  , TAG = __webpack_require__(61)('toStringTag');
+	module.exports = __webpack_require__(28).document && document.documentElement;
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var def = __webpack_require__(33).f
+	  , has = __webpack_require__(43)
+	  , TAG = __webpack_require__(62)('toStringTag');
 
 	module.exports = function(it, tag, stat){
 	  if(it && !has(it = stat ? it : it.prototype, TAG))def(it, TAG, {configurable: true, value: tag});
 	};
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var store      = __webpack_require__(56)('wks')
-	  , uid        = __webpack_require__(57)
-	  , Symbol     = __webpack_require__(27).Symbol
+	var store      = __webpack_require__(57)('wks')
+	  , uid        = __webpack_require__(58)
+	  , Symbol     = __webpack_require__(28).Symbol
 	  , USE_SYMBOL = typeof Symbol == 'function';
 
 	var $exports = module.exports = function(name){
@@ -12089,13 +12293,13 @@
 	$exports.store = store;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-	var has         = __webpack_require__(42)
-	  , toObject    = __webpack_require__(63)
-	  , IE_PROTO    = __webpack_require__(55)('IE_PROTO')
+	var has         = __webpack_require__(43)
+	  , toObject    = __webpack_require__(64)
+	  , IE_PROTO    = __webpack_require__(56)('IE_PROTO')
 	  , ObjectProto = Object.prototype;
 
 	module.exports = Object.getPrototypeOf || function(O){
@@ -12107,24 +12311,24 @@
 	};
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
-	var defined = __webpack_require__(23);
+	var defined = __webpack_require__(24);
 	module.exports = function(it){
 	  return Object(defined(it));
 	};
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(65);
-	var global        = __webpack_require__(27)
-	  , hide          = __webpack_require__(31)
-	  , Iterators     = __webpack_require__(43)
-	  , TO_STRING_TAG = __webpack_require__(61)('toStringTag');
+	__webpack_require__(66);
+	var global        = __webpack_require__(28)
+	  , hide          = __webpack_require__(32)
+	  , Iterators     = __webpack_require__(44)
+	  , TO_STRING_TAG = __webpack_require__(62)('toStringTag');
 
 	for(var collections = ['NodeList', 'DOMTokenList', 'MediaList', 'StyleSheetList', 'CSSRuleList'], i = 0; i < 5; i++){
 	  var NAME       = collections[i]
@@ -12135,20 +12339,20 @@
 	}
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var addToUnscopables = __webpack_require__(66)
-	  , step             = __webpack_require__(67)
-	  , Iterators        = __webpack_require__(43)
-	  , toIObject        = __webpack_require__(49);
+	var addToUnscopables = __webpack_require__(67)
+	  , step             = __webpack_require__(68)
+	  , Iterators        = __webpack_require__(44)
+	  , toIObject        = __webpack_require__(50);
 
 	// 22.1.3.4 Array.prototype.entries()
 	// 22.1.3.13 Array.prototype.keys()
 	// 22.1.3.29 Array.prototype.values()
 	// 22.1.3.30 Array.prototype[@@iterator]()
-	module.exports = __webpack_require__(24)(Array, 'Array', function(iterated, kind){
+	module.exports = __webpack_require__(25)(Array, 'Array', function(iterated, kind){
 	  this._t = toIObject(iterated); // target
 	  this._i = 0;                   // next index
 	  this._k = kind;                // kind
@@ -12174,13 +12378,13 @@
 	addToUnscopables('entries');
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports) {
 
 	module.exports = function(){ /* empty */ };
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports) {
 
 	module.exports = function(done, value){
@@ -12188,22 +12392,22 @@
 	};
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY            = __webpack_require__(25)
-	  , global             = __webpack_require__(27)
-	  , ctx                = __webpack_require__(29)
-	  , classof            = __webpack_require__(69)
-	  , $export            = __webpack_require__(26)
-	  , isObject           = __webpack_require__(34)
-	  , aFunction          = __webpack_require__(30)
-	  , anInstance         = __webpack_require__(70)
-	  , forOf              = __webpack_require__(71)
-	  , speciesConstructor = __webpack_require__(75)
-	  , task               = __webpack_require__(76).set
-	  , microtask          = __webpack_require__(78)()
+	var LIBRARY            = __webpack_require__(26)
+	  , global             = __webpack_require__(28)
+	  , ctx                = __webpack_require__(30)
+	  , classof            = __webpack_require__(70)
+	  , $export            = __webpack_require__(27)
+	  , isObject           = __webpack_require__(35)
+	  , aFunction          = __webpack_require__(31)
+	  , anInstance         = __webpack_require__(71)
+	  , forOf              = __webpack_require__(72)
+	  , speciesConstructor = __webpack_require__(76)
+	  , task               = __webpack_require__(77).set
+	  , microtask          = __webpack_require__(79)()
 	  , PROMISE            = 'Promise'
 	  , TypeError          = global.TypeError
 	  , process            = global.process
@@ -12217,7 +12421,7 @@
 	  try {
 	    // correct subclassing with @@species support
 	    var promise     = $Promise.resolve(1)
-	      , FakePromise = (promise.constructor = {})[__webpack_require__(61)('species')] = function(exec){ exec(empty, empty); };
+	      , FakePromise = (promise.constructor = {})[__webpack_require__(62)('species')] = function(exec){ exec(empty, empty); };
 	    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
 	    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
 	  } catch(e){ /* empty */ }
@@ -12395,7 +12599,7 @@
 	    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
 	    this._n = false;          // <- notify
 	  };
-	  Internal.prototype = __webpack_require__(79)($Promise.prototype, {
+	  Internal.prototype = __webpack_require__(80)($Promise.prototype, {
 	    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
 	    then: function then(onFulfilled, onRejected){
 	      var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -12421,9 +12625,9 @@
 	}
 
 	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
-	__webpack_require__(60)($Promise, PROMISE);
-	__webpack_require__(80)(PROMISE);
-	Wrapper = __webpack_require__(28)[PROMISE];
+	__webpack_require__(61)($Promise, PROMISE);
+	__webpack_require__(81)(PROMISE);
+	Wrapper = __webpack_require__(29)[PROMISE];
 
 	// statics
 	$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
@@ -12446,7 +12650,7 @@
 	    return capability.promise;
 	  }
 	});
-	$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(81)(function(iter){
+	$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(82)(function(iter){
 	  $Promise.all(iter)['catch'](empty);
 	})), PROMISE, {
 	  // 25.4.4.1 Promise.all(iterable)
@@ -12492,12 +12696,12 @@
 	});
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// getting tag from 19.1.3.6 Object.prototype.toString()
-	var cof = __webpack_require__(51)
-	  , TAG = __webpack_require__(61)('toStringTag')
+	var cof = __webpack_require__(52)
+	  , TAG = __webpack_require__(62)('toStringTag')
 	  // ES3 wrong here
 	  , ARG = cof(function(){ return arguments; }()) == 'Arguments';
 
@@ -12520,7 +12724,7 @@
 	};
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports) {
 
 	module.exports = function(it, Constructor, name, forbiddenField){
@@ -12530,15 +12734,15 @@
 	};
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ctx         = __webpack_require__(29)
-	  , call        = __webpack_require__(72)
-	  , isArrayIter = __webpack_require__(73)
-	  , anObject    = __webpack_require__(33)
-	  , toLength    = __webpack_require__(53)
-	  , getIterFn   = __webpack_require__(74)
+	var ctx         = __webpack_require__(30)
+	  , call        = __webpack_require__(73)
+	  , isArrayIter = __webpack_require__(74)
+	  , anObject    = __webpack_require__(34)
+	  , toLength    = __webpack_require__(54)
+	  , getIterFn   = __webpack_require__(75)
 	  , BREAK       = {}
 	  , RETURN      = {};
 	var exports = module.exports = function(iterable, entries, fn, that, ITERATOR){
@@ -12560,11 +12764,11 @@
 	exports.RETURN = RETURN;
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// call something on iterator step with safe closing on error
-	var anObject = __webpack_require__(33);
+	var anObject = __webpack_require__(34);
 	module.exports = function(iterator, fn, value, entries){
 	  try {
 	    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -12577,12 +12781,12 @@
 	};
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// check on default Array iterator
-	var Iterators  = __webpack_require__(43)
-	  , ITERATOR   = __webpack_require__(61)('iterator')
+	var Iterators  = __webpack_require__(44)
+	  , ITERATOR   = __webpack_require__(62)('iterator')
 	  , ArrayProto = Array.prototype;
 
 	module.exports = function(it){
@@ -12590,40 +12794,40 @@
 	};
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var classof   = __webpack_require__(69)
-	  , ITERATOR  = __webpack_require__(61)('iterator')
-	  , Iterators = __webpack_require__(43);
-	module.exports = __webpack_require__(28).getIteratorMethod = function(it){
+	var classof   = __webpack_require__(70)
+	  , ITERATOR  = __webpack_require__(62)('iterator')
+	  , Iterators = __webpack_require__(44);
+	module.exports = __webpack_require__(29).getIteratorMethod = function(it){
 	  if(it != undefined)return it[ITERATOR]
 	    || it['@@iterator']
 	    || Iterators[classof(it)];
 	};
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.3.20 SpeciesConstructor(O, defaultConstructor)
-	var anObject  = __webpack_require__(33)
-	  , aFunction = __webpack_require__(30)
-	  , SPECIES   = __webpack_require__(61)('species');
+	var anObject  = __webpack_require__(34)
+	  , aFunction = __webpack_require__(31)
+	  , SPECIES   = __webpack_require__(62)('species');
 	module.exports = function(O, D){
 	  var C = anObject(O).constructor, S;
 	  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
 	};
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ctx                = __webpack_require__(29)
-	  , invoke             = __webpack_require__(77)
-	  , html               = __webpack_require__(59)
-	  , cel                = __webpack_require__(38)
-	  , global             = __webpack_require__(27)
+	var ctx                = __webpack_require__(30)
+	  , invoke             = __webpack_require__(78)
+	  , html               = __webpack_require__(60)
+	  , cel                = __webpack_require__(39)
+	  , global             = __webpack_require__(28)
 	  , process            = global.process
 	  , setTask            = global.setImmediate
 	  , clearTask          = global.clearImmediate
@@ -12658,7 +12862,7 @@
 	    delete queue[id];
 	  };
 	  // Node.js 0.8-
-	  if(__webpack_require__(51)(process) == 'process'){
+	  if(__webpack_require__(52)(process) == 'process'){
 	    defer = function(id){
 	      process.nextTick(ctx(run, id, 1));
 	    };
@@ -12696,7 +12900,7 @@
 	};
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports) {
 
 	// fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -12717,15 +12921,15 @@
 	};
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var global    = __webpack_require__(27)
-	  , macrotask = __webpack_require__(76).set
+	var global    = __webpack_require__(28)
+	  , macrotask = __webpack_require__(77).set
 	  , Observer  = global.MutationObserver || global.WebKitMutationObserver
 	  , process   = global.process
 	  , Promise   = global.Promise
-	  , isNode    = __webpack_require__(51)(process) == 'process';
+	  , isNode    = __webpack_require__(52)(process) == 'process';
 
 	module.exports = function(){
 	  var head, last, notify;
@@ -12790,10 +12994,10 @@
 	};
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var hide = __webpack_require__(31);
+	var hide = __webpack_require__(32);
 	module.exports = function(target, src, safe){
 	  for(var key in src){
 	    if(safe && target[key])target[key] = src[key];
@@ -12802,15 +13006,15 @@
 	};
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var global      = __webpack_require__(27)
-	  , core        = __webpack_require__(28)
-	  , dP          = __webpack_require__(32)
-	  , DESCRIPTORS = __webpack_require__(36)
-	  , SPECIES     = __webpack_require__(61)('species');
+	var global      = __webpack_require__(28)
+	  , core        = __webpack_require__(29)
+	  , dP          = __webpack_require__(33)
+	  , DESCRIPTORS = __webpack_require__(37)
+	  , SPECIES     = __webpack_require__(62)('species');
 
 	module.exports = function(KEY){
 	  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
@@ -12821,10 +13025,10 @@
 	};
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ITERATOR     = __webpack_require__(61)('iterator')
+	var ITERATOR     = __webpack_require__(62)('iterator')
 	  , SAFE_CLOSING = false;
 
 	try {
@@ -12844,41 +13048,6 @@
 	    exec(arr);
 	  } catch(e){ /* empty */ }
 	  return safe;
-	};
-
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = {
-	    /**
-	     * yyyyMMddHHmm 转 HH:mm
-	     */
-	    dateToHHmm: function dateToHHmm(date) {
-	        return date.substring(8, 10) + ':' + date.substring(10, 12);
-	    },
-
-	    bToKB: function bToKB(b) {
-	        return b / 1024;
-	    },
-	    bToMB: function bToMB(b) {
-	        return b / 1024 / 1024;
-	    },
-	    bToGB: function bToGB(b) {
-	        return b / 1024 / 1024 / 1024;
-	    },
-	    bToTB: function bToTB(b) {
-	        return b / 1024 / 1024 / 1024 / 1024;
-	    },
-
-	    getChartTheme: function getChartTheme() {
-	        return window.localStorage.chartTheme || '';
-	    }
 	};
 
 /***/ },
@@ -13078,11 +13247,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -13221,7 +13390,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -13240,11 +13409,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -13256,13 +13425,16 @@
 	    },
 	    data: function data() {
 	        return {
-	            monitorDate: '201609221200-201609221259'
+	            id: 'cpu_usage',
+	            title: 'CPU使用率'
 	        };
 	    },
 	    ready: function ready() {
-	        this.chart = echarts.init(document.getElementById('cpu-usage-chart'), _tools2.default.getChartTheme());
+	        this.widget = this.$children[0];
 
-	        this.option = {
+	        this.chart = echarts.init(document.getElementById(this.id + "_chart"), _tools2.default.getChartTheme());
+
+	        var option = {
 	            tooltip: {
 	                trigger: 'axis'
 	            },
@@ -13279,26 +13451,36 @@
 	                type: 'value',
 	                max: 100
 	            }],
-	            series: []
+	            series: [{
+	                name: '系统', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	            }, {
+	                name: '用户', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	            }]
 	        };
 
-	        this.update();
-	        this.fetchData();
-
+	        this.chart.setOption(option);
 	        $(window).bind('resize', this.chart.resize);
+
+	        // 初始状态
+	        this.widget.doChart();
 	    },
 
 	    methods: {
-	        update: function update() {
-	            this.chart.setOption(this.option);
+	        intervalStatistics: function intervalStatistics(monitorDate) {
+	            this.chart.showLoading();
+
+	            // 清除实时监控的定时器
+	            if (this.timer != null) clearInterval(this.timer);
+
+	            this.intervalFetchData(monitorDate);
 	        },
-	        fetchData: function fetchData() {
+	        intervalFetchData: function intervalFetchData(monitorDate) {
 	            var $this = this;
-	            _monitor2.default.getCpus(this.monitorDate).then(function (value) {
-	                $this.render(value);
+	            _monitor2.default.getCpus(monitorDate).then(function (value) {
+	                $this.intervalRender(value);
 	            });
 	        },
-	        render: function render(result) {
+	        intervalRender: function intervalRender(result) {
 	            this.chart.hideLoading();
 
 	            var xAxisData = [],
@@ -13317,21 +13499,66 @@
 	                usersData.push((users * 100).toFixed(2));
 	            });
 
-	            this.option.xAxis[0].data = xAxisData;
-	            this.option.series = [{
-	                name: '用户', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: usersData
-	            }, {
-	                name: '系统', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: syssData
-	            }];
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	        },
+	        realtimeMonitor: function realtimeMonitor() {
+	            this.chart.showLoading();
 
-	            this.update();
+	            var xAxisData = [],
+	                syssData = [],
+	                usersData = [];
+	            xAxisData.length = 61;
+	            syssData.length = 61;
+	            usersData.length = 61;
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	            this.timer = setInterval(this.realtimeFetchData, 1000);
+	        },
+	        realtimeFetchData: function realtimeFetchData() {
+	            var $this = this;
+	            _monitor2.default.getCpus().then(function (value) {
+	                $this.realtimeRender(value);
+	            });
+	        },
+	        realtimeRender: function realtimeRender(result) {
+	            this.chart.hideLoading();
+
+	            var option = this.chart.getOption();
+
+	            var xAxisData = option.xAxis[0].data,
+	                syssData = option.series[0].data,
+	                usersData = option.series[1].data;
+	            var date = new Date();
+	            xAxisData.shift();
+	            xAxisData.push(_tools2.default.dateFormat(date, _tools2.default.HHmmss_));
+
+	            var syss = 0,
+	                users = 0;
+	            $(result.ifcCpus).each(function () {
+	                syss += this.sys;
+	                users += this.user;
+	            });
+	            syssData.shift();
+	            syssData.push((syss * 100).toFixed(2));
+	            usersData.shift();
+	            usersData.push((users * 100).toFixed(2));
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
 	        }
 	    }
 	};
 	// </script>
 	// <template>
-	//     <widget title="CPU使用率">
-	//         <div id="cpu-usage-chart" class="chart no-padding"></div>
+	//     <widget :id="id" :title="title" @realtime-monitor="realtimeMonitor" @interval-statistics="intervalStatistics">
 	//     </widget>
 	// </template>
 	// <style>
@@ -13343,7 +13570,7 @@
 /* 98 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"CPU使用率\">\n    <div id=\"cpu-usage-chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+	module.exports = "\n<widget :id=\"id\" :title=\"title\" @realtime-monitor=\"realtimeMonitor\" @interval-statistics=\"intervalStatistics\">\n</widget>\n";
 
 /***/ },
 /* 99 */
@@ -13409,7 +13636,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -13428,11 +13655,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -13444,13 +13671,16 @@
 	    },
 	    data: function data() {
 	        return {
-	            monitorDate: '201609221200-201609221259'
+	            id: 'memory_usage',
+	            title: '内存使用率'
 	        };
 	    },
 	    ready: function ready() {
-	        this.chart = echarts.init(document.getElementById('memory-usage-chart'), _tools2.default.getChartTheme());
+	        this.widget = this.$children[0];
 
-	        this.option = {
+	        this.chart = echarts.init(document.getElementById(this.id + "_chart"), _tools2.default.getChartTheme());
+
+	        var option = {
 	            tooltip: {
 	                trigger: 'axis'
 	            },
@@ -13467,55 +13697,114 @@
 	                type: 'value',
 	                max: 100
 	            }],
-	            series: []
+	            series: [{
+	                name: '系统', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	            }, {
+	                name: '用户', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	            }]
 	        };
 
-	        this.update();
-	        this.fetchData();
-
+	        this.chart.setOption(option);
 	        $(window).bind('resize', this.chart.resize);
+
+	        // 初始状态
+	        this.widget.doChart();
 	    },
 
 	    methods: {
-	        update: function update() {
-	            this.chart.setOption(this.option);
+	        intervalStatistics: function intervalStatistics(monitorDate) {
+	            this.chart.showLoading();
+
+	            // 清除实时监控的定时器
+	            if (this.timer != null) clearInterval(this.timer);
+
+	            this.intervalFetchData(monitorDate);
 	        },
-	        fetchData: function fetchData() {
+	        intervalFetchData: function intervalFetchData(monitorDate) {
 	            var $this = this;
-	            _monitor2.default.getMem(this.monitorDate).then(function (value) {
-	                $this.render(value);
+	            _monitor2.default.getCpus(monitorDate).then(function (value) {
+	                $this.intervalRender(value);
 	            });
 	        },
-	        render: function render(result) {
+	        intervalRender: function intervalRender(result) {
 	            this.chart.hideLoading();
 
 	            var xAxisData = [],
-	                usedData = [],
-	                freeData = [],
-	                yAxisMax = 0;
+	                syssData = [],
+	                usersData = [];
 	            $(result).each(function () {
 	                xAxisData.push(_tools2.default.dateToHHmm(this.date));
-	                usedData.push(_tools2.default.bToGB(this.ifcMem.used).toFixed(1));
-	                freeData.push(_tools2.default.bToGB(this.ifcMem.free).toFixed(1));
-	                yAxisMax = _tools2.default.bToGB(this.ifcMem.total).toFixed(1);
+
+	                var syss = 0,
+	                    users = 0;
+	                $(this.ifcCpus).each(function () {
+	                    syss += this.sys;
+	                    users += this.user;
+	                });
+	                syssData.push((syss * 100).toFixed(2));
+	                usersData.push((users * 100).toFixed(2));
 	            });
 
-	            this.option.xAxis[0].data = xAxisData;
-	            this.option.yAxis[0].max = yAxisMax;
-	            this.option.series = [{
-	                name: '已用', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: usedData
-	            }, {
-	                name: '可用', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: freeData
-	            }];
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	        },
+	        realtimeMonitor: function realtimeMonitor() {
+	            this.chart.showLoading();
 
-	            this.update();
+	            var xAxisData = [],
+	                syssData = [],
+	                usersData = [];
+	            xAxisData.length = 61;
+	            syssData.length = 61;
+	            usersData.length = 61;
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
+	            this.timer = setInterval(this.realtimeFetchData, 1000);
+	        },
+	        realtimeFetchData: function realtimeFetchData() {
+	            var $this = this;
+	            _monitor2.default.getCpus().then(function (value) {
+	                $this.realtimeRender(value);
+	            });
+	        },
+	        realtimeRender: function realtimeRender(result) {
+	            this.chart.hideLoading();
+
+	            var option = this.chart.getOption();
+
+	            var xAxisData = option.xAxis[0].data,
+	                syssData = option.series[0].data,
+	                usersData = option.series[1].data;
+	            var date = new Date();
+	            xAxisData.shift();
+	            xAxisData.push(_tools2.default.dateFormat(date, _tools2.default.HHmmss_));
+
+	            var syss = 0,
+	                users = 0;
+	            $(result.ifcCpus).each(function () {
+	                syss += this.sys;
+	                users += this.user;
+	            });
+	            syssData.shift();
+	            syssData.push((syss * 100).toFixed(2));
+	            usersData.shift();
+	            usersData.push((users * 100).toFixed(2));
+
+	            this.chart.setOption({
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            });
 	        }
 	    }
 	};
 	// </script>
 	// <template>
-	//     <widget title="内存使用率">
-	//         <div id="memory-usage-chart" class="chart no-padding"></div>
+	//     <widget :id="id" :title="title" @realtime-monitor="realtimeMonitor" @interval-statistics="intervalStatistics">
 	//     </widget>
 	// </template>
 	// <style>
@@ -13527,7 +13816,7 @@
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"内存使用率\">\n    <div id=\"memory-usage-chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+	module.exports = "\n<widget :id=\"id\" :title=\"title\" @realtime-monitor=\"realtimeMonitor\" @interval-statistics=\"intervalStatistics\">\n</widget>\n";
 
 /***/ },
 /* 104 */
@@ -13612,11 +13901,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -13796,11 +14085,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -13964,7 +14253,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -13983,19 +14272,129 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(17);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(11);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    data: function data() {
+	        return {
+	            id: 'system_load',
+	            title: '系统负载',
+	            dataApi: _monitor2.default.getCpus
+	        };
+	    },
+	    ready: function ready() {
+	        this.widget = this.$children[0];
+	    },
+
+	    methods: {
+	        // 获取初始 Chart Option
+	        getInitOption: function getInitOption() {
+	            return {
+	                tooltip: {
+	                    trigger: 'axis'
+	                },
+	                grid: {
+	                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+	                },
+	                xAxis: [{
+	                    type: 'category',
+	                    boundaryGap: false,
+	                    data: []
+	                }],
+	                yAxis: [{
+	                    name: '使用率（%）',
+	                    type: 'value',
+	                    max: 100
+	                }],
+	                series: [{
+	                    name: '系统', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	                }, {
+	                    name: '用户', type: 'line', stack: '总量', areaStyle: { normal: {} }, data: []
+	                }]
+	            };
+	        },
+
+	        // 把数据转换为区间统计的ChartOption
+	        getIntervalOption: function getIntervalOption(result) {
+	            var xAxisData = [],
+	                syssData = [],
+	                usersData = [];
+
+	            $(result).each(function () {
+	                xAxisData.push(_tools2.default.dateToHHmm(this.date));
+
+	                var syss = 0,
+	                    users = 0;
+	                $(this.ifcCpus).each(function () {
+	                    syss += this.sys;
+	                    users += this.user;
+	                });
+	                syssData.push((syss * 100).toFixed(2));
+	                usersData.push((users * 100).toFixed(2));
+	            });
+
+	            return {
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            };
+	        },
+
+	        // 把数据转换为实时监控初始的ChartOption
+	        getRealtimeInitOption: function getRealtimeInitOption() {
+	            var xAxisData = [],
+	                syssData = [],
+	                usersData = [];
+	            xAxisData.length = 61;
+	            syssData.length = 61;
+	            usersData.length = 61;
+
+	            return {
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            };
+	        },
+
+	        // 把数据转换为实时监控的ChartOption
+	        getRealtimeOption: function getRealtimeOption(option, result) {
+	            var xAxisData = option.xAxis[0].data,
+	                syssData = option.series[0].data,
+	                usersData = option.series[1].data;
+	            var date = new Date();
+	            xAxisData.shift();
+	            xAxisData.push(_tools2.default.dateFormat(date, _tools2.default.HHmmss_));
+
+	            var syss = 0,
+	                users = 0;
+	            $(result.ifcCpus).each(function () {
+	                syss += this.sys;
+	                users += this.user;
+	            });
+	            syssData.shift();
+	            syssData.push((syss * 100).toFixed(2));
+	            usersData.shift();
+	            usersData.push((users * 100).toFixed(2));
+
+	            return {
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: syssData }, { data: usersData }]
+	            };
+	        }
+	    }
 	};
 	// </script>
 	// <template>
-	//     <widget title="系统负载">
-	//         <div id="chart" class="chart no-padding"></div>
-	//     </widget>
+	//     <widget :id="id" :title="title"></widget>
 	// </template>
 	// <style>
 	//
@@ -14006,7 +14405,7 @@
 /* 118 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"系统负载\">\n    <div id=\"chart\" class=\"chart no-padding\"></div>\n</widget>\n";
+	module.exports = "\n<widget :id=\"id\" :title=\"title\"></widget>\n";
 
 /***/ },
 /* 119 */
@@ -14288,7 +14687,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -14307,30 +14706,66 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(17);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(11);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    data: function data() {
+	        return {
+	            jvmRuntime: {}
+	        };
+	    },
+	    ready: function ready() {
+	        this.fetchData();
+	    },
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getJVMRuntime().then(function (value) {
+	                $this.render(value);
+	            });
+	        },
+	        render: function render(result) {
+
+	            this.jvmRuntime = result.ifcJVMRuntime;
+
+	            //                var spacname=0;
+	            //                var vmname=0;
+	            //                var specvendor=0;
+	            //                var vmversion=0;
+	            //                var bootclasspath=0;
+	            //                var uptime=0;
+	            //                $(result.ifcJVMRuntime).each(function () {
+	            //                    vmname = this.vmName;
+	            //                    spacname=this.specName
+	            //                    specvendor = this.specVendor;
+	            //                    vmversion = this.vmVersion;
+	            //                    bootclasspath=this.bootClassPath;
+	            //                    uptime=this.uptime
+	            //                   var html="<li>PID:<span>"+vmname+"</span></li><li>JAVA虚拟机名称:<span >"+vmname+"</span></li><li>JAVA虚拟机厂商:<span>"+specvendor+"</span></li><li>JAVA虚拟机版本：<span>"+spacname+"</span></li><li>JAVA版本：<span>"+vmversion+"</span></li><li>JAVA Home目录：<span>"+bootclasspath+"</span></li><li>虚拟机启动时间：<span>"+uptime+"</span></li><li>虚拟机运行时长：<span>"+uptime+"</span></li><li>进程CPU时间：<span>"+spacname+"</span></li><li>JIT编译器：<span>"+spacname+"</span></li><li>总编译时间：<span>"+spacname+"</span></li>"
+	            //                    $('#jvm-msg-ul').append(html)
+	            //
+	            //                })
+	        }
+	    }
+
 	};
 	// </script>
 	// <template>
 	//     <widget title="jvm摘要">
 	//         <div class="jvm-msg-box">
 	//             <ul id="jvm-msg-ul">
-	//                 <li>PID:</li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
-	//                 <li></li>
 	//             </ul>
 	//         </div>
 	//     </widget>
@@ -14344,7 +14779,7 @@
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>PID:</li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n            <li></li>\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"jvm摘要\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 134 */
@@ -14645,11 +15080,11 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
-	var _monitor = __webpack_require__(16);
+	var _monitor = __webpack_require__(17);
 
 	var _monitor2 = _interopRequireDefault(_monitor);
 
-	var _tools = __webpack_require__(82);
+	var _tools = __webpack_require__(11);
 
 	var _tools2 = _interopRequireDefault(_tools);
 
@@ -14664,6 +15099,7 @@
 	        this.fetchData();
 	    },
 	    data: function data() {
+
 	        return {
 	            ifcnets: null
 	        };
@@ -14717,7 +15153,7 @@
 /* 149 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-loand></widget-jvm-class-loand>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-message></widget-net-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"通道数\"></widget>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget title=\"吞吐量\"></widget>\n        </article>\n    </div>\n\n</section>\n";
+	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <!--<widget-server-high-load></widget-server-high-load>-->\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <!--<widget-storage-usage></widget-storage-usage>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <!--<widget-cpu-usage></widget-cpu-usage>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <!--<widget-memory-usage></widget-memory-usage>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <!--<widget-swap-usage></widget-swap-usage>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <!--<widget-disk-usage></widget-disk-usage>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <!--<widget-jvm-message></widget-jvm-message>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <!--<widget-jvm-heap-memory></widget-jvm-heap-memory>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <!--<widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <!--<widget-jvm-class-loand></widget-jvm-class-loand>-->\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <!--<widget-jvm-thread></widget-jvm-thread>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <!--<widget-jvm-thread-active></widget-jvm-thread-active>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--<widget title=\"垃圾收集信息（GC）\"></widget>-->\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--<widget-net-message></widget-net-message>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--<widget title=\"通道数\"></widget>-->\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--<widget title=\"吞吐量\"></widget>-->\n        </article>\n    </div>\n</section>\n";
 
 /***/ }
 /******/ ]);

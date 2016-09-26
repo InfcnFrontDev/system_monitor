@@ -37,9 +37,11 @@
             this.fetchData();
         },
         data(){
+
             return{
                 ifcnets:null
             }
+
         },
         methods: {
 

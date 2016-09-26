@@ -1,6 +1,6 @@
 <template>
-    <widget title="磁盘I/O">
-        <div id="disk-io-chart" class="chart no-padding"></div>
+    <widget title="内存使用率">
+        <div id="memory-usage-chart" class="chart no-padding"></div>
     </widget>
 </template>
 <style>
@@ -13,7 +13,7 @@
 
     export default{
         components: {
-            Widget,
+            Widget
         },
         data(){
             return {
@@ -21,7 +21,7 @@
             }
         },
         ready() {
-            this.chart = echarts.init(document.getElementById('disk-io-chart'), Tools.getChartTheme());
+            this.chart = echarts.init(document.getElementById('memory-usage-chart'), Tools.getChartTheme());
 
             this.option = {
                 tooltip: {
@@ -36,8 +36,9 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '速度（%）',
-                    type: 'value'
+                    name: '容量（GB）',
+                    type: 'value',
+                    max: 100
                 }],
                 series: []
             };
@@ -53,32 +54,27 @@
             },
             fetchData() {
                 let $this = this;
-                Monitor.getFileSystems(this.monitorDate).then(function (value) {
+                Monitor.getMem(this.monitorDate).then(function (value) {
                     $this.render(value)
-
                 });
             },
             render(result) {
                 this.chart.hideLoading();
 
-                var xAxisData = [], readBytesData = [], writeBytesData = [];
+                let xAxisData = [], usedData = [], freeData = [], yAxisMax = 0;
                 $(result).each(function () {
                     xAxisData.push(Tools.dateToHHmm(this.date));
-
-                    var readBytes = 0, writeBytes = 0;
-                    $(this.ifcFileSystems).each(function () {
-                        readBytes += this.diskReadBytes;
-                        writeBytes += this.diskWriteBytes;
-                    });
-                    readBytesData.push(Tools.bToGB(readBytes).toFixed(2));
-                    writeBytesData.push(Tools.bToGB(writeBytes).toFixed(2));
+                    usedData.push(Tools.bToGB(this.ifcMem.used).toFixed(1));
+                    freeData.push(Tools.bToGB(this.ifcMem.free).toFixed(1));
+                    yAxisMax =  Tools.bToGB(this.ifcMem.total).toFixed(1);
                 });
 
                 this.option.xAxis[0].data = xAxisData;
+                this.option.yAxis[0].max = yAxisMax;
                 this.option.series = [{
-                    name: '写入速度', type: 'line', data: writeBytesData
+                    name: '已用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: usedData
                 }, {
-                    name: '读取速度', type: 'line', data: readBytesData
+                    name: '可用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: freeData
                 }];
 
                 this.update();
