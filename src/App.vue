@@ -135,9 +135,7 @@
 <script>
 
     import Widget from './components/Widget.vue'
-
     import WidgetServerHighLoad from './components/WidgetServerHighLoad.vue'
-
     import WidgetStorageUsage from './components/WidgetStorageUsage.vue'
     import WidgetCpuUsage from './components/WidgetCpuUsage.vue'
     import WidgetMemoryUsage from './components/WidgetMemoryUsage.vue'
