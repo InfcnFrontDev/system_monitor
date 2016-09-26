@@ -2,30 +2,19 @@
     <widget-base id="net_message" title="jvm摘要">
         <div class="chart no-padding">
             <ul id="net-msg-ul">
-<<<<<<< HEAD
-                <li>适配器名称:{{ifcnets.description}}</li>
-                <li>连接类型:{{ifcnets.description}}</li>
-                <li>MAC地址:{{ifcnets.description}}</li>
-                <li>IPv4地址:{{ifcnets.description}}</li>
-                <li>IPv4子网掩码:{{ifcnets.description}}</li>
-                <li>IPv4默认网关:{{ifcnets.description}}</li>
-                <li>IPv4 DNS:{{ifcnets.description}}</li>
-                <li>IPv6地址:{{ifcnets.description}}</li>
-                <li>IPv6默认网关:{{ifcnets.description}}</li>
-                <li>IPv6 DNS:{{ifcnets.description}}</li>
 
-=======
-                <li>适配器名称:</li>
-                <li>连接类型:</li>
-                <li>MAC地址:</li>
-                <li>IPv4地址:</li>
-                <li>IPv4子网掩码:</li>
-                <li>IPv4默认网关:</li>
-                <li>IPv4 DNS:</li>
-                <li>IPv6地址:</li>
-                <li>IPv6默认网关:</li>
-                <li>IPv6 DNS:</li>
->>>>>>> e333529115474bd7caea56c07772768c9a0c7b09
+                <li>适配器名称:{{obj.description}}</li>
+                <li>连接类型:{{obj.description}}</li>
+                <li>MAC地址:{{obj.description}}</li>
+                <li>IPv4地址:{{obj.description}}</li>
+                <li>IPv4子网掩码:{{obj.description}}</li>
+                <li>IPv4默认网关:{{obj.description}}</li>
+                <li>IPv4 DNS:{{obj.description}}</li>
+                <li>IPv6地址:{{obj.description}}</li>
+                <li>IPv6默认网关:{{obj.description}}</li>
+                <li>IPv6 DNS:{{obj.description}}</li>
+
+
             </ul>
         </div>
     </widget-base>
@@ -60,65 +49,15 @@
         methods: {
             fetchData() {
                 let $this = this;
-
-
                 Monitor. getNets().then(function (value) {
                     $this.render(value)
                 });
             },
             render(result) {
-                this.obj = result.ifcNets;
+                this.obj = result.ifcNets[0];
 
-                //                name	String	网络设备名称
-//                hwaddr	String	网卡的物理地址
-//                type	String	网卡类型
-//                description	String	网卡描述信息
-//                address	String	IP地址
-//                destination	String
-//                broadcast	String	网关广播地址
-//                netmask	String	子网掩码
-//                flags	long
-//                mtu	long	设置网卡的最大传输单元
-//                metric	long
-//                rxBytes	long	接收到的总字节数
-//                rxPackets	long	接收的总包裹数
-//                rxErrors	long	接收到的错误包数
-//                rxDropped	long	接收时丢弃的包数
-//                rxOverruns	long
-//                rxFrame	long
-//                txBytes	long	发送的总字节数
-//                txPackets	long	发送的总包裹数
-//                txErrors	long	发送数据包时的错误数
-//                txDropped	long	发送时丢弃的包数
-//                txOverruns	long
-//                txCollisions	long
-//                txCarrier	long
-//                speed	long
-//                var html='',names = '', types = '',hwaddrs='',addresss='',broadcasts='', netmasks='',descriptions='';
-//                names = $(result.ifcNets)[0].name;
-//                types = $(result.ifcNets)[0].type;
-//                hwaddrs = $(result.ifcNets)[0].hwaddr;
-//                netmasks = $(result.ifcNets)[0].netmask;
-//                broadcasts = $(result.ifcNets)[0].broadcast;
-//                addresss = $(result.ifcNets)[0].address;
-//                descriptions = $(result.ifcNets)[0].description;
-//                addresss = $(result.ifcNets)[0].address;
-//                addresss = $(result.ifcNets)[0].address;
-//                addresss = $(result.ifcNets)[0].address;
-//                html ='<li>适配器名称:'+descriptions+'</li>'+
-//                        '<li>连接类型:'+types+'</li>'+
-//                        '<li>MAC地址:'+hwaddrs+'</li>'+
-//                        '<li>IPv4地址:'+addresss+'</li>'+
-//                        '<li>IPv4子网掩码:'+netmasks+'</li>'+
-//                        '<li>IPv4默认网关:'+names+'</li>'+
-//                        '<li>IPv4 DNS:'+names+'</li>'+
-//                        '<li>IPv6地址:'+broadcasts+'</li>'+
-//                        '<li>IPv6默认网关:'+names+'</li>'+
-//                        '<li>IPv6 DNS:'+names+'</li>';
-//                $('#net-msg-ul').append(html);
 
-//
-//            }
+            }
 
         }
     }

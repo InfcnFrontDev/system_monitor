@@ -2,9 +2,9 @@
     <widget-base id="jvm_message" title="概要信息">
         <div class="chart no-padding">
             <ul id="jvm-msg-ul">
+                <li>PID:{{obj.name}}<span>{{obj.vmName}}</span></li>
                 <li>PID:<span>"+vmname+"</span></li>
-                <li>PID:<span>"+vmname+"</span></li>
-                <li>JAVA虚拟机名称:<span >"+vmname+"</span></li>
+                <li>JAVA虚拟机名称:<span >{{obj.specName}}</span></li>
                 <li>JAVA虚拟机厂商:<span>"+specvendor+"</span></li>
                 <li>JAVA虚拟机版本：<span>"+spacname+"</span></li>
                 <li>JAVA版本：<span>"+vmversion+"</span></li>
@@ -42,6 +42,7 @@
             fetchData() {
                 let $this = this;
                 Monitor. getJVMRuntime().then(function (value) {
+
                     $this.render(value)
                 });
             },
