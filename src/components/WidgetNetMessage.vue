@@ -45,6 +45,7 @@
         ready() {
             this.fetchData()
 
+
         },
         methods: {
             fetchData() {
