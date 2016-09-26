@@ -40,6 +40,22 @@
         },
         ready() {
             this.fetchData()
+
+            // Monitor.getNets()
+
+            // ifcNets:
+            // address: "192.168.10.102", 取IP不等于 0.0.0.0 的那一个。
+
+            // 适配器名称： description: "Intel(R) PRO/1000 MT Network Connection",
+            // 连接类型：type: "Ethernet"
+            // MAC地址：hwaddr: "00:0C:29:69:F4:5B"
+            // IPv4地址：address: "192.168.10.102"
+            // IPv4子网掩码：netmask: "255.255.255.0"
+            // IPv4默认网关：broadcast: "192.168.10.255"
+            // IPv4 DNS：-
+            // IPv6地址：-
+            // IPv6默认网关：-
+            // IPv6 DNS：-
         },
         methods: {
             fetchData() {
