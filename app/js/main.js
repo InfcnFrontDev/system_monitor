@@ -14626,7 +14626,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n#net-msg-ul{\r\n    list-style:none;\r\n    line-height:29px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -14645,36 +14645,65 @@
 
 	var _Widget2 = _interopRequireDefault(_Widget);
 
+	var _monitor = __webpack_require__(16);
+
+	var _monitor2 = _interopRequireDefault(_monitor);
+
+	var _tools = __webpack_require__(82);
+
+	var _tools2 = _interopRequireDefault(_tools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    components: {
 	        Widget: _Widget2.default
 	    },
-	    ready: function ready() {}
+	    ready: function ready() {
+
+	        this.fetchData();
+	    },
+	    data: function data() {
+	        return {
+	            ifcnets: null
+	        };
+	    },
+
+	    methods: {
+	        fetchData: function fetchData() {
+	            var $this = this;
+	            _monitor2.default.getNets().then(function (value) {
+
+	                $this.ifcnets = $(value.ifcNets)[0];
+	            });
+	        }
+	    }
 	};
 	// </script>
 	// <template>
 	//     <widget title="概要信息">
-	//         <div class="jvm-msg-box">
-	//             <ul id="jvm-msg-ul">
-	//                 <li>适配器名称:</li>
-	//                 <li>连接类型:</li>
-	//                 <li>MAC地址:</li>
-	//                 <li>IPv4地址:</li>
-	//                 <li>IPv4子网掩码:</li>
-	//                 <li>IPv4默认网关:</li>
-	//                 <li>IPv4 DNS:</li>
-	//                 <li>IPv6地址:</li>
-	//                 <li>IPv6默认网关:</li>
-	//                 <li>IPv6 DNS:</li>
-	//                 <li></li>
+	//         <div id="storage-usage-chart" class="chart no-padding">
+	//             <ul id="net-msg-ul">
+	//                 <li>适配器名称:{{ifcnets.description}}</li>
+	//                 <li>连接类型:{{ifcnets.description}}</li>
+	//                 <li>MAC地址:{{ifcnets.description}}</li>
+	//                 <li>IPv4地址:{{ifcnets.description}}</li>
+	//                 <li>IPv4子网掩码:{{ifcnets.description}}</li>
+	//                 <li>IPv4默认网关:{{ifcnets.description}}</li>
+	//                 <li>IPv4 DNS:{{ifcnets.description}}</li>
+	//                 <li>IPv6地址:{{ifcnets.description}}</li>
+	//                 <li>IPv6默认网关:{{ifcnets.description}}</li>
+	//                 <li>IPv6 DNS:{{ifcnets.description}}</li>
+	//
 	//             </ul>
 	//         </div>
 	//     </widget>
 	// </template>
 	// <style>
-	//
+	// #net-msg-ul{
+	//     list-style:none;
+	//     line-height:29px;
+	// }
 	// </style>
 	// <script>
 
@@ -14682,7 +14711,7 @@
 /* 148 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<widget title=\"概要信息\">\n    <div class=\"jvm-msg-box\">\n        <ul id=\"jvm-msg-ul\">\n            <li>适配器名称:</li>\n            <li>连接类型:</li>\n            <li>MAC地址:</li>\n            <li>IPv4地址:</li>\n            <li>IPv4子网掩码:</li>\n            <li>IPv4默认网关:</li>\n            <li>IPv4 DNS:</li>\n            <li>IPv6地址:</li>\n            <li>IPv6默认网关:</li>\n            <li>IPv6 DNS:</li>\n            <li></li>\n        </ul>\n    </div>\n</widget>\n";
+	module.exports = "\n<widget title=\"概要信息\">\n    <div id=\"storage-usage-chart\" class=\"chart no-padding\">\n        <ul id=\"net-msg-ul\">\n            <li>适配器名称:{{ifcnets.description}}</li>\n            <li>连接类型:{{ifcnets.description}}</li>\n            <li>MAC地址:{{ifcnets.description}}</li>\n            <li>IPv4地址:{{ifcnets.description}}</li>\n            <li>IPv4子网掩码:{{ifcnets.description}}</li>\n            <li>IPv4默认网关:{{ifcnets.description}}</li>\n            <li>IPv4 DNS:{{ifcnets.description}}</li>\n            <li>IPv6地址:{{ifcnets.description}}</li>\n            <li>IPv6默认网关:{{ifcnets.description}}</li>\n            <li>IPv6 DNS:{{ifcnets.description}}</li>\n\n        </ul>\n    </div>\n</widget>\n";
 
 /***/ },
 /* 149 */
