@@ -2,6 +2,7 @@
     <widget-base id="jvm_message" title="概要信息">
         <div class="chart no-padding">
             <ul id="jvm-msg-ul">
+
                 <li>PID:<span>""</span></li>
                 <li>JAVA虚拟机名称:<span >{{obj.vmName}}</span></li>
                 <li>JAVA虚拟机厂商:<span>{{obj.vmVendor}}</span></li>
@@ -13,6 +14,7 @@
                 <li>进程CPU时间：<span>{{odd.stolen}}</span></li>
                 <li>JIT编译器：<span>{{obt.name}}</span></li>
                 <li>总编译时间：<span>{{obt.totalCompilationTime}}</span></li>
+
             </ul>
         </div>
     </widget-base>
@@ -45,10 +47,12 @@
         methods: {
             fetchData() {
                 let $this = this;
+
                 Monitor. getJVMRuntime().then(function (value1) {
                     Monitor. getJVMCompilation().then(function (value2) {
                             $this.render(value1,value2)
                     });
+
                 });
 
             },
