@@ -101,9 +101,9 @@
                 <!--线程数活动情况-->
                 <widget-jvm-thread-active></widget-jvm-thread-active>
             </article>
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!--<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <widget title="垃圾收集信息（GC）"></widget>
-            </article>
+            </article>-->
         </div>
 
         <!-- row -->

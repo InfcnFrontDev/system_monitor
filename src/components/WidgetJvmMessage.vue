@@ -46,6 +46,16 @@
                 });
             },
             render(result) {
+
+                // vmName: "Java HotSpot(TM) 64-Bit Server VM"//JAVA虚拟机名称
+                // vmName: "Java HotSpot(TM) 64-Bit Server VM",d
+                // vmVendor: "Oracle Corporation",//JAVA虚拟机厂商：
+                // vmVersion: "21.0-b17"//JAVA虚拟机版本
+                // specVersion: "1.7",//JAVA版本
+                // systemProperties/java.home: "C:\Program Files\Java\jdk1.7.0\jre", //JAVA Home目录
+                // startTime: 1474600938821,//虚拟机启动时间
+                // uptime: 254212986,//虚拟机运行时长
+
                 this.obj = result.ifcJVMRuntime;
             }
         }
