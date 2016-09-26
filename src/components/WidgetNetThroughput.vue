@@ -15,8 +15,8 @@
         },
         data(){
             return {
-                id: 'jvm_thread',
-                title: '线程数'
+                id: 'net_throughput',
+                title: '吞吐量'
             }
         },
         ready() {

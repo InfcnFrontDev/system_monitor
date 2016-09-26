@@ -17,16 +17,8 @@
             return {
                 id: 'system_load',
                 title: '系统负载',
-                dataApi: Monitor.getCpus
-            }
-        },
-        ready() {
-            this.widget = this.$children[0];
-        },
-        methods: {
-            // 获取初始 Chart Option
-            getInitOption(){
-                return {
+                dataApi: Monitor.getCpus,
+                option: {
                     tooltip: {
                         trigger: 'axis'
                     },
@@ -43,68 +35,10 @@
                         type: 'value',
                         max: 100
                     }],
-                    series: [{
-                        name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
-                    }, {
-                        name: '用户', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
-                    }]
-                }
-            },
-            // 把数据转换为区间统计的ChartOption
-            getIntervalOption(result) {
-                var xAxisData = [], syssData = [], usersData = [];
-
-                $(result).each(function () {
-                    xAxisData.push(Tools.dateToHHmm(this.date));
-
-                    var syss = 0, users = 0;
-                    $(this.ifcCpus).each(function () {
-                        syss += this.sys;
-                        users += this.user;
-                    });
-                    syssData.push((syss * 100).toFixed(2));
-                    usersData.push((users * 100).toFixed(2));
-                });
-
-                return {
-                    xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
-                }
-            },
-            // 把数据转换为实时监控初始的ChartOption
-            getRealtimeInitOption() {
-                let xAxisData = [], syssData = [], usersData = [];
-                xAxisData.length = 61;
-                syssData.length = 61;
-                usersData.length = 61;
-
-                return {
-                    xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
-                }
-            },
-            // 把数据转换为实时监控的ChartOption
-            getRealtimeOption(option, result) {
-                var xAxisData = option.xAxis[0].data, syssData = option.series[0].data, usersData = option.series[1].data;
-                let date = new Date();
-                xAxisData.shift();
-                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
-
-                var syss = 0, users = 0;
-                $(result.ifcCpus).each(function () {
-                    syss += this.sys;
-                    users += this.user;
-                });
-                syssData.shift();
-                syssData.push((syss * 100).toFixed(2));
-                usersData.shift();
-                usersData.push((users * 100).toFixed(2));
-
-                return {
-                    xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
+                    series: []
                 }
             }
-        }
+        },
+        methods: {}
     }
 </script>

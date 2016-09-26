@@ -1,17 +1,23 @@
 <template>
-    <widget title="非堆内存使用情况">
-        <div id="chart" class="chart no-padding"></div>
-    </widget>
+    <widget :id="id" :title="title"></widget>
 </template>
 <style>
 
 </style>
 <script>
     import Widget from './Widget.vue'
+    import Monitor from '../common/monitor.api'
+    import Tools from '../common/tools'
 
     export default{
         components: {
             Widget
+        },
+        data(){
+            return {
+                id: 'jvm_non_heap_memory',
+                title: '非堆内存使用情况'
+            }
         },
         ready() {
         }

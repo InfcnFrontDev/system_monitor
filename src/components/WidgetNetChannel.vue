@@ -15,8 +15,8 @@
         },
         data(){
             return {
-                id: 'jvm_thread',
-                title: '线程数'
+                id: 'net_channel',
+                title: '通道数'
             }
         },
         ready() {

@@ -15,8 +15,8 @@
         },
         data(){
             return {
-                id: 'jvm_thread',
-                title: '线程数'
+                id: 'jvm_class_load',
+                title: 'jvm类加载'
             }
         },
         ready() {
