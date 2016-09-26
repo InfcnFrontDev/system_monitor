@@ -123,9 +123,9 @@
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget-net-message></widget-net-message>
             </article>
-            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget-net-channel></widget-net-channel>
-            </article>
+            <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">-->
+                <!--<widget-net-channel></widget-net-channel>-->
+            <!--</article>-->
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget-net-throughput></widget-net-throughput>
             </article>
