@@ -20,6 +20,13 @@
             }
         },
         ready() {
+
+//            Monitor.getJVMThread()
+
+            //ifcJVMThread:{
+//            peakThreadCount: 30,
+//            threadCount: 30,
+    //        }
         }
     }
 </script>

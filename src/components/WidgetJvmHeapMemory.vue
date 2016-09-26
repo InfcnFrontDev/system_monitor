@@ -20,6 +20,16 @@
             }
         },
         ready() {
+
+            // Monitor.getJVMMemory()
+
+//            ifcJVMMemory: {
+//                heapMemoryUsage: {
+//                    committed: 569507840,
+//                            init: 536870912,
+//                            max: 1886519296,
+//                            used: 410953568
+//                },
         }
     }
 </script>

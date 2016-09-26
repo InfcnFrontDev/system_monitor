@@ -20,6 +20,19 @@
             }
         },
         ready() {
+
+//            Monitor.getJVMClassLoading()
+
+//            {
+//                date: "201609261011",
+//                        ifcJVMClassLoading: {
+//                isVerbose: false,
+//                        loadedClassCount: 3747,
+//                        totalLoadedClassCount: 3747,
+//                        unloadedClassCount: 0
+//            }
+//            }
+
         }
     }
 </script>
