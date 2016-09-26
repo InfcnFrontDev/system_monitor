@@ -10589,9 +10589,9 @@
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <widget-net-message></widget-net-message>
 	//             </article>
-	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-	//                 <widget-net-channel></widget-net-channel>
-	//             </article>
+	//             <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">-->
+	//                 <!--<widget-net-channel></widget-net-channel>-->
+	//             <!--</article>-->
 	//             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 	//                 <widget-net-throughput></widget-net-throughput>
 	//             </article>
@@ -15772,10 +15772,124 @@
 	    data: function data() {
 	        return {
 	            id: 'net_throughput',
-	            title: '吞吐量'
+	            title: '吞吐量',
+	            dataApi: _monitor2.default.getNets,
+	            option: {
+	                tooltip: {
+	                    trigger: 'axis'
+	                },
+	                grid: {
+	                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+	                },
+	                xAxis: [{
+	                    type: 'category',
+	                    boundaryGap: false,
+	                    data: []
+	                }],
+	                yAxis: [{
+	                    name: '吞吐量(Mbps)',
+	                    type: 'value'
+	                }],
+	                series: [{
+	                    name: '发送', type: 'line', data: []
+	                }, {
+	                    name: '接收', type: 'line', data: []
+	                }]
+	            },
+	            rxBytes0: undefined,
+	            txBytes0: undefined
 	        };
 	    },
-	    ready: function ready() {}
+	    ready: function ready() {},
+
+	    methods: {
+	        // 把数据转换为区间统计的ChartOption
+	        getIntervalOption: function getIntervalOption(result) {
+	            var xAxisData = [],
+	                data1 = [],
+	                data2 = [];
+
+	            var data10 = [],
+	                data20 = [];
+	            $(result).each(function (i) {
+	                xAxisData.push(_tools2.default.dateToHHmm(this.date));
+
+	                var rxBytes = 0,
+	                    txBytes = 0;
+	                $(this.ifcNets).each(function () {
+	                    rxBytes += this.rxBytes;
+	                    txBytes += this.txBytes;
+	                });
+	                data10.push(rxBytes);
+	                data20.push(txBytes);
+
+	                var d1 = 0,
+	                    d2 = 0;
+	                if (i > 0) {
+	                    d1 = data10[i] - data10[i - 1];
+	                    d2 = data20[i] - data20[i - 1];
+	                }
+	                data1.push(_tools2.default.bToMB(d1).toFixed(2));
+	                data2.push(_tools2.default.bToMB(d2).toFixed(2));
+	            });
+
+	            return {
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: data1 }, { data: data2 }]
+	            };
+	        },
+
+	        // 把数据转换为实时监控初始的ChartOption
+	        getRealtimeInitOption: function getRealtimeInitOption() {
+	            var xAxisData = [],
+	                data1 = [],
+	                data2 = [];
+	            xAxisData.length = 61;
+	            data1.length = 61;
+	            data2.length = 61;
+
+	            return {
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: data1 }, { data: data2 }]
+	            };
+	        },
+
+	        // 把数据转换为实时监控的ChartOption
+	        getRealtimeOption: function getRealtimeOption(option, result) {
+	            var xAxisData = option.xAxis[0].data,
+	                data1 = option.series[0].data,
+	                data2 = option.series[1].data;
+	            var date = new Date();
+	            xAxisData.shift();
+	            xAxisData.push(_tools2.default.dateFormat(date, _tools2.default.HHmmss_));
+
+	            var rxBytes = 0,
+	                txBytes = 0;
+	            $(result.ifcNets).each(function () {
+	                rxBytes += this.rxBytes;
+	                txBytes += this.txBytes;
+	            });
+
+	            var d1 = 0,
+	                d2 = 0;
+	            if (this.rxBytes0 != undefined && this.txBytes0 != undefined) {
+	                d1 = rxBytes - this.rxBytes0;
+	                d2 = txBytes - this.txBytes0;
+	            }
+	            this.rxBytes0 = rxBytes;
+	            this.txBytes0 = txBytes;
+
+	            data1.shift();
+	            data1.push(_tools2.default.bToMB(d1).toFixed(2));
+	            data2.shift();
+	            data2.push(_tools2.default.bToMB(d2).toFixed(2));
+
+	            return {
+	                xAxis: [{ data: xAxisData }],
+	                series: [{ data: data1 }, { data: data2 }]
+	            };
+	        }
+	    }
 	};
 	// </script>
 	// <template>
@@ -15796,7 +15910,7 @@
 /* 164 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-load></widget-jvm-class-load>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <!--<article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>-->\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-message></widget-net-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-channel></widget-net-channel>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-throughput></widget-net-throughput>\n        </article>\n    </div>\n</section>\n";
+	module.exports = "\n<!-- widget grid -->\n<section id=\"widget-grid\" class=\" \">\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"running1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-bar-chart-o fa-fw \"></i>\n                运行状态统计\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <!--服务器高负载日分布情况-->\n            <widget-server-high-load></widget-server-high-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"os1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-desktop fa-fw \"></i>\n                操作系统\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--存储使用情况-->\n            <widget-storage-usage></widget-storage-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--CPU使用率-->\n            <widget-cpu-usage></widget-cpu-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--内存使用率-->\n            <widget-memory-usage></widget-memory-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--交换空间（swap）使用率-->\n            <widget-swap-usage></widget-swap-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--磁盘I/O-->\n            <widget-disk-usage></widget-disk-usage>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--系统负载-->\n            <widget-system-load></widget-system-load>\n        </article>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"jvm1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-cogs fa-fw \"></i>\n                JVM\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--jvm摘要-->\n            <widget-jvm-message></widget-jvm-message>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--堆内存使用情况-->\n            <widget-jvm-heap-memory></widget-jvm-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--非堆内存使用情况-->\n            <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--加载类情况-->\n            <widget-jvm-class-load></widget-jvm-class-load>\n        </article>\n\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数情况-->\n            <widget-jvm-thread></widget-jvm-thread>\n        </article>\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <!--线程数活动情况-->\n            <widget-jvm-thread-active></widget-jvm-thread-active>\n        </article>\n        <!--<article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n            <widget title=\"垃圾收集信息（GC）\"></widget>\n        </article>-->\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <div class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\">\n            <h1 id=\"network1\" class=\"page-title txt-color-blueDark\">\n                <i class=\"fa fa-globe fa-fw \"></i>\n                网络\n            </h1>\n        </div>\n        <div class=\"col-xs-12 col-sm-5 col-md-5 col-lg-8\">\n        </div>\n    </div>\n\n    <!-- row -->\n    <div class=\"row\">\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-message></widget-net-message>\n        </article>\n        <!--<article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">-->\n            <!--<widget-net-channel></widget-net-channel>-->\n        <!--</article>-->\n        <article class=\"col-xs-12 col-sm-6 col-md-6 col-lg-4\">\n            <widget-net-throughput></widget-net-throughput>\n        </article>\n    </div>\n</section>\n";
 
 /***/ }
 /******/ ]);
