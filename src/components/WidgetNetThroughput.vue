@@ -68,8 +68,8 @@
                         d1 = data10[i] - data10[i - 1];
                         d2 = data20[i] - data20[i - 1];
                     }
-                    data1.push(Tools.bToMB(d1).toFixed(2));
-                    data2.push(Tools.bToMB(d2).toFixed(2));
+                    data1.push(Tools.byteToMB(d1).toFixed(2));
+                    data2.push(Tools.byteToMB(d2).toFixed(2));
                 });
 
                 return {
@@ -111,9 +111,9 @@
                 this.txBytes0 = txBytes;
 
                 data1.shift();
-                data1.push(Tools.bToMB(d1).toFixed(2));
+                data1.push(Tools.byteToMB(d1).toFixed(2));
                 data2.shift();
-                data2.push(Tools.bToMB(d2).toFixed(2));
+                data2.push(Tools.byteToMB(d2).toFixed(2));
 
                 return {
                     xAxis: [{data: xAxisData}],
