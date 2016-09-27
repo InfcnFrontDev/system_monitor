@@ -70,8 +70,6 @@ export default {
     byteToKB: b=>b / 1024,
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
-    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
-
-    getChartTheme: () => window.localStorage.chartTheme || '',
+    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024
 
 }

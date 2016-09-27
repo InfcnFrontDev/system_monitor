@@ -24,6 +24,7 @@
                     <td class="jvm-td-color">{{obj.javaHome}}</td>
                 </tr>
 
+
                 <tr>
                     <td>虚拟机启动时间：</td>
                     <td class="jvm-td-color">{{obj.startTime}}</td>
@@ -36,6 +37,7 @@
                     <td>进程CPU时间：</td>
                     <td class="jvm-td-color">{{}}</td>
                 </tr>-->
+
 
                 <tr>
                     <td>JIT编译器：</td>

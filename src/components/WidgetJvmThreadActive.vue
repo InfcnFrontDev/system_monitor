@@ -27,7 +27,7 @@
                     },
                     legend: {
                         top: 14,
-                        data:['实时线程', '守护线程']
+                        data:['守护线程', '实时线程']
                     },
                     xAxis: [{
                         type: 'category',
@@ -39,9 +39,9 @@
                         type: 'value'
                     }],
                     series: [{
-                        name: '实时线程', type: 'line', data: []
-                    }, {
                         name: '守护线程', type: 'line', data: []
+                    }, {
+                        name: '实时线程', type: 'line', data: []
                     }]
                 }
             }

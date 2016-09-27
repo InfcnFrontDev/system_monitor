@@ -56,10 +56,10 @@
                 <!--磁盘I/O-->
                 <widget-disk-usage></widget-disk-usage>
             </article>
-            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+            <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">-->
                 <!--系统负载-->
-                <widget-system-load></widget-system-load>
-            </article>
+                <!--<widget-system-load></widget-system-load>-->
+            <!--</article>-->
         </div>
 
         <!-- row -->
