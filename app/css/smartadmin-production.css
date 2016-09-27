@@ -12165,7 +12165,7 @@ aside {
 }
 
 #header>:first-child,aside {
-    width: 550px;
+
 }
 
 .hidden-desktop {
@@ -12453,7 +12453,7 @@ aside {
 
 #logo {
 
-    width: 500px;
+    width: 400px;
     line-height: 49px;
     margin-left: 9px;
 
@@ -15222,7 +15222,11 @@ tr.highlight td,tr.unread.highlight td {
         margin-top: 9px
     }
 }
-
+@media (max-width:500px) {
+    #title11{
+        font-size: 20px;
+    }
+}
 @media (min-width:768px) and (max-width:880px) {
     #main {
         margin-left: 0

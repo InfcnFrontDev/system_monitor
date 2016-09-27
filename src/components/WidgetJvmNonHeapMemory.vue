@@ -25,13 +25,17 @@
                     grid: {
                         top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                     },
+                    legend: {
+                        top: 14,
+                        data:['已提交', '已使用']
+                    },
                     xAxis: [{
                         type: 'category',
                         boundaryGap: false,
                         data: []
                     }],
                     yAxis: [{
-                        name: 'GB',
+                        name: 'MB',
                         type: 'value'
                     }],
                     series: [{
