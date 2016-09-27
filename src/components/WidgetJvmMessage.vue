@@ -1,21 +1,55 @@
 <template>
     <widget-base id="jvm_message" title="概要信息">
         <div class="chart no-padding">
-            <ul id="jvm-msg-ul">
+            <table id="user" class="table table-bordered table-striped" style="clear: both">
+                <tbody>
+                <tr>
+                    <td width="35%">JAVA虚拟机名称:</td>
+                    <td width="65%" class="jvm-td-color">{{obj.vmName}}</td>
+                </tr>
+                <tr>
+                    <td>JAVA虚拟机厂商:</td>
+                    <td class="jvm-td-color">{{obj.vmVendor}}</td>
+                </tr>
+                <tr>
+                    <td>JAVA虚拟机版本：</td>
+                    <td class="jvm-td-color">{{obj.vmVersion}}</td>
+                </tr>
+                <tr>
+                    <td>JAVA版本：</td>
+                    <td class="jvm-td-color">{{obj.specVersion}}</td>
+                </tr>
+                <tr>
+                    <td>JAVA Home目录：</td>
+                    <td class="jvm-td-color">{{obj.javaHome}}</td>
+                </tr>
 
-                <li>PID:<span>""</span></li>
-                <li>JAVA虚拟机名称:<span >{{obj.vmName}}</span></li>
-                <li>JAVA虚拟机厂商:<span>{{obj.vmVendor}}</span></li>
-                <li>JAVA虚拟机版本：<span>{{obj.vmVersion}}</span></li>
-                <li>JAVA版本：<span>{{obj.specVersion}}</span></li>
-                <li>JAVA Home目录：<span>{{obj.systemProperties["java.home"]}}</span></li>
-                <li>虚拟机启动时间：<span>{{c}}</span></li>
-                <li>虚拟机运行时长：<span>{{obj.uptime}}</span></li>
-                <li>进程CPU时间：<span>{{odd.stolen}}</span></li>
-                <li>JIT编译器：<span>{{obt.name}}</span></li>
-                <li>总编译时间：<span>{{obt.totalCompilationTime}}</span></li>
 
-            </ul>
+                <tr>
+                    <td>虚拟机启动时间：</td>
+                    <td class="jvm-td-color">{{obj.startTime}}</td>
+                </tr>
+                <tr>
+                    <td>虚拟机运行时长：</td>
+                    <td class="jvm-td-color">{{obj.uptime}}</td>
+                </tr>
+               <!-- <tr>
+                    <td>进程CPU时间：</td>
+                    <td class="jvm-td-color">{{}}</td>
+                </tr>-->
+
+
+                <tr>
+                    <td>JIT编译器：</td>
+                    <td class="jvm-td-color">{{obj.jitName}}</td>
+                </tr>
+
+                <tr>
+                    <td>总编译时间：</td>
+                    <td class="jvm-td-color">{{obj.totalCompilationTime}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </widget-base>
 </template>
@@ -36,9 +70,7 @@
         },
         data(){
           return {
-              obj:{},
-              obt:{},
-              odd:{}
+              obj:{}
           }
         },
         ready() {
@@ -65,10 +97,20 @@
                 // systemProperties/java.home: "C:\Program Files\Java\jdk1.7.0\jre", //JAVA Home目录
                 // startTime: 1474600938821,//虚拟机启动时间
                 // uptime: 254212986,//虚拟机运行时长
-                this.obj = result1.ifcJVMRuntime;
-                this.obt = result2.ifcJVMCompilation;
-                var sta=this.obj.startTime;
-                var c=Tools.dateFormat(new Date(sta));
+
+                let runtime = result1.ifcJVMRuntime, compilation = result2.ifcJVMCompilation;
+
+                this.obj = {
+                    vmName: runtime.vmName,
+                    vmVendor: runtime.vmVendor,
+                    vmVersion:runtime.vmVersion,
+                    specVersion:runtime.specVersion,
+                    javaHome: runtime.systemProperties["java.home"],
+                    uptime: runtime.uptime,
+                    startTime:runtime.startTime,
+                    jitName: compilation.name,
+                    totalCompilationTime:compilation.totalCompilationTime,
+                };
 
 
 

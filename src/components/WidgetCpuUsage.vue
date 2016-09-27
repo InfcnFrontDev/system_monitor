@@ -25,6 +25,10 @@
                     grid: {
                         top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                     },
+                    legend: {
+                        top: 14,
+                        data:['系统', '用户']
+                    },
                     xAxis: [{
                         type: 'category',
                         boundaryGap: false,

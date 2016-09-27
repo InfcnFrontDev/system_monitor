@@ -1,3 +1,5 @@
+import Storage from './storage'
+
 let $ajax = function (url, success, error) {
     $.ajax({
         url: url,
@@ -13,7 +15,9 @@ let $ajax = function (url, success, error) {
 }
 
 let newPromise = function (type, monitorDate) {
-    let url = Config.apiPath + 'IFCMonitorServlet?type=' + type;
+    let server = Storage.getServer();
+
+    let url = server.apiPath + 'IFCMonitorServlet?type=' + type;
     if (monitorDate != null) {
         url += '&monitorDate=' + monitorDate;
     }else{
