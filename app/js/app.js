@@ -1498,33 +1498,28 @@ $('body')
             });
     });
 
-if ($('nav').length) {
-    // parse url to jquery
-    loadURL('ajax/index.html', $('#content'));
-    // loadURL('ajax/morris.html', $('#content'));
-    // loadURL('ajax/morris.html', $('#content'));
-};
-let $ulBox = $('.dropdown-menu')
-let $liDeaulf=$('.btn-group a:first')
+// Server List
+if($('#server').length){
+    let $server = $('#server');
+    let oldServer = localStorage.server? JSON.parse(localStorage.server): Config.servers[0];
 
-let $ser=Config.servers;
-for (var j = 0; j <$ser.length; j++) {
-    if ($ser[j]) {
-        $ulBox.append('<li><a href="javascript:;">' + $ser[j].name + '</a></li>');
+    $(Config.servers).each(function () {
+        let server = this;
 
-    }
-};
-$ulBox.children("li").on('click',function(){
-    let self=$(this).index()
-    for(var i=0; i<$ser.length; i++){
-        if($ser[i]==$ser[self]){
-            localStorage.servers=JSON.stringify($ser[i])
+        let $li = $('<li><a href="javascript:;">'+ server.name +'</a></li>');
+        if(oldServer.name == server.name){
+            $li.addClass('active');
         }
-    }
+        $li.click(function () {
+            localStorage.server = JSON.stringify(server);
+            location.reload();
+        });
+        $server.find('ul').append($li);
+    });
 
-    location.reload('ajax/index.html');
-    $liDeaulf.html(localStorage.servers.name);
-    /* loadURL('ajax/index.html', $('#content'));*/
-})
-console.log(localStorage.servers)
+    $server.find('a:first').text(oldServer.name);
+    loadURL('ajax/index.html', $('#content'));
+}
+
+
 
