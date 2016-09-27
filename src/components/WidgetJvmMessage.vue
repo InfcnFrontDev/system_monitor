@@ -8,7 +8,6 @@
                 <li>JAVA虚拟机厂商:<span>{{obj.vmVendor}}</span></li>
                 <li>JAVA虚拟机版本：<span>{{obj.vmVersion}}</span></li>
                 <li>JAVA版本：<span>{{obj.specVersion}}</span></li>
-                <li>JAVA Home目录：<span>{{obj.systemProperties["java.home"]}}</span></li>
                 <li>虚拟机启动时间：<span>{{c}}</span></li>
                 <li>虚拟机运行时长：<span>{{obj.uptime}}</span></li>
                 <li>进程CPU时间：<span>{{odd.stolen}}</span></li>

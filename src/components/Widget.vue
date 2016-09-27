@@ -52,6 +52,7 @@
 </style>
 <script>
     import Tools from '../common/tools'
+    import Storage from '../common/storage'
 
     export default{
         props: {
@@ -63,28 +64,12 @@
             return {
                 periods: [
                     {text: '实时监控', color: 'green', value: 'realtime'},
-                    {
-                        text: '最近一小时', color: 'red', value: 'one_hour', monitorDate: function () {
-                        return this.monitorDate(-60 * 60)
-                    }
-                    },
-                    {
-                        text: '最近一天', color: 'orange', value: 'one_day', monitorDate: function () {
-                        return this.monitorDate(-60 * 60 * 24)
-                    }
-                    },
-                    {
-                        text: '最近一周', color: 'pink', value: 'one_week', monitorDate: function () {
-                        return this.monitorDate(-60 * 60 * 24)
-                    }
-                    },
-                    {
-                        text: '最近一个月', color: 'blue', value: 'one_month', monitorDate: function () {
-                        return this.monitorDate(-60 * 60 * 24)
-                    }
-                    }
+                    {text: '最近一小时', color: 'red', value: 'one_hour'},
+                    {text: '最近一天', color: 'orange', value: 'one_day'},
+                    {text: '最近一周', color: 'pink', value: 'one_week'},
+                    {text: '最近一个月', color: 'blue', value: 'one_month'}
                 ],
-                selected: localStorage[this.id + '_period'] || this.defaultPeriod,
+                selected: Storage.get(this.id + '_period') || this.defaultPeriod,
                 option: {
                     tooltip: {
                         trigger: 'axis'
@@ -113,12 +98,12 @@
         },
         watch: {
             selected: function (val, oldVal) {
-                localStorage[this.id + '_period'] = val;
+                Storage.set(this.id + '_period', val);
                 this.doChart();
             }
         },
         ready() {
-            this.chart = echarts.init(document.getElementById(this.id + "_chart"), Tools.getChartTheme());
+            this.chart = echarts.init(document.getElementById(this.id + "_chart"), Storage.getChartTheme());
             $(window).bind('resize', this.chart.resize);
 
             if (this.$parent.option)
@@ -134,12 +119,22 @@
                 if (period.value == 'realtime') {
                     this.realtimeMonitor();
                 } else {
-                    this.intervalStatistics('201609241700-201609241759');
+                    this.intervalStatistics(this.monitorDate(period.value));
                 }
             },
-            monitorDate: function (n) {
+            monitorDate: function (type) {
+                switch (type) {
+                    case 'one_hour':
+                        break;
+                    case 'one_day':
+                        break;
+                    case 'one_week':
+                        break;
+                    case 'one_month':
+                        break;
+                }
                 let date1, date2 = new Date();
-                date1 = Tools.dateAdd(date2, n);
+                date1 = Tools.dateAdd(date2, -60 * 60);
                 return Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
             },
             intervalStatistics(monitorDate){
@@ -157,7 +152,7 @@
                     this.$parent.dataApi(monitorDate).then(function (value) {
                         $this.intervalRender(value)
                     });
-                }else{
+                } else {
                     this.chart.hideLoading();
                 }
             },
@@ -181,7 +176,7 @@
                     this.$parent.dataApi().then(function (value) {
                         $this.realtimeRender(value)
                     });
-                }else{
+                } else {
                     this.chart.hideLoading();
                 }
             },
