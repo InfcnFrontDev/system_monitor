@@ -1290,12 +1290,7 @@ function loadScript(scriptName, callback) {
  */
 
 // fire this on page load if nav exists
-if ($('nav').length) {
-    // parse url to jquery
-    loadURL('ajax/index.html', $('#content'));
-    // loadURL('ajax/morris.html', $('#content'));
-    // loadURL('ajax/morris.html', $('#content'));
-};
+
 
 $('nav a[href!="#"]')
     .click(function (e) {
@@ -1502,3 +1497,34 @@ $('body')
                 }
             });
     });
+
+if ($('nav').length) {
+    // parse url to jquery
+    loadURL('ajax/index.html', $('#content'));
+    // loadURL('ajax/morris.html', $('#content'));
+    // loadURL('ajax/morris.html', $('#content'));
+};
+let $ulBox = $('.dropdown-menu')
+let $liDeaulf=$('.btn-group a:first')
+
+let $ser=Config.servers;
+for (var j = 0; j <$ser.length; j++) {
+    if ($ser[j]) {
+        $ulBox.append('<li><a href="javascript:;">' + $ser[j].name + '</a></li>');
+
+    }
+};
+$ulBox.children("li").on('click',function(){
+    let self=$(this).index()
+    for(var i=0; i<$ser.length; i++){
+        if($ser[i]==$ser[self]){
+            localStorage.servers=JSON.stringify($ser[i])
+        }
+    }
+
+    location.reload('ajax/index.html');
+    $liDeaulf.html(localStorage.servers.name);
+    /* loadURL('ajax/index.html', $('#content'));*/
+})
+console.log(localStorage.servers)
+
