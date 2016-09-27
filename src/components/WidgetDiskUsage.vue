@@ -68,9 +68,9 @@
                     writes += this.diskWriteBytes;
                 });
                 readsData.shift();
-                readsData.push(Tools.bToMB(reads).toFixed(2));
+                readsData.push(Tools.byteToMB(reads).toFixed(2));
                 writesData.shift();
-                writesData.push(Tools.bToMB(writes).toFixed(2));
+                writesData.push(Tools.byteToMB(writes).toFixed(2));
 
                 return {
                     xAxis: [{data: xAxisData}],

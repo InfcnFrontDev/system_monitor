@@ -84,10 +84,10 @@
                 xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
 
                 commitData.shift();
-                commitData.push(Tools.bToGB(obj.committed).toFixed(1));
+                commitData.push(Tools.byteToGB(obj.committed).toFixed(1));
 
                 ursdData.shift();
-                ursdData.push(Tools.bToGB(obj.used).toFixed(1));
+                ursdData.push(Tools.byteToGB(obj.used).toFixed(1));
 
                 return {
                     xAxis: [{data: xAxisData}],

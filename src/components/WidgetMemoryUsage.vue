@@ -53,9 +53,9 @@
                 $(result).each(function () {
                     let obj = this.ifcMem;
                     xAxisData.push(Tools.dateToHHmm(this.date));
-                    usedData.push(Tools.bToGB(obj.used).toFixed(1));
-                    freeData.push(Tools.bToGB(obj.free).toFixed(1));
-                    yAxisMax = Tools.bToGB(obj.total).toFixed(1);
+                    usedData.push(Tools.byteToGB(obj.used).toFixed(1));
+                    freeData.push(Tools.byteToGB(obj.free).toFixed(1));
+                    yAxisMax = Tools.byteToGB(obj.total).toFixed(1);
                 });
 
                 return {
@@ -86,12 +86,12 @@
                 xAxisData.push(Tools.dateFormat(new Date(), Tools.HHmmss_));
 
                 usedData.shift();
-                usedData.push(Tools.bToGB(obj.used).toFixed(1));
+                usedData.push(Tools.byteToGB(obj.used).toFixed(1));
 
                 freeData.shift();
-                freeData.push(Tools.bToGB(obj.free).toFixed(1));
+                freeData.push(Tools.byteToGB(obj.free).toFixed(1));
 
-                yAxisMax = Tools.bToGB(obj.total).toFixed(1);
+                yAxisMax = Tools.byteToGB(obj.total).toFixed(1);
 
                 return {
                     xAxis: [{data: xAxisData}],

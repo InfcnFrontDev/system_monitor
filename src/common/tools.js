@@ -67,10 +67,10 @@ export default {
         return new Date(time);
     },
 
-    bToKB: b=>b / 1024,
-    bToMB: b=>b / 1024 / 1024,
-    bToGB: b=>b / 1024 / 1024 / 1024,
-    bToTB: b=>b / 1024 / 1024 / 1024 / 1024,
+    byteToKB: b=>b / 1024,
+    byteToMB: b=>b / 1024 / 1024,
+    byteToGB: b=>b / 1024 / 1024 / 1024,
+    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
 
     getChartTheme: () => window.localStorage.chartTheme || '',
 
