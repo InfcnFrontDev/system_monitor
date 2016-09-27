@@ -149,16 +149,36 @@
 			<!-- RIBBON -->
 			<div id="ribbon">
 
-				<span class="ribbon-button-alignment">
+				<span class="ribbon-button-alignment" style="display:none">
 					<span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"><i class="fa fa-refresh"></i></span>
 				</span>
 
 				<!-- breadcrumb -->
-				<ol class="breadcrumb">
-					<!-- This is auto generated -->
-				</ol>
+				<!--<ol class="breadcrumb">
+					&lt;!&ndash; This is auto generated &ndash;&gt;
+				</ol>-->
 				<!-- end breadcrumb -->
-
+				<div class="btn-group">
+					<a class="btn btn-warning" href="javascript:void(0);">ESP_Search004：192.168.10.104</a>
+					<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="javascript:void(0);">ESP_Search001：192.168.10.101</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">ESP_Search002：192.168.10.102</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">ESP_Search003：192.168.10.103</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">ESP_Search004：192.168.10.104</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);">ESP_Storage001：192.168.12.113</a>
+						</li>
+					</ul>
+				</div>
 				<!-- You can also add more buttons to the
 					 ribbon for further usability
 
@@ -242,6 +262,9 @@
 
 		<!-- MAIN APP JS FILE -->
 		<script src="js/app.js"></script>
+	<script>
+		pageSetUp();
+	</script>
 
 	</body>
 	

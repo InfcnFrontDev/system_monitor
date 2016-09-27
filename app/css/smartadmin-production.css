@@ -150,7 +150,9 @@
 .widget-toolbar.no-border {
     border-left: 0
 }
-
+.jvm-td-color{
+    color: #639AB1
+}
 .widget-body.no-padding {
     margin: -13px -13px 0
 }
@@ -162,7 +164,9 @@
 .widget-body>table {
     margin-bottom: 0
 }
-
+.btn-group{
+    margin-top: 4px;
+}
 .widget-body.no-padding .alert {
     margin: 0 0 10px;
     padding: 10px;
@@ -15295,9 +15299,9 @@ tr.highlight td,tr.unread.highlight td {
         left: 146px
     }
 
-    .hidden-menu.fixed-ribbon #ribbon {
+   /* .hidden-menu.fixed-ribbon #ribbon {
         left: 220px
-    }
+    }*/
 
     .fixed-ribbon #ribbon {
         left: 0
@@ -15407,7 +15411,7 @@ tr.highlight td,tr.unread.highlight td {
     }
 
     .hidden-menu.fixed-ribbon #ribbon {
-        left: 220px
+        left: 0px
     }
 
     .fixed-ribbon #ribbon {
