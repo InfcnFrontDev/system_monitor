@@ -4,15 +4,15 @@
             <ul id="net-msg-ul">
 
                 <li>适配器名称:{{obj.description}}</li>
-                <li>连接类型:{{obj.description}}</li>
-                <li>MAC地址:{{obj.description}}</li>
-                <li>IPv4地址:{{obj.description}}</li>
-                <li>IPv4子网掩码:{{obj.description}}</li>
-                <li>IPv4默认网关:{{obj.description}}</li>
-                <li>IPv4 DNS:{{obj.description}}</li>
-                <li>IPv6地址:{{obj.description}}</li>
-                <li>IPv6默认网关:{{obj.description}}</li>
-                <li>IPv6 DNS:{{obj.description}}</li>
+                <li>连接类型:{{obj.type}}</li>
+                <li>MAC地址:{{}}</li>
+                <li>IPv4地址:{{obj.address}}</li>
+                <li>IPv4子网掩码:{{obj.netmask}}</li>
+                <li>IPv4默认网关:{{obj.broadcast}}</li>
+                <li>IPv4 DNS:{{}}</li>
+                <li>IPv6地址:{{obj.hwaddr}}</li>
+                <li>IPv6默认网关:--</li>
+                <li>IPv6 DNS:--</li>
 
 
             </ul>
@@ -55,7 +55,13 @@
                 });
             },
             render(result) {
-                this.obj = result.ifcNets[0];
+                let netsData=[];
+               console.log(result.ifcNets);
+                for(let n in result.ifcNets){
+                    if(result.ifcNets[n].address!="0.0.0.0"){
+                        this.obj=result.ifcNets[n];
+                    }
+                }
 
 
             }
