@@ -56,7 +56,7 @@
             },
             render(result) {
                 let netsData=[];
-               console.log(result.ifcNets);
+
                 for(let n in result.ifcNets){
                     if(result.ifcNets[n].address!="0.0.0.0"){
                         this.obj=result.ifcNets[n];

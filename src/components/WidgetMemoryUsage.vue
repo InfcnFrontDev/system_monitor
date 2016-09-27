@@ -50,10 +50,12 @@
             // 把数据转换为区间统计的ChartOption
             getIntervalOption(result) {
                 let xAxisData = [], usedData = [], freeData = [], yAxisMax = 0;
+
                 $(result).each(function () {
                     let obj = this.ifcMem;
                     xAxisData.push(Tools.dateToHHmm(this.date));
                     usedData.push(Tools.byteToGB(obj.used).toFixed(1));
+
                     freeData.push(Tools.byteToGB(obj.free).toFixed(1));
                     yAxisMax = Tools.byteToGB(obj.total).toFixed(1);
                 });
