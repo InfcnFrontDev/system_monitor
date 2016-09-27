@@ -146,5 +146,12 @@ export default {
      */
     getHttpSession(monitorDate) {
         return newPromise('httpsession', monitorDate);
+    },
+
+    /**
+     * 获取cpu,sys
+     */
+    getCpusAndMem(monitorDate) {
+        return newPromise('cpu,sys', monitorDate);
     }
 }

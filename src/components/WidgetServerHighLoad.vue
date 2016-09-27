@@ -1,5 +1,5 @@
 <template>
-    <widget :id="id" :title="title"></widget>
+    <widget :id="id" :title="title" :show-period="false" :show-date="true"></widget>
 </template>
 <style>
 
@@ -23,66 +23,61 @@
                         trigger: 'axis'
                     },
                     grid: {
-                        top: '8%', left: '3%', right: '3%', bottom: '8%', containLabel: true
+                        top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                     },
-                    xAxis:  {
+                    legend: {
+                        top: 14,
+                        data:['CPU', '内存']
+                    },
+                    xAxis: [{
                         type: 'category',
                         boundaryGap: false,
-                        data: ['00:00', '01:15', '02:30', '03:45', '05:00', '06:15', '07:30', '08:45', '10:00', '11:15', '12:30', '13:45', '15:00', '16:15', '17:30', '18:45', '20:00', '21:15', '22:30', '23:45']
-                    },
-                    yAxis: {
+                        data: []
+                    }],
+                    yAxis: [{
+                        name: '使用率（%）',
                         type: 'value',
-                        axisLabel: {
-                            formatter: '{value} W'
-                        }
-                    },
-                    visualMap: {
-                        show: false,
-                        dimension: 0,
-                        pieces: [{
-                            lte: 6,
-                            color: 'green'
-                        }, {
-                            gt: 6,
-                            lte: 8,
-                            color: 'red'
-                        }, {
-                            gt: 8,
-                            lte: 14,
-                            color: 'green'
-                        }, {
-                            gt: 14,
-                            lte: 17,
-                            color: 'red'
-                        }, {
-                            gt: 17,
-                            color: 'green'
-                        }]
-                    },
+                        max: 100
+                    }],
                     series: [
-                        {
-                            name:'用电量',
-                            type:'line',
-                            smooth: true,
-                            data: [300, 280, 250, 260, 270, 300, 550, 500, 400, 390, 380, 390, 400, 500, 600, 750, 800, 700, 600, 400],
-                            markArea: {
-                                data: [ [{
-                                    name: '早高峰',
-                                    xAxis: '07:30'
-                                }, {
-                                    xAxis: '10:00'
-                                }], [{
-                                    name: '晚高峰',
-                                    xAxis: '17:30'
-                                }, {
-                                    xAxis: '21:15'
-                                }] ]
-                            }
-                        }
+                        {name: 'CPU', type: 'line', data: []},
+                        {name: '内存', type: 'line', data: []}
                     ]
                 }
             }
         },
-        methods: {}
+        methods: {
+            dateStatistics(chart, selectedDate){
+                chart.showLoading();
+                Monitor.getCpusAndMem('201609270000-201609270459').then(function(result){
+                    let xAxisData = [], data1 = [], data2 = [];
+
+                    $(result).each(function (i) {
+                        let date = this.date, cpus = this.ifcCpus, mem = this.ifcMem;
+
+                        let date2 = Tools.dateParse(date);
+                        xAxisData.push(Tools.dateFormat(date2, Tools.HHmm_));
+
+                        // CPU使用率
+                        var combined = 0.00;
+                        $(cpus).each(function () {
+                            combined += this.combined;
+                        });
+                        combined = combined*100;
+                        data1.push(combined.toFixed(2));
+
+                        // 内存使用率
+                        let usedPercent = mem.usedPercent;
+                        data2.push(usedPercent.toFixed(2));
+                    });
+
+                    chart.hideLoading();
+                    chart.setOption({
+                        xAxis: [{data: xAxisData}],
+                        series: [{data: data1}, {data: data2}]
+                    });
+                });
+            }
+        }
     }
 </script>

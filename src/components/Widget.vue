@@ -2,7 +2,6 @@
     <div id="{{id}}" class="jarviswidget"
          data-widget-editbutton="false"
          data-widget-sortable="false"
-         data-widget-custombutton="true"
          data-widget-togglebutton="false"
          data-widget-deletebutton="false">
         <!-- widget options:
@@ -21,9 +20,16 @@
         <header>
             <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
             <h2>{{ title }}</h2>
-            <div class="widget-toolbar">
-                <!-- add: non-hidden - to disable auto hide -->
-                <div class="btn-group">
+            <div class="widget-toolbar" v-show="showPeriod||showDate">
+
+                <section class="btn-group" v-show="showDate">
+                    <label class="input state-success"> <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="startdate" id="startdate" class="datepicker"
+                               placeholder="Expected start date" class="hasDatepicker valid" value="{{selectedDate}}">
+                    </label>
+                </section>
+
+                <div class="btn-group" v-show="showPeriod">
                     <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
                         {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
                     </button>
@@ -58,7 +64,9 @@
         props: {
             id: {type: String, default: 'myWidget'},
             title: {type: String, default: 'My Widget'},
-            defaultPeriod: {type: String, default: 'realtime'}
+            defaultPeriod: {type: String, default: 'realtime'},
+            showPeriod: {type: Boolean, default: true},
+            showDate: {type: Boolean, default: false}
         },
         data(){
             return {
@@ -87,7 +95,8 @@
                         max: 100
                     }],
                     series: []
-                }
+                },
+                selectedDate: Tools.dateFormat(new Date(), 'yyyy-MM-dd')
             }
         },
         computed: {
@@ -100,6 +109,9 @@
             selected: function (val, oldVal) {
                 Storage.set(this.id + '_period', val);
                 this.doChart();
+            },
+            selectedDate: function (val, oldVal) {
+                this.dateStatistics()
             }
         },
         ready() {
@@ -112,15 +124,37 @@
             this.chart.setOption(this.option);
 
             this.doChart();
+
+            let $this = this;
+
+            // START AND FINISH DATE
+            $('#' + this.id + ' .datepicker').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function (selectedDate) {
+                    $this.selectedDate = selectedDate;
+                }
+            });
         },
         methods: {
             doChart(){
-                let period = this.selectedPeriod;
-                if (period.value == 'realtime') {
-                    this.realtimeMonitor();
-                } else {
-                    this.intervalStatistics(this.monitorDate(period.value));
+                if (this.showPeriod) {
+                    let period = this.selectedPeriod;
+                    if (period.value == 'realtime') {
+                        this.realtimeMonitor();
+                    } else {
+                        this.intervalStatistics(this.monitorDate(period.value));
+                    }
                 }
+
+                if (this.showDate) {
+                    this.dateStatistics()
+                }
+            },
+            dateStatistics(){
+                if (this.$parent.dateStatistics)
+                    this.$parent.dateStatistics(this.chart, this.selectedDate)
             },
             monitorDate: function (type) {
                 switch (type) {
