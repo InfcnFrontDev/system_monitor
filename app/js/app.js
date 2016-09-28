@@ -1500,13 +1500,13 @@ $('body')
 
 // Server List
 if($('#server').length){
-    let $server = $('#server');
-    let oldServer = localStorage.server? JSON.parse(localStorage.server): Config.servers[0];
+    var $server = $('#server');
+    var oldServer = localStorage.server? JSON.parse(localStorage.server): Config.servers[0];
 
     $(Config.servers).each(function () {
-        let server = this;
+        var server = this;
 
-        let $li = $('<li><a href="javascript:;">'+ server.name +'</a></li>');
+        var $li = $('<li><a href="javascript:;">'+ server.name +'</a></li>');
         if(oldServer.name == server.name){
             $li.addClass('active');
         }
