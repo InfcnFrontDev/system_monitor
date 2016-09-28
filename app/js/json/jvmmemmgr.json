@@ -1,0 +1,1 @@
+{"date":"201609271828","ifcJVMMemoryManagers":[{"memoryPoolNames":["Code Cache"],"name":"CodeCacheManager"},{"memoryPoolNames":["PS Eden Space","PS Survivor Space"],"name":"PS Scavenge"},{"memoryPoolNames":["PS Eden Space","PS Survivor Space","PS Old Gen","PS Perm Gen"],"name":"PS MarkSweep"}]}

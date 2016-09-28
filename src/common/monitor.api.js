@@ -1,12 +1,16 @@
 import Storage from './storage'
 
 let $ajax = function (url, success, error) {
+
     $.ajax({
+
         url: url,
+
         cache: false,
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             success && success(data, textStatus, jqXHR);
+
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             error && error(XMLHttpRequest, textStatus, errorThrown);
@@ -146,5 +150,12 @@ export default {
      */
     getHttpSession(monitorDate) {
         return newPromise('httpsession', monitorDate);
+    },
+
+    /**
+     * 获取cpu,sys
+     */
+    getCpusAndMem(monitorDate) {
+        return newPromise('cpu,sys', monitorDate);
     }
 }
