@@ -1,5 +1,5 @@
 <template>
-    <widget-base id="net_message" title="jvm摘要">
+    <widget-base id="net_message" title="概要信息">
         <div class="chart no-padding">
             <table id="user" class="table table-bordered table-striped" style="clear: both">
                 <tbody>
