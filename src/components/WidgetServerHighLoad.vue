@@ -27,7 +27,7 @@
                     },
                     legend: {
                         top: 14,
-                        data:['CPU', '内存']
+                        data: ['CPU', '内存']
                     },
                     xAxis: [{
                         type: 'category',
@@ -49,7 +49,10 @@
         methods: {
             dateStatistics(chart, selectedDate){
                 chart.showLoading();
-                Monitor.getCpusAndMem('201609270000-201609270459').then(function(result){
+
+                selectedDate = selectedDate.replace(/-/g, '');
+
+                Monitor.getCpusAndMem(selectedDate + '0900-' + selectedDate + '1300').then(function (result) {
                     let xAxisData = [], data1 = [], data2 = [];
 
                     $(result).each(function (i) {
@@ -63,7 +66,7 @@
                         $(cpus).each(function () {
                             combined += this.combined;
                         });
-                        combined = combined*100;
+                        combined = combined * 100;
                         data1.push(combined.toFixed(2));
 
                         // 内存使用率

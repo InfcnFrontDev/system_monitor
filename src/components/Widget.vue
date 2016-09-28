@@ -156,18 +156,23 @@
                     this.$parent.dateStatistics(this.chart, this.selectedDate)
             },
             monitorDate: function (type) {
+                let add = 0;
                 switch (type) {
                     case 'one_hour':
+                        add = -60 * 60;
                         break;
                     case 'one_day':
+                        add = -60 * 60 * 24;
                         break;
                     case 'one_week':
+                        add = -60 * 60;
                         break;
                     case 'one_month':
+                        add = -60 * 60;
                         break;
                 }
                 let date1, date2 = new Date();
-                date1 = Tools.dateAdd(date2, -60 * 60);
+                date1 = Tools.dateAdd(date2, add);
                 return Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
             },
             intervalStatistics(monitorDate){
