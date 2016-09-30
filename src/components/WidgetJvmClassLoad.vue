@@ -1,5 +1,5 @@
 <template>
-    <widget :id="id" :title="title"></widget>
+    <widget :id="id" :title="title" ></widget>
 </template>
 <style>
 

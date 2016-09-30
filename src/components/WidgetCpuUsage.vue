@@ -37,7 +37,6 @@
                     yAxis: [{
                         name: '使用率（%）',
                         type: 'value',
-                        max: 100
                     }],
                     series: [{
                         name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []

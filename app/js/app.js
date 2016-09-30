@@ -110,7 +110,7 @@ $(document)
                     // console.log("Ajax call for activity")
                 }
 
-                if (!$this.next('.ajax-dropdown')
+              /*  if (!$this.next('.ajax-dropdown')
                     .is(':visible')) {
                     $this.next('.ajax-dropdown')
                         .fadeIn(150);
@@ -119,7 +119,7 @@ $(document)
                     $this.next('.ajax-dropdown')
                         .fadeOut(150);
                     $this.removeClass('active')
-                }
+                }*/
 
                 var mytest = $this.next('.ajax-dropdown')
                     .find('.btn-group > .active > input')
@@ -707,11 +707,28 @@ function runAllForms() {
 
                 $this.datepicker({
                     dateFormat: dataDateFormat,
+                    altField: "#alternate",
+                    altFormat: "dd.mm.yy",
                     prevText: '<i class="fa fa-chevron-left"></i>',
                     nextText: '<i class="fa fa-chevron-right"></i>',
                 });
             })
     }
+    //显示到另一个框
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            altField: "#alternate",
+            altFormat: "dd.mm.yy"
+        });
+    });
+    //点击图片显示
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            showOn: "button",
+            buttonImage: "images/calendar.gif",
+            buttonImageOnly: true
+        });
+    });
 
     /*
      * AJAX BUTTON LOADING TEXT
@@ -1498,33 +1515,30 @@ $('body')
             });
     });
 
-if ($('nav').length) {
-    // parse url to jquery
-    loadURL('ajax/index.html', $('#content'));
-    // loadURL('ajax/morris.html', $('#content'));
-    // loadURL('ajax/morris.html', $('#content'));
-};
-let $ulBox = $('.dropdown-menu')
-let $liDeaulf=$('.btn-group a:first')
+// Server List
+if($('#server').length){
+    var $server = $('#server');
+    var oldServer = localStorage.server? JSON.parse(localStorage.server): Config.servers[0];
 
-let $ser=Config.servers;
-for (var j = 0; j <$ser.length; j++) {
-    if ($ser[j]) {
-        $ulBox.append('<li><a href="javascript:;">' + $ser[j].name + '</a></li>');
+    $(Config.servers).each(function () {
+        var server = this;
 
-    }
-};
-$ulBox.children("li").on('click',function(){
-    let self=$(this).index()
-    for(var i=0; i<$ser.length; i++){
-        if($ser[i]==$ser[self]){
-            localStorage.servers=JSON.stringify($ser[i])
+        var $li = $('<li><a href="javascript:;">'+ server.name +'</a></li>');
+        if(oldServer.name == server.name){
+            $li.addClass('active');
         }
-    }
+        $li.click(function () {
+            localStorage.server = JSON.stringify(server);
+            location.reload();
+        });
+        $server.find('ul').append($li);
+    });
 
-    location.reload('ajax/index.html');
-    $liDeaulf.html(localStorage.servers.name);
-    /* loadURL('ajax/index.html', $('#content'));*/
-})
-console.log(localStorage.servers)
+    $server.find('a:first').text(oldServer.name);
+    loadURL('ajax/index.html', $('#content'));
+}
+
+
+
+
 

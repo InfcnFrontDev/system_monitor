@@ -20,24 +20,34 @@
         <header>
             <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
             <h2>{{ title }}</h2>
-            <div class="widget-toolbar" v-show="showPeriod||showDate">
-
-                <section class="btn-group" v-show="showDate">
-                    <label class="input state-success"> <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" name="startdate" id="startdate" class="datepicker"
-                               placeholder="Expected start date" class="hasDatepicker valid" value="{{selectedDate}}">
+            <div class="widget-toolbar" >
+                <section class="btn-group col col-6" v-show="showDate">
+                    <label class="input state-success"><span class="rili-line">|</span> <i class="icon-append fa fa-calendar rili"></i>
+                        <input type="text" name="startdate1" class="datepicker"  class="hasDatepicker valid" value="{{selectedDate}}">
                     </label>
                 </section>
 
                 <div class="btn-group" v-show="showPeriod">
-                    <button class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
-                        {{selectedPeriod.text}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
+                    <button id="alternate1" class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
+                        {{selectedPeriod.text||selectedDate}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu pull-right js-status-update">
                         <li v-for="item in periods" :class="{active: item.value == selected}">
                             <a href="javascript:void(0);" @click="selected = item.value">
                                 <i class="fa fa-circle txt-color-{{item.color}}"></i> {{item.text}}
                             </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" @click="update">
+                            <i class="fa fa-circle txt-color-pink"></i>
+
+                                <section class="btn-group col col-6" v-show="showDate2">
+                                    <label class="input state-success">
+                                        <input type="text" name="startdate" class="datepicker" class="hasDatepicker valid" value="{{liText}}">
+                                    </label>
+                                </section>
+
+                        </a>
                         </li>
                     </ul>
                 </div>
@@ -54,7 +64,9 @@
     </div>
 </template>
 <style>
+.ui-datepicker-header{
 
+}
 </style>
 <script>
     import Tools from '../common/tools'
@@ -66,16 +78,18 @@
             title: {type: String, default: 'My Widget'},
             defaultPeriod: {type: String, default: 'realtime'},
             showPeriod: {type: Boolean, default: true},
-            showDate: {type: Boolean, default: false}
+            showDate: {type: Boolean, default:false},
+            showDate2: {type: Boolean, default: true}
         },
         data(){
             return {
+                liText:"自定义",
                 periods: [
                     {text: '实时监控', color: 'green', value: 'realtime'},
                     {text: '最近一小时', color: 'red', value: 'one_hour'},
                     {text: '最近一天', color: 'orange', value: 'one_day'},
-                    {text: '最近一周', color: 'pink', value: 'one_week'},
-                    {text: '最近一个月', color: 'blue', value: 'one_month'}
+                    /*{text: '自定义', color: 'pink', value: 'one_week'},*/
+                   /* {text: '最近一个月', color: 'blue', value: 'one_month'}*/
                 ],
                 selected: Storage.get(this.id + '_period') || this.defaultPeriod,
                 option: {
@@ -129,6 +143,17 @@
 
             // START AND FINISH DATE
             $('#' + this.id + ' .datepicker').datepicker({
+                altField: "#alternate1",
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function (selectedDate) {
+                    $this.selectedDate = selectedDate;
+                }
+            });
+            //
+            $('#' + this.id + ' .datepicker').datepicker({
+                altField: "#alternate",
                 dateFormat: 'yy-mm-dd',
                 prevText: '<i class="fa fa-chevron-left"></i>',
                 nextText: '<i class="fa fa-chevron-right"></i>',
@@ -157,18 +182,23 @@
                     this.$parent.dateStatistics(this.chart, this.selectedDate)
             },
             monitorDate: function (type) {
+                let add = 0;
                 switch (type) {
                     case 'one_hour':
+                        add = -60 * 60;
                         break;
                     case 'one_day':
+                        add = -60 * 60 * 24;
                         break;
                     case 'one_week':
+                        add = -60 * 60;
                         break;
                     case 'one_month':
+                        add = -60 * 60;
                         break;
                 }
                 let date1, date2 = new Date();
-                date1 = Tools.dateAdd(date2, -60 * 60);
+                date1 = Tools.dateAdd(date2, add);
                 return Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
             },
             intervalStatistics(monitorDate){
@@ -219,6 +249,9 @@
 
                 if (this.$parent.getRealtimeOption)
                     this.chart.setOption(this.$parent.getRealtimeOption(this.chart.getOption(), result));
+            },
+            update(){
+                $('#ui-datepicker-div').css("display","block")
             }
         }
     }

@@ -1,7 +1,6 @@
 <template>
     <!-- widget grid -->
     <section id="widget-grid" class=" ">
-
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -13,7 +12,6 @@
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
             </div>
         </div>
-
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -21,7 +19,6 @@
                 <widget-server-high-load></widget-server-high-load>
             </article>
         </div>
-
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -33,7 +30,6 @@
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
             </div>
         </div>
-
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
@@ -60,12 +56,7 @@
                 <!--磁盘I/O-->
                 <widget-disk-usage></widget-disk-usage>
             </article>
-            <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">-->
-                <!--系统负载-->
-                <!--<widget-system-load></widget-system-load>-->
-            <!--</article>-->
         </div>
-
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -77,7 +68,6 @@
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
             </div>
         </div>
-
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
@@ -105,11 +95,7 @@
                 <!--线程数活动情况-->
                 <widget-jvm-thread-active></widget-jvm-thread-active>
             </article>
-            <!--<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <widget title="垃圾收集信息（GC）"></widget>
-            </article>-->
         </div>
-
         <!-- row -->
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
@@ -121,15 +107,11 @@
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
             </div>
         </div>
-
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget-net-message></widget-net-message>
             </article>
-            <!--<article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">-->
-                <!--<widget-net-channel></widget-net-channel>-->
-            <!--</article>-->
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <widget-net-throughput></widget-net-throughput>
             </article>

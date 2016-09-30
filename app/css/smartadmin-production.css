@@ -926,9 +926,28 @@ nav{
 
 .widget-toolbar input[type=text] {
     height: 28px!important;
-    margin-top: 2px
+    margin-top: 5px;
+    padding-left: 8px;
+    border:white;
+    border-radius: 4px;
+    background:#639ab1;
+    color:white;
 }
-
+.widget-toolbar input[type=text]:hover {
+    border-color: #2a6395;
+}
+.rili{
+    position: absolute;
+    right:5px;
+    top:12px;
+    color:white;
+}
+.rili-line{
+    position: absolute;
+    right:22px;
+    top:3px;
+    color:white;
+}
 .widget-toolbar .smart-form .icon-append,.widget-toolbar .smart-form .icon-prepend,.widget-toolbar.smart-form .icon-append,.widget-toolbar.smart-form .icon-prepend {
     top: 3px!important
 }
@@ -9339,7 +9358,7 @@ body .ui-tooltip {
 .ui-datepicker {
     width: 17em;
     padding: .2em .2em 0;
-    display: none
+    display: block
 }
 
 .ui-datepicker .ui-datepicker-header {
@@ -11335,7 +11354,7 @@ h6 {
 
 .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch:before {
     content: "\f00c";
-    color: #738FB9
+    color: #38FB9
 }
 
 .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
