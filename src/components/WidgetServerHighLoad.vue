@@ -37,7 +37,6 @@
                     yAxis: [{
                         name: '使用率（%）',
                         type: 'value',
-                        max: 100
                     }],
                     series: [
                         {name: 'CPU', type: 'line', data: []},

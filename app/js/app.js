@@ -110,7 +110,7 @@ $(document)
                     // console.log("Ajax call for activity")
                 }
 
-                if (!$this.next('.ajax-dropdown')
+              /*  if (!$this.next('.ajax-dropdown')
                     .is(':visible')) {
                     $this.next('.ajax-dropdown')
                         .fadeIn(150);
@@ -119,7 +119,7 @@ $(document)
                     $this.next('.ajax-dropdown')
                         .fadeOut(150);
                     $this.removeClass('active')
-                }
+                }*/
 
                 var mytest = $this.next('.ajax-dropdown')
                     .find('.btn-group > .active > input')
@@ -707,11 +707,28 @@ function runAllForms() {
 
                 $this.datepicker({
                     dateFormat: dataDateFormat,
+                    altField: "#alternate",
+                    altFormat: "dd.mm.yy",
                     prevText: '<i class="fa fa-chevron-left"></i>',
                     nextText: '<i class="fa fa-chevron-right"></i>',
                 });
             })
     }
+    //显示到另一个框
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            altField: "#alternate",
+            altFormat: "dd.mm.yy"
+        });
+    });
+    //点击图片显示
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            showOn: "button",
+            buttonImage: "images/calendar.gif",
+            buttonImageOnly: true
+        });
+    });
 
     /*
      * AJAX BUTTON LOADING TEXT
@@ -1520,6 +1537,8 @@ if($('#server').length){
     $server.find('a:first').text(oldServer.name);
     loadURL('ajax/index.html', $('#content'));
 }
+
+
 
 
 

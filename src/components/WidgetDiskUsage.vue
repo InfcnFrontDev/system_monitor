@@ -27,7 +27,7 @@
                     },
                     legend: {
                         top: 14,
-                        data:['读取速度', '写入速度']
+                        data:['写入速度', '读取速度']
                     },
                     xAxis: [{
                         type: 'category',
@@ -39,9 +39,9 @@
                         type: 'value'
                     }],
                     series: [{
-                        name: '读取速度', type: 'line', data: []
-                    }, {
                         name: '写入速度', type: 'line', data: []
+                    }, {
+                        name: '读取速度', type: 'line', data: []
                     }]
                 }
             }

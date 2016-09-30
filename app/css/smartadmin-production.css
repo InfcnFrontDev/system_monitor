@@ -9358,7 +9358,7 @@ body .ui-tooltip {
 .ui-datepicker {
     width: 17em;
     padding: .2em .2em 0;
-    display: none
+    display: block
 }
 
 .ui-datepicker .ui-datepicker-header {
@@ -11354,7 +11354,7 @@ h6 {
 
 .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch:before {
     content: "\f00c";
-    color: #738FB9
+    color: #38FB9
 }
 
 .onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
