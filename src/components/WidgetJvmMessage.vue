@@ -4,46 +4,48 @@
             <table id="user" class="table table-bordered table-striped" style="clear: both">
                 <tbody>
                 <tr>
-                    <td width="30%">虚拟机名称:</td>
-                    <td width="70%" class="jvm-td-color">{{obj.vmName}}</td>
+                    <td width="35%">JAVA虚拟机名称：</td>
+                    <td width="65%" class="jvm-td-color">{{obj.vmName}}</td>
                 </tr>
                 <tr>
-                    <td>虚拟机厂商:</td>
+                    <td>JAVA虚拟机厂商：</td>
                     <td class="jvm-td-color">{{obj.vmVendor}}</td>
                 </tr>
                 <tr>
-                    <td>虚拟机版本:</td>
+                    <td>JAVA虚拟机版本：</td>
                     <td class="jvm-td-color">{{obj.vmVersion}}</td>
                 </tr>
                 <tr>
-                    <td>JAVA版本:</td>
+                    <td>JAVA版本：</td>
                     <td class="jvm-td-color">{{obj.specVersion}}</td>
                 </tr>
                 <tr>
-                    <td>JAVA Home:</td>
+                    <td>JAVA Home目录：</td>
                     <td class="jvm-td-color">{{obj.javaHome}}</td>
                 </tr>
 
 
                 <tr>
-                    <td>虚拟机启动时间:</td>
+                    <td>虚拟机启动时间：</td>
                     <td class="jvm-td-color">{{obj.startTime}}</td>
                 </tr>
                 <tr>
-                    <td>虚拟机运行时长:</td>
+                    <td>虚拟机运行时长：</td>
                     <td class="jvm-td-color">{{obj.uptime}}</td>
                 </tr>
-                <tr>
-                    <td>进程CPU时间:</td>
+               <!-- <tr>
+                    <td>进程CPU时间：</td>
                     <td class="jvm-td-color">{{}}</td>
-                </tr>
+                </tr>-->
+
+
                 <tr>
-                    <td>JIT编译器:</td>
+                    <td>JIT编译器：</td>
                     <td class="jvm-td-color">{{obj.jitName}}</td>
                 </tr>
 
                 <tr>
-                    <td>总编译时间:</td>
+                    <td>总编译时间：</td>
                     <td class="jvm-td-color">{{obj.totalCompilationTime}}</td>
                 </tr>
                 </tbody>
