@@ -4,11 +4,11 @@
             <table id="user" class="table table-bordered table-striped" style="clear: both">
                 <tbody>
                 <tr>
-                    <td width="35%">JAVA虚拟机名称:</td>
+                    <td width="35%">JAVA虚拟机名称：</td>
                     <td width="65%" class="jvm-td-color">{{obj.vmName}}</td>
                 </tr>
                 <tr>
-                    <td>JAVA虚拟机厂商:</td>
+                    <td>JAVA虚拟机厂商：</td>
                     <td class="jvm-td-color">{{obj.vmVendor}}</td>
                 </tr>
                 <tr>

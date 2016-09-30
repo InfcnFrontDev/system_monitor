@@ -36,6 +36,10 @@
 
         <!-- row -->
         <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                <!--服务器信息-->
+                <widget-server-message></widget-server-message>
+            </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--存储使用情况-->
                 <widget-storage-usage></widget-storage-usage>
@@ -142,6 +146,7 @@
     import WidgetSwapUsage from './components/WidgetSwapUsage.vue'
     import WidgetDiskUsage from './components/WidgetDiskUsage.vue'
     import WidgetSystemLoad from './components/WidgetSystemLoad.vue'
+    import WidgetServerMessage from './components/WidgetServerMessage.vue'
 
     import WidgetJvmClassLoad from  './components/WidgetJvmClassLoad.vue'
     import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
@@ -166,7 +171,7 @@
             WidgetSwapUsage,
             WidgetDiskUsage,
             WidgetSystemLoad,
-
+            WidgetServerMessage,
             WidgetJvmMessage,
             WidgetJvmHeapMemory,
             WidgetJvmNonHeapMemory,

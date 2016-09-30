@@ -4,46 +4,46 @@
             <table id="user" class="table table-bordered table-striped" style="clear: both">
                 <tbody>
                 <tr>
-                    <td width="35%">适配器名称:</td>
+                    <td width="35%">适配器名称：</td>
                     <td width="65%" class="jvm-td-color">{{obj.description}}</td>
                 </tr>
                 <tr>
-                    <td>连接类型:</td>
+                    <td>连接类型：</td>
                     <td class="jvm-td-color">{{obj.type}}</td>
                 </tr>
                 <tr>
-                    <td>MAC地址:</td>
+                    <td>MAC地址：</td>
                     <td class="jvm-td-color">{{}}</td>
                 </tr>
                 <tr>
-                    <td>IPv4地址:</td>
+                    <td>IPv4地址：</td>
                     <td class="jvm-td-color">{{obj.address}}</td>
                 </tr>
                 <tr>
-                    <td>IPv4子网掩码:</td>
+                    <td>IPv4子网掩码：</td>
                     <td class="jvm-td-color">{{obj.netmask}}</td>
                 </tr>
 
                 <tr>
-                    <td>IPv4默认网关:</td>
+                    <td>IPv4默认网关：</td>
                     <td class="jvm-td-color">{{obj.broadcast}}</td>
                 </tr>
                 <tr>
-                    <td>IPv4 DNS:</td>
+                    <td>IPv4 DNS：</td>
                     <td class="jvm-td-color">{{}}</td>
                 </tr>
                 <tr>
-                    <td>IPv6地址:</td>
+                    <td>IPv6地址：</td>
                     <td class="jvm-td-color">{{obj.hwaddr}}</td>
                 </tr>
 
                 <tr>
-                    <td>IPv6默认网关:--</td>
+                    <td>IPv6默认网关：</td>
                     <td class="jvm-td-color">{{}}</td>
                 </tr>
 
                 <tr>
-                    <td>IPv6 DNS:--</td>
+                    <td>IPv6 DNS：</td>
                     <td class="jvm-td-color">{{}}</td>
                 </tr>
                 </tbody>
