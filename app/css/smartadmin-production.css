@@ -140,7 +140,8 @@
 .jarviswidget .widget-body {
     min-height: 100px;
     position: relative;
-    padding-bottom: 13px
+    padding-bottom: 13px;
+    overflow: hidden;
 }
 
 .jarviswidget .widget-body.widget-hide-overflow {
@@ -11052,7 +11053,8 @@ label {
 #content {
     padding: 10px 14px;
     position: relative;
-    left: 0
+    left: 0;
+    overflow: hidden;
 }
 
 body.container {
@@ -18263,4 +18265,25 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 
 .cursor-pointer {
     cursor: pointer
+}
+.hidden-box{
+    width:95%;
+    height:36px;
+    position: absolute;
+    top:300px;
+    z-index: 1111;
+    background: transparent;
+}
+.box-opa{
+    width:95%;
+    height:100px;
+    background: rgba(33,33,33,.7);
+    position: absolute;
+    top:236px;
+    display:none;
+    z-index: 1000;
+    color: white;
+    opacity: 0;
+    transition: all .5s;
+
 }

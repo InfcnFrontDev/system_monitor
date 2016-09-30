@@ -1,5 +1,9 @@
 <template>
+
+    <!--悬浮信息-->
+    <div class="box-opa col-xs-12 col-sm-6 col-md-6 col-lg-12">eweewewe</div>
     <widget :id="id" :title="title"></widget>
+
 </template>
 <style>
 
@@ -12,6 +16,13 @@
     export default{
         components: {
             Widget,
+        },
+        ready(){
+            $('.hidden-box').hover(function(){
+                $('.box-opa').css({'opacity':'0.7','display':'block', 'transition': 'all .5s'})
+            },function(){
+                $('.box-opa').css({'opacity':'0','display':'none'})
+            })
         },
         data(){
             return {
