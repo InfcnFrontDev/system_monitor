@@ -4,28 +4,15 @@
          data-widget-sortable="false"
          data-widget-togglebutton="false"
          data-widget-deletebutton="false">
-        <!-- widget options:
-					usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
-
-					data-widget-colorbutton="false"
-					data-widget-editbutton="false"
-					data-widget-togglebutton="false"
-
-					data-widget-fullscreenbutton="false"
-					data-widget-custombutton="false"
-					data-widget-collapsed="true"
-					data-widget-sortable="false"
-
-				-->
         <header>
             <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
             <h2>{{ title }}</h2>
             <div class="widget-toolbar" >
-                <section class="btn-group col col-6" v-show="showDate">
-                    <label class="input state-success"><span class="rili-line">|</span> <i class="icon-append fa fa-calendar rili"></i>
-                        <input type="text" name="startdate1" class="datepicker"  class="hasDatepicker valid" value="{{selectedDate}}">
+                <div class="btn-group smart-form" v-show="showDate">
+                    <label class="input"><span class="rili-line">|</span> <i class="icon-append fa fa-calendar rili"></i>
+                        <input type="text" name="startdate1" class="datepicker"  class="hasDatepicker valid" value="{{selectedDate}}" style="margin-top: 2px;width:160px;">
                     </label>
-                </section>
+                </div>
 
                 <div class="btn-group" v-show="showPeriod">
                     <button id="alternate1" class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">

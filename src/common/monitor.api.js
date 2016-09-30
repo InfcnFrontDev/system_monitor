@@ -1,11 +1,8 @@
 import Storage from './storage'
 
 let $ajax = function (url, success, error) {
-
     $.ajax({
-
         url: url,
-
         cache: false,
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
@@ -18,12 +15,15 @@ let $ajax = function (url, success, error) {
     });
 }
 
-let newPromise = function (type, monitorDate) {
+let newPromise = function (type, monitorDate, interval) {
     let server = Storage.getServer();
 
     let url = server.apiPath + 'IFCMonitorServlet?type=' + type;
     if (monitorDate != null) {
         url += '&monitorDate=' + monitorDate;
+        if(interval != null){
+            url += '&interval=' + interval;
+        }
     }else{
         url += '&realtime=true';
     }
@@ -40,122 +40,122 @@ export default {
     /**
      * 获取全部数据
      */
-    getAll(monitorDate) {
-        return newPromise('all', monitorDate);
+    getAll(monitorDate, interval) {
+        return newPromise('all', monitorDate, interval);
     },
     /**
      * 获取CPU信息
      */
-    getCpus(monitorDate) {
-        return newPromise('cpu', monitorDate);
+    getCpus(monitorDate, interval) {
+        return newPromise('cpu', monitorDate, interval);
     },
     /**
      * 获取系统物理内存信息
      */
-    getMem(monitorDate) {
-        return newPromise('sys', monitorDate);
+    getMem(monitorDate, interval) {
+        return newPromise('sys', monitorDate, interval);
     },
     /**
      * 获取操作系统信息
      */
-    getOperatingSystem(monitorDate) {
-        return newPromise('os', monitorDate);
+    getOperatingSystem(monitorDate, interval) {
+        return newPromise('os', monitorDate, interval);
     },
     /**
      * 获取系统用户信息
      */
-    getUsers(monitorDate) {
-        return newPromise('user', monitorDate);
+    getUsers(monitorDate, interval) {
+        return newPromise('user', monitorDate, interval);
     },
     /**
      * 获取文件系统信息
      */
-    getFileSystems(monitorDate) {
-        return newPromise('fs', monitorDate);
+    getFileSystems(monitorDate, interval) {
+        return newPromise('fs', monitorDate, interval);
     },
     /**
      * 获取网络信息
      */
-    getNets(monitorDate) {
-        return newPromise('net', monitorDate);
+    getNets(monitorDate, interval) {
+        return newPromise('net', monitorDate, interval);
     },
     /**
      * 获取目录信息
      */
-    getDirectorys(monitorDate) {
-        return newPromise('directory', monitorDate);
+    getDirectorys(monitorDate, interval) {
+        return newPromise('directory', monitorDate, interval);
     },
     /**
      * 获取JVM类加载信息
      */
-    getJVMClassLoading(monitorDate) {
-        return newPromise('jvmclassloading', monitorDate);
+    getJVMClassLoading(monitorDate, interval) {
+        return newPromise('jvmclassloading', monitorDate, interval);
     },
     /**
      * 获取JVM类编译信息
      */
-    getJVMCompilation(monitorDate) {
-        return newPromise('jvmcompilation', monitorDate);
+    getJVMCompilation(monitorDate, interval) {
+        return newPromise('jvmcompilation', monitorDate, interval);
     },
     /**
      * 获取JVM垃圾收集信息
      */
-    getJVMGarbageCollectors(monitorDate) {
-        return newPromise('jvmgc', monitorDate);
+    getJVMGarbageCollectors(monitorDate, interval) {
+        return newPromise('jvmgc', monitorDate, interval);
     },
     /**
      * 获取JVM内存信息
      */
-    getJVMMemoryManagers(monitorDate) {
-        return newPromise('jvmmemmgr', monitorDate);
+    getJVMMemoryManagers(monitorDate, interval) {
+        return newPromise('jvmmemmgr', monitorDate, interval);
     },
     /**
      * 获取内存管理器信息
      */
-    getJVMMemoryPool(monitorDate) {
-        return newPromise('jvmmempool', monitorDate);
+    getJVMMemoryPool(monitorDate, interval) {
+        return newPromise('jvmmempool', monitorDate, interval);
     },
     /**
      * 获取JVM内存池信息
      */
-    getJVMMemory(monitorDate) {
-        return newPromise('jvmmem', monitorDate);
+    getJVMMemory(monitorDate, interval) {
+        return newPromise('jvmmem', monitorDate, interval);
     },
     /**
      * 获取JVM所在操作系统信息
      */
-    getJVMOperatingSystem(monitorDate) {
-        return newPromise('jvmos', monitorDate);
+    getJVMOperatingSystem(monitorDate, interval) {
+        return newPromise('jvmos', monitorDate, interval);
     },
     /**
      * 获取JVM运行时参数及其它信息
      */
-    getJVMRuntime(monitorDate) {
-        return newPromise('jvmrt', monitorDate);
+    getJVMRuntime(monitorDate, interval) {
+        return newPromise('jvmrt', monitorDate, interval);
     },
     /**
      * 获取JVM线程相关信息
      */
-    getJVMThread(monitorDate) {
-        return newPromise('jvmthd', monitorDate);
+    getJVMThread(monitorDate, interval) {
+        return newPromise('jvmthd', monitorDate, interval);
     },
     /**
      * 获取Http Request
      */
-    getHttpRequest(monitorDate) {
-        return newPromise('httprequest', monitorDate);
+    getHttpRequest(monitorDate, interval) {
+        return newPromise('httprequest', monitorDate, interval);
     },
     /**
      * 获取Http Session
      */
-    getHttpSession(monitorDate) {
-        return newPromise('httpsession', monitorDate);
+    getHttpSession(monitorDate, interval) {
+        return newPromise('httpsession', monitorDate, interval);
     },
 
     /**
      * 获取cpu,sys
      */
-    getCpusAndMem(monitorDate) {
-        return newPromise('cpu,sys', monitorDate);
+    getCpuAndMemAndLoad(monitorDate, interval) {
+        return newPromise('cpu,sys,jvmos', monitorDate, interval);
     }
 }

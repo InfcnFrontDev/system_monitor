@@ -27,7 +27,7 @@
                     },
                     legend: {
                         top: 14,
-                        data: ['CPU', '内存']
+                        data: ['CPU', '内存', '负载']
                     },
                     xAxis: [{
                         type: 'category',
@@ -40,22 +40,23 @@
                     }],
                     series: [
                         {name: 'CPU', type: 'line', data: []},
-                        {name: '内存', type: 'line', data: []}
+                        {name: '内存', type: 'line', data: []},
+                        {name: '负载', type: 'line', data: []}
                     ]
                 }
             }
         },
         methods: {
+            // 日期统计
             dateStatistics(chart, selectedDate){
                 chart.showLoading();
 
                 selectedDate = selectedDate.replace(/-/g, '');
-
-                Monitor.getCpusAndMem(selectedDate + '0900-' + selectedDate + '1300').then(function (result) {
-                    let xAxisData = [], data1 = [], data2 = [];
+                Monitor.getCpuAndMemAndLoad(selectedDate + '0000-' + selectedDate + '2300').then(function (result) {
+                    let xAxisData = [], data1 = [], data2 = [], data3 = [];
 
                     $(result).each(function (i) {
-                        let date = this.date, cpus = this.ifcCpus, mem = this.ifcMem;
+                        let date = this.date, cpus = this.ifcCpus, mem = this.ifcMem, jvmos = this.ifcJVMOperatingSystem;
 
                         let date2 = Tools.dateParse(date);
                         xAxisData.push(Tools.dateFormat(date2, Tools.HHmm_));
@@ -71,12 +72,16 @@
                         // 内存使用率
                         let usedPercent = mem.usedPercent;
                         data2.push(usedPercent.toFixed(2));
+
+                        // 服务器负载
+                        let serverLoad = jvmos.systemLoadAverage * 100;
+                        data3.push(serverLoad.toFixed(2));
                     });
 
                     chart.hideLoading();
                     chart.setOption({
                         xAxis: [{data: xAxisData}],
-                        series: [{data: data1}, {data: data2}]
+                        series: [{data: data1}, {data: data2}, {data: data3}]
                     });
                 });
             }
