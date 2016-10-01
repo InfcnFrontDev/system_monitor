@@ -1,5 +1,5 @@
 <template>
-    <widget-base id="server_message" title="概要信息">
+    <widget :id="id" :title="title">
         <div class="chart no-padding">
             <table id="user" class="table table-bordered table-striped" style="clear: both">
                 <tbody>
@@ -69,7 +69,7 @@
                 </tbody>
             </table>
         </div>
-    </widget-base>
+    </widget>
 </template>
 <style>
     #server-msg-ul {
@@ -78,38 +78,26 @@
     }
 </style>
 <script>
-    import WidgetBase from './WidgetBase.vue'
+    import Widget from './Widget.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 
     export default{
         components: {
-            WidgetBase
+            Widget
         },
         data(){
-
             return {
                 id: 'server_message',
                 title: '概要信息',
-                obj:{}
+                obj: {}
             }
         },
         ready() {
-            this.fetchData()
-
-
-        },
-        methods: {
-            fetchData() {
-                let $this = this;
-                Monitor. getOperatingSystem().then(function (value) {
-                    $this.render(value)
-                });
-            },
-            render(result) {
-                        this.obj=result.ifcOperatingSystem;
-            }
-
+            let $this = this;
+            Monitor.getOperatingSystem().then(function (result) {
+                $this.obj = result.ifcOperatingSystem;
+            });
         }
     }
 </script>

@@ -32,7 +32,7 @@
         </div>
         <!-- row -->
         <div class="row">
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--服务器信息-->
                 <widget-server-message></widget-server-message>
             </article>
@@ -54,8 +54,11 @@
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--磁盘I/O-->
-                <div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>
                 <widget-disk-usage></widget-disk-usage>
+            </article>
+            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                <!--系统负载-->
+                <widget-system-load></widget-system-load>
             </article>
         </div>
         <!-- row -->
@@ -83,23 +86,18 @@
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--非堆内存使用情况-->
-                <div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>
                 <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--加载类情况-->
-                <div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>
                 <widget-jvm-class-load></widget-jvm-class-load>
             </article>
-
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--线程数情况-->
-                <div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>
                 <widget-jvm-thread></widget-jvm-thread>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--线程数活动情况-->
-                <div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>
                 <widget-jvm-thread-active></widget-jvm-thread-active>
             </article>
         </div>
@@ -129,13 +127,14 @@
 
     import Widget from './components/Widget.vue'
     import WidgetServerHighLoad from './components/WidgetServerHighLoad.vue'
+
+    import WidgetServerMessage from './components/WidgetServerMessage.vue'
     import WidgetStorageUsage from './components/WidgetStorageUsage.vue'
     import WidgetCpuUsage from './components/WidgetCpuUsage.vue'
     import WidgetMemoryUsage from './components/WidgetMemoryUsage.vue'
     import WidgetSwapUsage from './components/WidgetSwapUsage.vue'
     import WidgetDiskUsage from './components/WidgetDiskUsage.vue'
     import WidgetSystemLoad from './components/WidgetSystemLoad.vue'
-    import WidgetServerMessage from './components/WidgetServerMessage.vue'
 
     import WidgetJvmClassLoad from  './components/WidgetJvmClassLoad.vue'
     import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
@@ -174,7 +173,6 @@
         },
         ready() {
             pageSetUp();
-
         }
     }
 </script>
