@@ -1536,6 +1536,8 @@ if($('#server').length){
 
     $server.find('a:first').text(oldServer.name);
     loadURL('ajax/index.html', $('#content'));
+}else{
+    loadURL('ajax/index.html', $('#content'));
 }
 
 
