@@ -18,6 +18,9 @@
     </div>
 </template>
 <style>
+    #jarviswidget-fullscreen-mode .widget-body, #jarviswidget-fullscreen-mode .chart {
+        height: 100%;
+    }
 </style>
 <script>
     import Tools from '../common/tools'

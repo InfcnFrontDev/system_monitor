@@ -103,7 +103,7 @@ function server() {
             baseDir: 'app'
         },
         open: false,
-        reloadDelay: 1000,
+        //reloadDelay: 1000,
         //reloadDebounce: 2000,
         notify: false
     });

@@ -24,7 +24,9 @@
         data(){
             return {
                 id: 'server_high_load',
-                title: '服务器高负载日分布情况'
+                title: '服务器高负载日分布情况',
+                monitorDate: '',
+                interval: 1
             }
         },
         ready(){
@@ -42,42 +44,114 @@
                 },
                 xAxis: [{
                     type: 'category',
-                    boundaryGap: false,
                     data: []
                 }],
                 yAxis: [{
                     name: '使用率（%）',
                     type: 'value',
-                    max:100
+                    max: 100
                 }],
                 series: [
-                    {name: 'CPU', type: 'line', data: []},
-                    {name: '内存', type: 'line', data: []},
-                    {name: '负载', type: 'line', data: []}
+                    {
+                        name: 'CPU', type: 'line', data: [],
+                        markPoint: {
+                            data: [{type: 'max', name: '最大值'}]
+                        }
+                    },
+                    {
+                        name: '内存', type: 'line', data: [],
+                        markPoint: {
+                            data: [{type: 'max', name: '最大值'}]
+                        }
+                    },
+                    {
+                        name: '负载', type: 'line', data: [],
+                        markPoint: {
+                            data: [{type: 'max', name: '最大值'}]
+                        },
+                        markLine: {
+                            data: [{
+                                name: '高负载标线',
+                                yAxis: 60
+                            }],
+                            lineStyle: {
+                                normal: {
+                                    color: '#f00'
+                                }
+                            }
+                        }
+                    }
                 ]
             });
+
+            this.init();
         },
         methods: {
+            init(){
+                let len = 60 * 24 / this.interval,
+                        xAxisData = [], data1 = [], data2 = [], data3 = [];
+
+                xAxisData.length = len;
+                data1.length = len;
+                data2.length = len;
+                data3.length = len;
+
+                for (let i = 0; i < xAxisData.length; i++) {
+                    xAxisData[i] = Tools.numberToTime(i, this.interval);
+                    data1[i] = '-';
+                    data2[i] = '-';
+                    data3[i] = '-';
+                }
+
+                this.$refs.chart.setOption({
+                    xAxis: [{data: xAxisData}],
+                    yAxis: [{max: 100}],
+                    series: [{data: data1}, {data: data2}, {data: data3}]
+                });
+            },
             dateChange(date){
-                let $this = this;
+                date = date.replace(/-/g, '');
+                this.monitorDate = date + '0000-' + date + '2359'
+
+                // 清除实时监控的定时器
+                if (this.timer != null)
+                    clearInterval(this.timer);
+
                 this.$refs.chart.showLoading();
 
-                date = date.replace(/-/g, '');
-                Monitor.getCpuAndMemAndLoad(date + '0000-' + date + '2359').then(function (result) {
+                let $this = this;
+                setTimeout(function () {
+                    $this.fecthData();
+                    $this.timer = setInterval($this.fecthData, 1000 * 60);
+                }, 0);
+            },
+            fecthData(){
+                let $this = this;
+                Monitor.getCpuAndMemAndLoad(this.monitorDate, this.interval).then(function (result) {
+                    $this.$refs.chart.hideLoading();
                     $this.render(result);
+                }, function (error) {
+                    $this.init();
+                    $this.$refs.chart.hideLoading();
                 });
             },
             // 日期统计
             render(result){
-                this.$refs.chart.hideLoading();
-
-                let xAxisData = [], yAxisMax = 100, data1 = [], data2 = [], data3 = [];
+                let option = this.$refs.chart.getOption(),
+                        data1 = option.series[0].data,
+                        data2 = option.series[1].data,
+                        data3 = option.series[2].data,
+                        yAxisMax = 100,
+                        interval = this.interval;
 
                 $(result).each(function (i) {
-                    let date = this.date, cpus = this.ifcCpus, mem = this.ifcMem, jvmos = this.ifcJVMOperatingSystem;
+                    let date = this.date,
+                            cpus = this.ifcCpus,
+                            mem = this.ifcMem,
+                            jvmos = this.ifcJVMOperatingSystem;
 
-                    let date2 = Tools.dateParse(date);
-                    xAxisData.push(Tools.dateFormat(date2, Tools.HHmm_));
+                    let time = Tools.dateFormat(Tools.dateParse(date), Tools.HHmm_),
+                            num = Tools.timeToNumber(time, interval);
 
                     // CPU使用率
                     var combined = 0.00;
@@ -85,22 +159,21 @@
                         combined += this.combined;
                     });
                     combined = combined * 100;
-                    data1.push(combined.toFixed(2));
-                    if(combined > 100){
-                        yAxisMax = combined
+                    data1[num] = combined.toFixed(0);
+                    if (combined > 100) {
+                        yAxisMax = parseInt(combined) + 30;
                     }
                     // 内存使用率
                     let usedPercent = mem.usedPercent;
-                    data2.push(usedPercent.toFixed(2));
+                    data2[num] = usedPercent.toFixed(0);
 
                     // 服务器负载
                     let serverLoad = jvmos.systemLoadAverage * 100;
-                    data3.push(serverLoad.toFixed(2));
+                    data3[num] = serverLoad.toFixed(0);
                 });
 
                 this.$refs.chart.setOption({
-                    xAxis: [{data: xAxisData}],
-                    yAxis:  [{max:yAxisMax}],
+                    yAxis: [{max: yAxisMax}],
                     series: [{data: data1}, {data: data2}, {data: data3}]
                 });
             }

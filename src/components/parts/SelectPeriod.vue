@@ -55,6 +55,8 @@
                 prevText: '<i class="fa fa-chevron-left"></i>',
                 nextText: '<i class="fa fa-chevron-right"></i>',
                 beforeShow: function (input, inst) {
+                    //inst.dpDiv.css({'font-size': '15px'});
+
                     $.datepicker._pos = $.datepicker._findPos(input); //this is the default position
                     $.datepicker._pos[0] = $.datepicker._pos[0] - 198; //left
                     $.datepicker._pos[1] = $.datepicker._pos[1] + 24; //top

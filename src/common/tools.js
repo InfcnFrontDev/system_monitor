@@ -24,8 +24,8 @@ export default {
         str = str.replace(/yyyy|YYYY/, date.getFullYear());
         str = str.replace(/yy|YY/, (date.getYear() % 100) > 9 ? (date.getYear() % 100).toString() : '0' + (date.getYear() % 100));
 
-        str = str.replace(/MM/, date.getMonth()+1 > 9 ? (date.getMonth()+1).toString() : '0' + (date.getMonth()+1));
-        str = str.replace(/M/g, date.getMonth()+1);
+        str = str.replace(/MM/, date.getMonth() + 1 > 9 ? (date.getMonth() + 1).toString() : '0' + (date.getMonth() + 1));
+        str = str.replace(/M/g, date.getMonth() + 1);
 
         str = str.replace(/w|W/g, Week[date.getDay()]);
 
@@ -67,9 +67,33 @@ export default {
         return new Date(time);
     },
 
+    // HH:mm to number
+    timeToNumber: function (time, interval) {
+        let hh = parseInt(time.substring(0, 2)),
+            mm = parseInt(time.substring(3, 5)),
+            num = hh * 60 + mm;
+
+        interval = interval || 1;
+
+        return num / interval;
+    },
+    // number to HH:mm
+    numberToTime: function (num, interval) {
+        interval = interval || 1;
+        num = num * interval;
+
+        let hh = parseInt(num / 60), mm = num % 60;
+        if (hh < 10)
+            hh = '0' + hh;
+        if (mm < 10)
+            mm = '0' + mm;
+        return hh + ':' + mm;
+    },
+
     byteToKB: b=>b / 1024,
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
     byteToTB: b=>b / 1024 / 1024 / 1024 / 1024
+
 
 }

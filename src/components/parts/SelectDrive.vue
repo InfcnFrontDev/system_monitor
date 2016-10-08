@@ -17,27 +17,30 @@
 <script>
     import Monitor from '../../common/monitor.api'
     import Tools from '../../common/tools'
+    import Storage from '../../common/storage'
 
     export default{
         data(){
             return {
+                driveId: this.$parent.id + '_drive',
                 drives: [],
                 selected: null
             }
         },
         ready(){
             let $this = this;
+
             Monitor.getFileSystems().then(function (result) {
                 $(result.ifcFileSystems).each(function (i) {
                     $this.drives.push({name: this.devName});
                 });
-                $this.selected = $this.drives[0].name;
+                $this.selected = Storage.get($this.driveId) || $this.drives[0].name;
             });
         },
         watch: {
             selected: function (val, oldVal) {
                 this.$dispatch('onchange', val)
-                //Storage.set(this.id + '_period', val);
+                Storage.set(this.driveId, val);
             }
         }
     }
