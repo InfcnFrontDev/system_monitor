@@ -18290,7 +18290,9 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
 a{
     text-decoration: none ;
 }
-
+a:hover{
+    text-decoration: none ;
+}
 #fixed-box{
     position:fixed;
     bottom:20px;
@@ -18300,12 +18302,17 @@ a{
 #fixed-ul li{
     text-align: center;
     list-style: none;
-    background:#4c4f53;
+    background:#639AB1;
     opacity:0.8;
-    width:70px;
-    margin-top:4px;
-    padding-top: 2px;
+    width:80px;
+    margin-top:2px;
+    padding-top: 4px;
+    border-radius: 5px;
 }
 .fixed-li-font{
-
+    color:white;
+}
+.fixed{
+    font-size: 5.6rem;
+    color:white;
 }

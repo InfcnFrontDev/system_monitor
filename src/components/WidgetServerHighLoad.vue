@@ -85,9 +85,9 @@
                         combined += this.combined;
                     });
                     combined = combined * 100;
-                    data1.push(combined.toFixed(2));
-                    if(combined > 100){
-                        yAxisMax = combined
+                    data1.push(combined.toFixed(0));
+                    if(combined.toFixed(0) > 100){
+                        yAxisMax = combined.toFixed(0)
                     }
                     // 内存使用率
                     let usedPercent = mem.usedPercent;
