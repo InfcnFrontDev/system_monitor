@@ -18287,3 +18287,25 @@ label input[type=checkbox][disabled].checkbox+span:before,label input[type=check
     transition: all .5s;
 
 }
+a{
+    text-decoration: none ;
+}
+
+#fixed-box{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+
+}
+#fixed-ul li{
+    text-align: center;
+    list-style: none;
+    background:#4c4f53;
+    opacity:0.8;
+    width:70px;
+    margin-top:4px;
+    padding-top: 2px;
+}
+.fixed-li-font{
+
+}

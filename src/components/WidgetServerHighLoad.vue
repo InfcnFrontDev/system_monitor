@@ -48,6 +48,7 @@
                 yAxis: [{
                     name: '使用率（%）',
                     type: 'value',
+                    max:100
                 }],
                 series: [
                     {name: 'CPU', type: 'line', data: []},
@@ -62,7 +63,7 @@
                 this.$refs.chart.showLoading();
 
                 date = date.replace(/-/g, '');
-                Monitor.getCpuAndMemAndLoad(date + '0000-' + date + '2300').then(function (result) {
+                Monitor.getCpuAndMemAndLoad(date + '0000-' + date + '2359').then(function (result) {
                     $this.render(result);
                 });
             },
@@ -70,7 +71,7 @@
             render(result){
                 this.$refs.chart.hideLoading();
 
-                let xAxisData = [], data1 = [], data2 = [], data3 = [];
+                let xAxisData = [], yAxisMax = 100, data1 = [], data2 = [], data3 = [];
 
                 $(result).each(function (i) {
                     let date = this.date, cpus = this.ifcCpus, mem = this.ifcMem, jvmos = this.ifcJVMOperatingSystem;
@@ -85,7 +86,9 @@
                     });
                     combined = combined * 100;
                     data1.push(combined.toFixed(2));
-
+                    if(combined > 100){
+                        yAxisMax = combined
+                    }
                     // 内存使用率
                     let usedPercent = mem.usedPercent;
                     data2.push(usedPercent.toFixed(2));
@@ -97,6 +100,7 @@
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
+                    yAxis:  [{max:yAxisMax}],
                     series: [{data: data1}, {data: data2}, {data: data3}]
                 });
             }
