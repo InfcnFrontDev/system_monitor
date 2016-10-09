@@ -31,6 +31,9 @@
             this.$refs.chart.setOption({
                 tooltip: {
                     trigger: 'item',
+                    formatter: function (params, ticket, callback) {
+                        return params.name + ':' + params.value + 'GB ('+ params.percent +'%)';
+                    }
                 },
                 series: [{
                     type: 'pie',
