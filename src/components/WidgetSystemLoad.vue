@@ -53,7 +53,7 @@
                 series: [{
                     name: '系统负载', type: 'line', data: []
                 }]
-            });
+            })
         },
         methods: {
             periodChange(monitorDate, interval){
