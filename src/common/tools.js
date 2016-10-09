@@ -97,12 +97,9 @@ export default {
 
     formatter: function (params, unit) {
         let name = params[0].name,
-            seriesName0 = params[0].seriesName,
-            color0 = params[0].color,
-            value0 = params[0].value,
-            seriesName1 = params[1].seriesName,
-            color1 = params[1].color,
-            value1 = params[1].value;
+
+            value0 = params[0].value
+
 
         if(value0 == undefined)
             return undefined;
