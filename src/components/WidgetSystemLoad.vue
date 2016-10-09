@@ -46,7 +46,7 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '使用率（%）',
+                    name: '负载率（%）',
                     type: 'value',
                     max: 100
                 }],
