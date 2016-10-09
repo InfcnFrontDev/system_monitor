@@ -30,7 +30,7 @@
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params, ticket, callback) {
-                        return Tools.formatter(params, 'kb/s');
+                        return Tools.formatter(params, 'KB/s');
 
                     }
                 },
