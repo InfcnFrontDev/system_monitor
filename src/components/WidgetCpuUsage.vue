@@ -9,7 +9,7 @@
 <style>
 </style>
 <script>
-    import Widget from './Widget.vue'
+import Widget from './Widget.vue';
     import SelectPeriod from './parts/SelectPeriod.vue'
     import Chart from './parts/Chart.vue'
     import Monitor from '../common/monitor.api'
