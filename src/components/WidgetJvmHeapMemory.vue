@@ -47,7 +47,7 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: 'GB',
+                    name: '容量（GB）',
                     type: 'value'
                 }],
                 series: [{
