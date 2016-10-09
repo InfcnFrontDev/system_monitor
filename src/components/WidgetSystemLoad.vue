@@ -31,8 +31,8 @@
                     trigger: 'axis',
                     formatter: function (params, ticket, callback) {
                         return Tools.formatter(params, '%');
-                    },
-
+                    }
+                },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                 },
@@ -53,7 +53,7 @@
                 series: [{
                     name: '系统负载', type: 'line', data: []
                 }]
-            });
+            })
         },
         methods: {
             periodChange(monitorDate, interval){
