@@ -80,13 +80,11 @@
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--堆内存使用情况-->
-                <!--需要悬浮信息，即加-->
-                <!--<div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>-->
-                <!--<widget-jvm-heap-memory></widget-jvm-heap-memory>-->
+                <widget-jvm-heap-memory></widget-jvm-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--非堆内存使用情况-->
-                <!--<widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>-->
+                <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--加载类情况-->
