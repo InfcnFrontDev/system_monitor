@@ -94,7 +94,7 @@ export default {
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
     byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
-
+    byteMbToGB: b=>b / 1024 / 1024 ,
     formatter: function (params, unit) {
         let name = params[0].name,
 
