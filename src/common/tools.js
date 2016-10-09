@@ -114,7 +114,7 @@ export default {
                 + params[i].color
                 +'"></span>'
                 + params[i].seriesName + ': '
-                + params[i].value + unit +'<br />';
+                + params[i].value + ' ' + unit +'<br />';
         }
 
         return str;

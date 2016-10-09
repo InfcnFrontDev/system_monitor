@@ -26,14 +26,17 @@
                 id: 'server_high_load',
                 title: '服务器高负载日分布情况',
                 monitorDate: '',
-                interval: 1
+                interval: Config.dayInterval
             }
         },
         ready(){
             // 初始状态
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {
+                        return Tools.formatter(params, '%');
+                    }
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
@@ -87,6 +90,7 @@
             this.init();
         },
         methods: {
+            // 初始化图表，清空所有点
             init(){
                 let len = 60 * 24 / this.interval,
                         xAxisData = [], data1 = [], data2 = [], data3 = [];
@@ -109,9 +113,10 @@
                     series: [{data: data1}, {data: data2}, {data: data3}]
                 });
             },
+            // 选择的日期发生改变时
             dateChange(date){
                 date = date.replace(/-/g, '');
-                this.monitorDate = date + '0000-' + date + '2359'
+                this.monitorDate = date + '0000-' + date + '2359';
 
                 // 清除实时监控的定时器
                 if (this.timer != null)
@@ -120,15 +125,16 @@
                 this.$refs.chart.showLoading();
 
                 let $this = this;
-                setTimeout(function () {
+                setTimeout(function () {// 解决先执行一次的问题
                     $this.fecthData();
-                    $this.timer = setInterval($this.fecthData, 1000 * 60);
+                    $this.timer = setInterval($this.fecthData, 1000 * 60 * $this.interval);
                 }, 0);
             },
             fecthData(){
                 let $this = this;
                 Monitor.getCpuAndMemAndLoad(this.monitorDate, this.interval).then(function (result) {
                     $this.$refs.chart.hideLoading();
+                    $this.init();
                     $this.render(result);
                 }, function (error) {
                     $this.init();

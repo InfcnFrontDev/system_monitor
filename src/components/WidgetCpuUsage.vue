@@ -22,13 +22,17 @@
         data(){
             return {
                 id: 'cpu_usage',
-                title: 'CPU使用率'
+                title: 'CPU使用率',
+                yAxisMax: 100
             }
         },
         ready() {
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {
+                        return Tools.formatter(params, '%');
+                    }
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
@@ -44,8 +48,7 @@
                 }],
                 yAxis: [{
                     name: '使用率（%）',
-                    type: 'value',
-                    max: 100
+                    type: 'value'
                 }],
                 series: [{
                     name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
@@ -55,106 +58,200 @@
             });
         },
         methods: {
-            periodChange(monitorDate, interval){
-                if (monitorDate) {
-                    this.intervalStatistics(monitorDate, interval);
-                } else {
-                    this.realtimeMonitor();
-                }
-            },
-            intervalStatistics(monitorDate, interval){
-                this.$refs.chart.showLoading();
-
+            // 时间段改变时
+            periodChange(monitorDate, interval, isAllDay){
                 // 清除实时监控的定时器
                 if (this.timer != null)
                     clearInterval(this.timer);
 
-                this.intervalFetchData(monitorDate, interval);
-            },
-            intervalFetchData(monitorDate, interval){
+                this.monitorDate = monitorDate;
+                this.interval = interval;
+                this.isAllDay = isAllDay;
+                this.intervalTime = monitorDate ? 1000 * 60 * interval : Config.realtimeIntervalTime;
+
+                this.$refs.chart.showLoading();
+
+                // 实时监控初始化
+                if (!this.monitorDate) {
+                    this.realtimeInit();
+                }
+
                 let $this = this;
-                Monitor.getCpus(monitorDate, interval).then(function (result) {
-                    $this.$refs.chart.hideLoading();
-                    $this.intervalRender(result);
+                setTimeout(function () {// 解决先执行一次的问题
+                    $this.fetchData();
+                    $this.timer = setInterval($this.fetchData, $this.intervalTime); // 定时执行数据抓取
+                }, 0);
+            },
+            // 抓取数据
+            fetchData(){
+                let $this = this;
+                Monitor.getCpus(this.monitorDate, this.interval).then(function (result) {
+                    $this.fetchSuccess(result);
+                }, function (error) {
+                    $this.fetchError(error);
                 });
             },
+            // 获取数据成功时处理
+            fetchSuccess(result){
+                this.$refs.chart.hideLoading();
+
+                if (this.monitorDate) {
+                    if (result instanceof Array)
+                        if (this.isAllDay) {
+                            this.allDayRender(result);
+                        } else {
+                            this.intervalRender(result);
+                        }
+                } else {
+                    if (!(result instanceof Array))
+                        this.realtimeRender(result);
+                }
+            },
+            // 获取数据出错时处理
+            fetchError(error){
+                this.$refs.chart.hideLoading();
+
+                if (this.monitorDate) {
+                    if (this.isAllDay) {
+                        this.allDayInit();
+                    } else {
+                        this.realtimeInit();
+                    }
+                } else {
+                    this.realtimeInit();
+                }
+            },
+            // 实时监控初始化
+            realtimeInit() {
+                let xAxisData = [], data1 = [], data2 = [];
+                xAxisData.length = Config.realtimeLen;
+                data1.length = Config.realtimeLen;
+                data2.length = Config.realtimeLen;
+
+                this.$refs.chart.setOption({
+                    xAxis: [{data: xAxisData}],
+                    yAxis: [{max: this.yAxisMax}],
+                    series: [{data: data1}, {data: data2}]
+                });
+            },
+            // 实时监控数据渲染
+            realtimeRender(result) {
+                let option = this.$refs.chart.getOption(),
+                        xAxisData = option.xAxis[0].data,
+                        data1 = option.series[0].data,
+                        data2 = option.series[1].data,
+                        yAxisMax = option.yAxis[0].max;
+
+                let itemData = this.toItemData(result);
+
+                let date = new Date();
+                xAxisData.shift();
+                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
+
+                data1.shift();
+                data1.push(itemData.data1);
+                data2.shift();
+                data2.push(itemData.data2);
+
+                // y轴max值最小为100，否则自动
+                if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
+                    yAxisMax = 'auto';
+                }
+
+                this.$refs.chart.setOption({
+                    xAxis: [{data: xAxisData}],
+                    yAxis: [{max: yAxisMax}],
+                    series: [{data: data1}, {data: data2}]
+                })
+            },
+            // 区间展示数据渲染
             intervalRender(result) {
-                var xAxisData = [], yAxisMax = 100, syssData = [], usersData = [];
+                let xAxisData = [], data1 = [], data2 = [], yAxisMax = this.yAxisMax;
 
+                let $this = this;
                 $(result).each(function () {
-                    xAxisData.push(Tools.dateToHHmm(this.date));
+                    let itemData = $this.toItemData(this);
 
-                    var syss = 0, users = 0;
-                    $(this.ifcCpus).each(function () {
-                        syss += this.sys;
-                        users += this.user;
-                    });
-                    syss *= 100;
-                    users *= 100;
-                    syssData.push(syss.toFixed(0));
-                    usersData.push(users.toFixed(0));
+                    xAxisData.push(itemData.xAxisData);
+                    data1.push(itemData.data1);
+                    data2.push(itemData.data2);
 
-                    let total = syss + users;
-                    if (total > 100) {
-                        yAxisMax = parseInt(total) + 30;
+                    // y轴max值最小为100，否则自动
+                    if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
+                        yAxisMax = 'auto';
                     }
                 });
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: syssData}, {data: usersData}]
+                    series: [{data: data1}, {data: data2}]
                 });
             },
-            realtimeMonitor() {
-                this.$refs.chart.showLoading();
+            // 全天展示初始化
+            allDayInit(){
+                let len = 60 * 24 / this.interval,
+                        xAxisData = [], data1 = [], data2 = [];
 
-                let xAxisData = [], syssData = [], usersData = [];
-                xAxisData.length = 61;
-                syssData.length = 61;
-                usersData.length = 61;
+                xAxisData.length = len;
+                data1.length = len;
+                data2.length = len;
 
-                this.$refs.chart.setOption({
-                    xAxis: [{data: xAxisData}],
-                    series: [{data: syssData}, {data: usersData}]
-                });
-
-                this.timer = setInterval(this.realtimeFetchData, 1000);
-            },
-            realtimeFetchData() {
-                let $this = this;
-                Monitor.getCpus().then(function (result) {
-                    $this.$refs.chart.hideLoading();
-                    $this.realtimeRender(result)
-                });
-            },
-            realtimeRender(result) {
-                let option = this.$refs.chart.getOption();
-                let xAxisData = option.xAxis[0].data, syssData = option.series[0].data, usersData = option.series[1].data, yAxisMax = 100, total = 0;
-
-                let date = new Date();
-                xAxisData.shift();
-                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
-
-                var syss = 0, users = 0;
-                $(result.ifcCpus).each(function () {
-                    syss += this.sys;
-                    users += this.user;
-                });
-                syssData.shift();
-                syssData.push((syss * 100).toFixed(2));
-                usersData.shift();
-                usersData.push((users * 100).toFixed(2));
-                total = syss + users;
-                if (total > 100) {
-                    yAxisMax = total
+                for (let i = 0; i < xAxisData.length; i++) {
+                    xAxisData[i] = Tools.numberToTime(i, this.interval);
+                    data1[i] = '-';
+                    data2[i] = '-';
                 }
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
+                    yAxis: [{max: this.yAxisMax}],
+                    series: [{data: data1}, {data: data2}]
+                });
+            },
+            // 全天展示数据渲染
+            allDayRender(result) {
+                this.allDayInit();
+
+                let option = this.$refs.chart.getOption(),
+                        data1 = option.series[0].data,
+                        data2 = option.series[1].data,
+                        yAxisMax = this.yAxisMax,
+                        interval = this.interval;
+
+                let $this = this;
+                $(result).each(function () {
+                    let itemData = $this.toItemData(this),
+                            num = Tools.timeToNumber(itemData.xAxisData, interval);
+
+                    data1[num] = itemData.data1;
+                    data2[num] = itemData.data2;
+
+                    // y轴max值最小为100，否则自动
+                    if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
+                        yAxisMax = 'auto';
+                    }
+                });
+
+                this.$refs.chart.setOption({
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: syssData}, {data: usersData}]
-                })
+                    series: [{data: data1}, {data: data2}]
+                });
+            },
+            // 数据转换
+            toItemData(item) {
+                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0;
+
+                $(item.ifcCpus).each(function () {
+                    data1 += this.sys;
+                    data2 += this.user;
+                });
+                data1 = parseInt((data1 * 100).toFixed(0));
+                data2 = parseInt((data2 * 100).toFixed(0));
+
+                yAxisMax = data1 + data2;
+
+                return {xAxisData, yAxisMax, data1, data2}
             }
         }
     }
