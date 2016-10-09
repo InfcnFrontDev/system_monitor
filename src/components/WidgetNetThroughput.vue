@@ -30,7 +30,10 @@
         ready() {
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter:'{b0}<br />{a0}: {c0}%<br />{a1}: {c1}%'
+
+
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
@@ -49,9 +52,9 @@
                     type: 'value'
                 }],
                 series: [{
-                    name: '发送', type: 'line', data: []
+                    name: '发送', type: 'line', data: [],formatter:'{data}%'
                 }, {
-                    name: '接收', type: 'line', data: []
+                    name: '接收', type: 'line', data: [],formatter:'{data}%'
                 }]
             });
         },
