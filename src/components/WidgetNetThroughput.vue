@@ -31,7 +31,7 @@
             this.$refs.chart.setOption({
                 tooltip: {
                     trigger: 'axis',
-                    formatter:'{b0}<br />{a0}: {c0}%<br />{a1}: {c1}%'
+                    formatter:'{b0}<br />{a0}: {c0}Mbps<br />{a1}: {c1}Mbps'
 
 
                 },

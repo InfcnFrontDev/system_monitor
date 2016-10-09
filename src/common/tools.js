@@ -93,7 +93,32 @@ export default {
     byteToKB: b=>b / 1024,
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
-    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024
+    byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
+
+    formatter: function (params, unit) {
+        let name = params[0].name,
+            seriesName0 = params[0].seriesName,
+            color0 = params[0].color,
+            value0 = params[0].value,
+            seriesName1 = params[1].seriesName,
+            color1 = params[1].color,
+            value1 = params[1].value;
+
+        if(value0 == undefined)
+            return undefined;
+
+        let str = name + '<br />';
+
+        for(let i in params){
+            str += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:'
+                + params[i].color
+                +'"></span>'
+                + params[i].seriesName + ': '
+                + params[i].value + unit +'<br />';
+        }
+
+        return str;
+    }
 
 
 }

@@ -29,7 +29,10 @@
         ready() {
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {
+                        return Tools.formatter(params, 'GB');
+                    }
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
