@@ -32,10 +32,10 @@
         </div>
         <!-- row -->
         <div class="row">
-            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!--<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
                 <!--服务器信息-->
-                <widget-server-message></widget-server-message>
-            </article>
+                <!--<widget-server-message></widget-server-message>-->
+            <!--</article>-->
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--存储使用情况-->
                 <widget-storage-usage></widget-storage-usage>
@@ -80,8 +80,6 @@
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--堆内存使用情况-->
-                <!--需要悬浮信息，即加-->
-                <!--<div class="hidden-box col-xs-12 col-sm-6 col-md-6 col-lg-12"></div>-->
                 <widget-jvm-heap-memory></widget-jvm-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">

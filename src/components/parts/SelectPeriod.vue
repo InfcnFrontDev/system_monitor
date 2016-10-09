@@ -70,28 +70,29 @@
             selected: function (val, oldVal) {
                 Storage.set(this.periodId, val);
 
-                let date1, date2 = new Date(), monitorDate, interval;
+                let date1, date2 = new Date(), monitorDate, interval, isAllDay = false;
                 switch (val) {
                     case '实时监控':
                         break;
                     case '最近一小时':
-                        date1 = Tools.dateAdd(date2, -60 * 60);
+                        date1 = Tools.dateAdd(date2, -(60 * 60));
                         monitorDate = Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
-                        interval = 1;
+                        interval = Config.hourInterval;
                         break;
                     case '最近一天':
-                        date1 = Tools.dateAdd(date2, -60 * 60 * 24);
+                        date1 = Tools.dateAdd(date2, -(60 * 60 * 24));
                         monitorDate = Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
-                        interval = 5;
+                        interval = Config.dayInterval;
                         break;
                     default:
                         let date = val.replace(/-/g, '');
                         monitorDate = date + '0000-' + date + '2359';
-                        interval = 5;
+                        interval = Config.dayInterval;
+                        isAllDay = true;
                         break;
                 }
 
-                this.$dispatch('onchange', monitorDate, interval)
+                this.$dispatch('onchange', monitorDate, interval, isAllDay)
             }
         }
     }
