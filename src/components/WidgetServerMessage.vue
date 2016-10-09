@@ -1,66 +1,73 @@
 <template>
     <widget :id="id" :title="title">
         <div class="chart no-padding">
-            <div class="tbd a1">
-                <div>操作系统类型：</div>
-                <div class="jvm-td-color">{{obj.cpuEndian}}</div>
-            </div>
-            <div class="tbd a2">
-                <div>内存厂商：</div>
-                <div class="jvm-td-color">{{obj.dataModel}}</div>
-            </div>
-            <div class="tbd a3">
-                <div>系统启动时间：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a4">
-                <div>内存型号：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a5">
-                <div>系统运行时长：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a6">
-                <div>内存条数：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a7">
-                <div>系统磁盘存储：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a8">
-                <div>内存容量：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a9">
-                <div>当前监控目录：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a10">
-                <div>CPU厂商：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a11">
-                <div>CPU型号：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a12">
-                <div>物理核数：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a13">
-                <div>逻辑核数：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a14">
-                <div>CPU缓存：</div>
-                <div class="jvm-td-color">{{}}</div>
-            </div>
-            <div class="tbd a15">
-                <div></div>
-                <div></div>
-            </div>
+            <table id="user" class="table table-bordered table-striped" style="clear: both">
+                <tbody>
+                <tr>
+                    <td width="17.5%">操作系统类型：</td>
+                    <td width="32.5%">{{obj.cpuEndian}}</td>
+                    <td width="17.5%">内存厂商:</td>
+                    <td width="32.5%">{{obj.dataModel}}</td>
+                </tr>
+                <tr>
+                    <td>系统启动时间：</td>
+                    <td></td>
+                    <td>内存型号：</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>系统运行时长：</td>
+                    <td></td>
+                    <td>内存条数：</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>系统磁盘存储：</td>
+                    <td></td>
+                    <td>内存容量：</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>当前监控目录：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>CPU厂商：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>CPU型号：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>物理核数：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>逻辑核数：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td>CPU缓存：</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
     </widget>
