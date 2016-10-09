@@ -31,7 +31,6 @@
             this.$refs.chart.setOption({
                 tooltip: {
                     trigger: 'item',
-                    formatter: "{b}: {c} ({d}%)"
                 },
                 series: [{
                     type: 'pie',
@@ -56,8 +55,8 @@
                     frees += this.free;
                 });
                 data = [
-                    {value: useds, name: '已用存储'},
-                    {value: frees, name: '可用存储', selected: true}
+                    {value: Tools.byteMbToGB(useds).toFixed(2), name: '已用存储'},
+                    {value: Tools.byteMbToGB(frees).toFixed(2), name: '可用存储', selected: true}
                 ];
 
                 this.$refs.chart.setOption({

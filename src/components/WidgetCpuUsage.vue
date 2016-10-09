@@ -9,7 +9,7 @@
 <style>
 </style>
 <script>
-    import Widget from './Widget.vue'
+import Widget from './Widget.vue';
     import SelectPeriod from './parts/SelectPeriod.vue'
     import Chart from './parts/Chart.vue'
     import Monitor from '../common/monitor.api'
@@ -28,7 +28,7 @@
         ready() {
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
