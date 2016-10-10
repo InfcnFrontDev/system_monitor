@@ -55,10 +55,6 @@
         list-style: none;
         line-height: 27px;
     }
-    #user td{
-        padding:5px;
-        margin:0;
-    }
 </style>
 <script>
     import Widget from './Widget.vue'
