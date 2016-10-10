@@ -1362,7 +1362,13 @@ $(window)
     .on('hashchange', function (e) {
         var hash = location.hash.replace(/^#/, '');
         var top = $('#'+hash+"1").offset().top;
-        $('body').stop().animate({scrollTop: top-120}, 300);
+
+        var offset = 20;
+        if($('#header').length){
+            offset = 120;
+        }
+
+        $('body').stop().animate({scrollTop: top - offset}, 300);
     });
 
 // CHECK TO SEE IF URL EXISTS

@@ -67,6 +67,29 @@ export default {
         return new Date(time);
     },
 
+    // 运行时长
+    timeLong: function (diff) {
+        let nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+        let nh = 1000 * 60 * 60;//一小时的毫秒数
+        let nm = 1000 * 60;//一分钟的毫秒数
+        let ns = 1000;//一秒钟的毫秒数
+
+        let day = parseInt(diff / nd);//计算差多少天
+        let hour = parseInt(diff % nd / nh);//计算差多少小时
+        let min = parseInt(diff % nd % nh / nm);//计算差多少分钟
+        let sec = parseInt(diff % nd % nh % nm / ns);//计算差多少秒//输出结果
+
+        let str = '';
+        if (day > 0)
+            str += day + '天';
+        if (hour > 0)
+            str += hour + '小时';
+        if (min > 0)
+            str += min + '分';
+        str += sec + '秒';
+        return str;
+    },
+
     // HH:mm to number
     timeToNumber: function (time, interval) {
         let hh = parseInt(time.substring(0, 2)),
@@ -94,24 +117,28 @@ export default {
     byteToMB: b=>b / 1024 / 1024,
     byteToGB: b=>b / 1024 / 1024 / 1024,
     byteToTB: b=>b / 1024 / 1024 / 1024 / 1024,
-    byteMbToGB: b=>b / 1024 / 1024 ,
+    byteMbToGB: b=>b / 1024 / 1024,
+
+    //
     formatter: function (params, unit) {
+        if (!(params instanceof Array)) {
+            return undefined;
+        }
+
         let name = params[0].name,
+            value0 = params[0].value;
 
-            value0 = params[0].value
-
-
-        if(value0 == undefined)
+        if (value0 == undefined)
             return undefined;
 
         let str = name + '<br />';
 
-        for(let i in params){
+        for (let i in params) {
             str += '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:'
                 + params[i].color
-                +'"></span>'
+                + '"></span>'
                 + params[i].seriesName + ': '
-                + params[i].value + ' ' + unit +'<br />';
+                + params[i].value + ' ' + unit + '<br />';
         }
 
         return str;
