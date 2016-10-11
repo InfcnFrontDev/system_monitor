@@ -150,9 +150,15 @@ export default {
     },
 
     /**
-     * 获取cpu,sys
+     * 获取cpu,sys,jvmos
      */
     getCpuAndMemAndLoad(monitorDate, interval) {
         return newPromise('cpu,sys,jvmos', monitorDate, interval);
+    },
+    /**
+     * 获取jvmrt,jvmcompilation
+     */
+    getJVMRuntimeAndJVMCompilation(monitorDate, interval) {
+        return newPromise('jvmrt,jvmcompilation', monitorDate, interval);
     }
 }

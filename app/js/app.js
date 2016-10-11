@@ -1362,9 +1362,24 @@ $(window)
     .on('hashchange', function (e) {
         var hash = location.hash.replace(/^#/, '');
         var top = $('#'+hash+"1").offset().top;
-        $('body').stop().animate({scrollTop: top-120}, 300);
-    });
 
+        var offset = 20;
+        if($('#header').length){
+            offset = 120;
+        }
+
+        $('body').stop().animate({scrollTop: top - offset}, 300);
+    });
+$('#arrows').on('click',function(){
+    if(!$('#fixed-ul').height()==0){
+        $('#fixed-ul').animate({height:0},500);
+        $('#arrows-img').attr("src",'img/jiantou.png');
+    }else{
+        $('#fixed-ul').animate({height:332},500);
+        $('#arrows-img').attr("src",'img/jiantouxia.png');
+    }
+
+})
 // CHECK TO SEE IF URL EXISTS
 function checkURL() {
 

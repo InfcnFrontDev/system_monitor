@@ -149,6 +149,9 @@
 			<!-- RIBBON -->
 			<div id="ribbon">
 
+				<span class="ribbon-button-alignment" style="display:none">
+					<span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true"><i class="fa fa-refresh"></i></span>
+				</span>
 
 				<!-- breadcrumb -->
 				<!--<ol class="breadcrumb">
@@ -161,17 +164,53 @@
                     <ul class="dropdown-menu" style="">
                     </ul>
                 </div>
-			</div>
+				<!-- You can also add more buttons to the
+					 ribbon for further usability
 
+					 Example below:
+
+				<span class="ribbon-button-alignment pull-right">
+					<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+					<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+					<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+				</span> -->
+
+			</div>
 			<!-- END RIBBON -->
 
 			<!-- MAIN CONTENT -->
 			<div id="content">
+
+
+
 			</div>
 			<!-- END MAIN CONTENT -->
 
 		</div>
+		<!-- END MAIN PANEL -->
+	<div id="fixed-box">
+		<ul id='fixed-ul'>
+			<li><a href="#running"><p class="fixed fa fa-lg fa-fw fa-bar-chart-o"></p><span class="fixed-li-font">运行状态</span></a></li>
+			<li><a href="#os"><p class="fixed fa fa-lg fa-fw fa-desktop"></p><span class="fixed-li-font">操作系统</span></a></li>
+			<li><a href="#jvm"><p class="fixed fa fa-lg fa-fw fa-cogs"></p><span class="fixed-li-font">JVM</span></a></li>
+			<li><a href="#network"><p class="fixed fa fa-lg fa-fw fa-globe"></p><span class="fixed-li-font">网络</span></a></li>
+		</ul>
+		<div id="arrows"><img id="arrows-img"src="img/jiantouxia.png" alt="" style="width:80px; height:80px; margin-left:40px; "></div>
+	</div>
 
+		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+			 Note: These tiles are completely responsive,
+			 you can add as many as you like
+			-->
+
+		<!-- END SHORTCUT AREA -->
+
+		<!--================================================== -->
+
+		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)
+		<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>-->
+
+	    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 	    <script src="js/libs/jquery-2.0.2.min.js"></script>
 
 	    <script src="js/libs/jquery-ui-1.10.3.min.js"></script>

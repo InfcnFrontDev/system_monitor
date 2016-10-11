@@ -94,10 +94,6 @@
                 <!--线程数情况-->
                 <widget-jvm-thread></widget-jvm-thread>
             </article>
-            <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <!--线程数活动情况-->
-                <widget-jvm-thread-active></widget-jvm-thread-active>
-            </article>
         </div>
         <!-- row -->
         <div class="row">
