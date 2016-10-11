@@ -13,7 +13,7 @@
     -khtml-border-radius: 0;
     border-radius: 0;
     padding: 0;
-    box-shadow:2px 4px 14px;
+    box-shadow:2px 4px 14px;F
 }
 
 .widget-content-padding {
@@ -817,7 +817,7 @@ nav{
     border-left: 1px solid rgba(0,0,0,.09);
     cursor: pointer;
     padding: 0 8px;
-    text-align: center
+    text-align: center;
 }
 
 .widget-toolbar>:first-child {
@@ -18379,3 +18379,19 @@ a:hover{
     font-size: 5.6rem;
     color:white;
 }
+#MsgBoxBack{
+    display:none;
+}
+.modal-content{
+    top:206px;
+
+}
+.addser{
+    width:20px;
+    height:20px;
+    background: #707070;
+    border:none;
+    border-radius: 2px;
+.title-add{
+    text-align: right;
+}}
