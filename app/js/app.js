@@ -1530,32 +1530,90 @@ $('body')
             });
     });
 
+
+
 // Server List
-if($('#server').length){
+if($('#server').length) {
     var $server = $('#server');
-    var oldServer = localStorage.server? JSON.parse(localStorage.server): Config.servers[0];
 
-    $(Config.servers).each(function () {
-        var server = this;
+    var search = location.search.replace(/^\?/, '');
+    var searchs = search.split('&');
 
-        var $li = $('<li><a href="javascript:;">'+ server.name +'</a></li>');
-        if(oldServer.name == server.name){
+    var params = {};
+    for (var i in searchs) {
+        var item = searchs[i].split('=');
+        params[item[0]] = item[1];
+    }
+
+    // servers
+    if(params.servers){
+        params._servers = params.servers;
+        params.servers = params.servers.split(',');
+    }else{
+        params.servers = [];
+        params.servers.push(location.protocol+'//'+location.host+location.pathname);
+    }
+
+    // s
+    if(params.s){
+        params.s = parseInt(params.s);
+    }else{
+        params.s = 0;
+    }
+
+    // topnav
+    if(params.topnav){
+        params.topnav = parseInt(params.topnav);
+    }else{
+        params.topnav = 0;
+    }
+
+    // 隐藏top/left
+    if(params.topnav==0){
+        $('#header').css('display','none');
+        $('aside').css('display','none')
+        $('#ribbon').css('display','none');
+        $('#main').css({'margin-left':'0','margin-top':'-40px'})
+    }
+
+    // params.topnav
+
+    // if(没有servers)
+    //      显当前服务器，protocol://host/pathname
+    //      隐藏top/left
+    // else
+    //      list servers
+    //      if(没有s)
+    //          default 0
+
+
+
+
+
+    for (var j in params.servers) {
+        var $li = $('<li><a href="javascript:;">' + params.servers[j] + '</a></li>');
+
+        if( j == params.s){
             $li.addClass('active');
+            Config.apiPath = params.servers[j];
         }
+
         $li.click(function () {
-            localStorage.server = JSON.stringify(server);
-            location.reload();
+            var url = location.pathname + '?servers=' + params._servers + '&s=' + $(this).attr('s');
+
+            if(params.topnav == 1){
+                url += '&topnav=1';
+            }
+
+            location.href = url;
         });
+
+        $li.attr('s', j);
+
         $server.find('ul').append($li);
-    });
+    }
 
-    $server.find('a:first').text(oldServer.name);
+    $server.find('a:first').text(Config.apiPath);
     loadURL('ajax/index.html', $('#content'));
-}else{
-    loadURL('ajax/index.html', $('#content'));
+
 }
-
-
-
-
-
