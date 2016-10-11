@@ -33,6 +33,7 @@
                 dateFormat: 'yy-mm-dd',
                 prevText: '<i class="fa fa-chevron-left"></i>',
                 nextText: '<i class="fa fa-chevron-right"></i>',
+                maxDate: "+0D",
                 onSelect: function (selectedDate) {
                     $this.selected = selectedDate;
                 }

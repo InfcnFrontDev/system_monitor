@@ -11,14 +11,14 @@
             </li>
         </ul>
     </div>
-    <div class="btn-group">
-        <label class="btn btn-xs" style="padding:0px;margin-top:-3px;">
-            <i class="icon-append fa fa-calendar rili" style="right: 7px;top: 6px;"></i>
-            <input id="{{periodId}}_date" type="text" class="datepicker" class="hasDatepicker valid"
-                   value="{{selected}}"
+
+    <div class="btn-group smart-form">
+        <label class="input"><span class="rili-line"></span> <i class="icon-append fa fa-calendar rili" style="top:0px !important;right: 1px;"></i>
+            <input id="{{periodId}}_date" type="text" class="datepicker" class="hasDatepicker valid" value="{{selected}}"
                    style="margin-top: 0px;width:24px;height:22px !important;font-size:0;padding:0;">
         </label>
     </div>
+
 </template>
 <style>
 </style>
@@ -54,9 +54,8 @@
                 showOptions: {direction: "left"},
                 prevText: '<i class="fa fa-chevron-left"></i>',
                 nextText: '<i class="fa fa-chevron-right"></i>',
+                maxDate: "+0D",
                 beforeShow: function (input, inst) {
-                    //inst.dpDiv.css({'font-size': '15px'});
-
                     $.datepicker._pos = $.datepicker._findPos(input); //this is the default position
                     $.datepicker._pos[0] = $.datepicker._pos[0] - 198; //left
                     $.datepicker._pos[1] = $.datepicker._pos[1] + 24; //top
