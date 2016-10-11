@@ -10525,7 +10525,9 @@ textarea.clone {
     color: #fff;
     font-size: 16px
 }
-
+#fixed-ul{
+    overflow:hidden;
+}
 @media screen and (max-width:450px) and (max-width:767px) {
     #divSmallBoxes {
         position: fixed;
