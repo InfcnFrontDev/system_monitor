@@ -50,8 +50,14 @@ $(document)
                     .toggleClass("minified");
                 $(this)
                     .effect("highlight", {}, 500);
+                console.log($('body').attr('class').length);
+                localStorage.bar=$('body').attr('class').length;
                 e.preventDefault();
             });
+        if(localStorage.bar==51){
+            $('body')
+                .addClass("minified");
+        }
 
         $('#logo')
             .click(function (e) {
@@ -65,8 +71,16 @@ $(document)
             .click(function (e) {
                 $('body')
                     .toggleClass("hidden-menu");
+                console.log($('body').attr('class').length);
+                localStorage.nav=$('body').attr('class').length
+
                 e.preventDefault();
             });
+        if(localStorage.nav==54){
+            $('body')
+                .addClass("hidden-menu");
+        }
+
 
         // HIGHLIGHT EFFECT
         $(".login-info")
@@ -412,6 +426,9 @@ function check_if_mobile_width() {
         $.root_.removeClass('mobile-view-activated');
     }
 }
+
+
+
 
 /* ~ END: NAV OR #LEFT-BAR RESIZE DETECT */
 
@@ -1374,12 +1391,19 @@ $('#arrows').on('click',function(){
     if(!$('#fixed-ul').height()==0){
         $('#fixed-ul').animate({height:0},500);
         $('#arrows-img').attr("src",'img/jiantou.png');
+
     }else{
         $('#fixed-ul').animate({height:332},500);
         $('#arrows-img').attr("src",'img/jiantouxia.png');
     }
+    console.log($('#fixed-ul').height())
+    localStorage.prompt=$('#fixed-ul').height()
 
 })
+if(localStorage.prompt==332){
+    $('#fixed-ul').height(0);
+    $('#arrows-img').attr("src",'img/jiantou.png');
+}
 // CHECK TO SEE IF URL EXISTS
 function checkURL() {
 

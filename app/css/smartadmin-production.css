@@ -18362,6 +18362,13 @@ a:hover{
     position:fixed;
     bottom:20px;
     right:20px;
+    width:80px;
+
+}
+#fixed-ul{
+    width:80px;
+    height:auto;
+    padding:0;
 
 }
 #fixed-ul li{
