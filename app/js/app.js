@@ -402,7 +402,6 @@ function nav_page_height() {
     } else {
         $.left_panel.css('min-height', windowHeight + 'px');
         $.root_.css('min-height', windowHeight + 'px');
-        console.log('false')
     }
 
 }
