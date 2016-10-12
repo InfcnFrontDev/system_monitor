@@ -50,7 +50,7 @@ $(document)
                     .toggleClass("minified");
                 $(this)
                     .effect("highlight", {}, 500);
-                console.log($('body').attr('class').length);
+
                 localStorage.bar=$('body').attr('class').length;
                 e.preventDefault();
             });
@@ -71,7 +71,7 @@ $(document)
             .click(function (e) {
                 $('body')
                     .toggleClass("hidden-menu");
-                console.log($('body').attr('class').length);
+
                 localStorage.nav=$('body').attr('class').length
 
                 e.preventDefault();
@@ -1379,11 +1379,28 @@ $(window)
     .on('hashchange', function (e) {
         var hash = location.hash.replace(/^#/, '');
         var top = $('#'+hash+"1").offset().top;
-
         var offset = 20;
-        if($('#header').length){
+
+        /*let urlData=[],length=null;
+        let urlArr=location.href.split('&');
+        length=urlArr.length-1;
+        urlData=urlArr[length];
+        if(urlData.indexOf(0)!=-1){
+            offset = 22
+        }
+        if(urlData.indexOf(1)!=-1){
+            offset = 120;
+        }*/
+        if(params.topnav==0){
+            offset = 22
+        }
+        if(params.topnav==1){
             offset = 120;
         }
+
+        // if($('#header').length){
+        //     offset = 120;
+        // }
 
         $('body').stop().animate({scrollTop: top - offset}, 300);
     });
@@ -1396,7 +1413,7 @@ $('#arrows').on('click',function(){
         $('#fixed-ul').animate({height:332},500);
         $('#arrows-img').attr("src",'img/jiantouxia.png');
     }
-    console.log($('#fixed-ul').height())
+
     localStorage.prompt=$('#fixed-ul').height()
 
 })
