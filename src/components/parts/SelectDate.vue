@@ -1,8 +1,7 @@
 <template>
     <div class="btn-group smart-form">
         <label class="input"><span class="rili-line">|</span> <i class="icon-append fa fa-calendar rili"></i>
-            <input id="{{dateId}}" type="text" class="datepicker" class="hasDatepicker valid" value="{{selected}}"
-                   style="margin-top: 2px;width:178px;">
+            <input id="{{dateId}}" type="text" value="{{selected}}" style="margin-top: 2px;width:178px;">
         </label>
     </div>
 </template>

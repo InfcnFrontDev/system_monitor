@@ -189,7 +189,6 @@ $(document)
                         localStorage.clear();
                         location.reload();
                     }
-
                 });
                 e.preventDefault();
             });
@@ -374,20 +373,22 @@ $(document)
 
 // Fix page and nav height
 function nav_page_height() {
-    setHeight = $('#main')
-        .height();
+    setHeight = $('#main').height();
     menuHeight = $.left_panel.height();
-    windowHeight = $(window)
-        .height() - $.navbar_height;
+    windowHeight = $(window).height() - $.navbar_height;
     //set height
 
     if (setHeight > windowHeight) { // if content height exceedes actual window height and menuHeight
         $.left_panel.css('min-height', setHeight + 'px');
         $.root_.css('min-height', setHeight + $.navbar_height + 'px');
 
+        if($('#header').css('display') == 'none'){
+            $.root_.css('min-height', setHeight + -$.navbar_height + 'px');
+        }
     } else {
         $.left_panel.css('min-height', windowHeight + 'px');
         $.root_.css('min-height', windowHeight + 'px');
+        console.log('false')
     }
 
 }
@@ -1178,7 +1179,7 @@ function setup_widgets_desktop() {
                 settingsKeyLabel: 'Reset settings?',
                 deletePositionKey: '#deletepositionkey-options',
                 positionKeyLabel: 'Reset position?',
-                sortable: true,
+                sortable: false,
                 buttonsHidden: false,
                 // toggle button
                 toggleButton: true,
@@ -1545,27 +1546,44 @@ if($('#server').length) {
         params[item[0]] = item[1];
     }
 
-    // servers
+    // servers: 可监控的服务器列表
+    // 解析servers = {name1}+{url1},{name2}+{url2},{name3}+{url3},[...]
+    // 例如servers = 服务器一+http://192.168.10.106:8080/ifcmonitor/,服务器二+http://192.168.10.106:8080/ifcmonitor/,[...]
     if(params.servers){
-        params._servers = params.servers;
-        params.servers = params.servers.split(',');
+        params._servers = params.servers;  // 保存一下原始串
+
+        var serArr = params.servers.split(','), serArr2 = [];
+        for(var i in serArr){
+            var serItemArr = serArr[i].split('+');
+
+            var serName = serItemArr[0], serUrl = serItemArr[0];
+            if(serItemArr.length > 1){
+                serName = serItemArr[0], serUrl = serItemArr[1];
+            }
+
+            serArr2.push({ name: serName, value: serUrl });
+        }
+        params.servers = serArr2;
     }else{
         params.servers = [];
-        params.servers.push(location.protocol+'//'+location.host+location.pathname);
+
+        var loc = location.protocol+'//'+location.host+location.pathname;
+        loc = loc.replace(/index\.html$/, '').replace(/ifcmonitor\/$/, '');
+        params.servers.push({ name: loc, value: loc });
     }
 
-    // s
+    // s：当前选中的服务器索引， 默认显示第1个，索引为0
     if(params.s){
         params.s = parseInt(params.s);
     }else{
         params.s = 0;
     }
 
-    // topnav
+    // topnav：是否显示顶部和左侧框架， 默认为1，显示
     if(params.topnav){
         params.topnav = parseInt(params.topnav);
     }else{
-        params.topnav = 0;
+        params.topnav = 1;
     }
 
     // 隐藏top/left
@@ -1579,26 +1597,13 @@ if($('#server').length) {
         $('#fixed-box').css('display','none')
     }
 
-    // params.topnav
-
-    // if(没有servers)
-    //      显当前服务器，protocol://host/pathname
-    //      隐藏top/left
-    // else
-    //      list servers
-    //      if(没有s)
-    //          default 0
-
-
-
-
-
     for (var j in params.servers) {
-        var $li = $('<li><a href="javascript:;">' + params.servers[j] + '</a></li>');
+        var $li = $('<li><a href="javascript:;">' + params.servers[j].name + '</a></li>');
 
         if( j == params.s){
             $li.addClass('active');
-            Config.apiPath = params.servers[j];
+            $server.find('a:first').text(params.servers[j].name);
+            Config.apiPath = params.servers[j].value;
         }
 
         $li.click(function () {
@@ -1616,7 +1621,10 @@ if($('#server').length) {
         $server.find('ul').append($li);
     }
 
-    $server.find('a:first').text(Config.apiPath);
+    // 保存一下params
+    Config.params = params;
+
+    // 加载图表页面
     loadURL('ajax/index.html', $('#content'));
 
 }

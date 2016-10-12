@@ -13405,7 +13405,6 @@ img.away {
 }
 
 .ribbon-button-alignment {
-    padding-top: 10px;
     display: inline-block
 }
 
@@ -18382,7 +18381,7 @@ a:hover{
     color:white;
 }
 #MsgBoxBack{
-    display:none;
+    display:block;
 }
 .modal-content{
     top:206px;
