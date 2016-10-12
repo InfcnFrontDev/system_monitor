@@ -1598,6 +1598,9 @@ if($('#server').length) {
         $('aside').css('display','none')
         $('#ribbon').css('display','none');
         $('#main').css({'margin-left':'0','margin-top':'-40px'})
+        $('#fixed-box').css('display','block')
+    }else{
+        $('#fixed-box').css('display','none')
     }
 
     // params.topnav
