@@ -39,8 +39,8 @@
 	<body class="fixed-ribbon fixed-header fixed-navigation"> <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
 
 		<!-- HEADER -->
-		<header id="header">
-				<div id="logo-group">
+		<header id="header" style="display: none">
+			<div id="logo-group">
 
 				<!-- PLACE YOUR LOGO HERE -->
 				<span id="logo">
@@ -91,7 +91,7 @@
 
 		<!-- Left panel : Navigation area -->
 		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
-		<aside id="left-panel">
+		<aside id="left-panel" style="display: none">
 
 			<!-- User info -->
 			<div class="login-info">
@@ -142,7 +142,7 @@
 		<div id="main" role="main">
 
 			<!-- RIBBON -->
-			<div id="ribbon">
+			<div id="ribbon" style="display: none">
 
 				<span class="ribbon-button-alignment">
 					<div id="server" class="btn-group">
@@ -179,22 +179,21 @@
 			<!-- MAIN CONTENT -->
 			<div id="content">
 
-
-
 			</div>
 			<!-- END MAIN CONTENT -->
 
 		</div>
 		<!-- END MAIN PANEL -->
-	<div id="fixed-box">
-		<ul id='fixed-ul'>
-			<li><a href="#running"><p class="fixed fa fa-lg fa-fw fa-bar-chart-o"></p><span class="fixed-li-font">运行状态</span></a></li>
-			<li><a href="#os"><p class="fixed fa fa-lg fa-fw fa-desktop"></p><span class="fixed-li-font">操作系统</span></a></li>
-			<li><a href="#jvm"><p class="fixed fa fa-lg fa-fw fa-cogs"></p><span class="fixed-li-font">JVM</span></a></li>
-			<li><a href="#network"><p class="fixed fa fa-lg fa-fw fa-globe"></p><span class="fixed-li-font">网络</span></a></li>
-		</ul>
-		<div id="arrows" ><img id="arrows-img"src="img/jiantouxia.png" alt="" style="width:80px; height:80px;"></div>
-	</div>
+
+		<div id="fixed-box" style="display: none">
+			<ul id='fixed-ul'>
+				<li><a href="#running"><p class="fixed fa fa-lg fa-fw fa-bar-chart-o"></p><span class="fixed-li-font">运行状态</span></a></li>
+				<li><a href="#os"><p class="fixed fa fa-lg fa-fw fa-desktop"></p><span class="fixed-li-font">操作系统</span></a></li>
+				<li><a href="#jvm"><p class="fixed fa fa-lg fa-fw fa-cogs"></p><span class="fixed-li-font">JVM</span></a></li>
+				<li><a href="#network"><p class="fixed fa fa-lg fa-fw fa-globe"></p><span class="fixed-li-font">网络</span></a></li>
+			</ul>
+			<div id="arrows" ><img id="arrows-img"src="img/jiantouxia.png" alt="" style="width:80px; height:80px;"></div>
+		</div>
 
 		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
 			 Note: These tiles are completely responsive,

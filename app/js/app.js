@@ -394,10 +394,10 @@ function nav_page_height() {
 
     if (setHeight > windowHeight) { // if content height exceedes actual window height and menuHeight
         $.left_panel.css('min-height', setHeight + 'px');
-        $.root_.css('min-height', setHeight + $.navbar_height + 'px');
+        $.root_.css('min-height', setHeight + $.navbar_height + $.navbar_height + 'px');
 
         if($('#header').css('display') == 'none'){
-            $.root_.css('min-height', setHeight + -$.navbar_height + 'px');
+            $.root_.css('min-height', setHeight + 'px');
         }
     } else {
         $.left_panel.css('min-height', windowHeight + 'px');
@@ -1571,12 +1571,8 @@ $('body')
             });
     });
 
-
-
-// Server List
-if($('#server').length) {
-    var $server = $('#server');
-
+// 解析QueryString
+function parseQueryString() {
     var search = location.search.replace(/^\?/, '');
     var searchs = search.split('&');
 
@@ -1629,16 +1625,34 @@ if($('#server').length) {
         params.topnav = 1;
     }
 
-    // 隐藏top/left
-    if(params.topnav==0){
-        $('#header').css('display','none');
-        $('aside').css('display','none')
-        $('#ribbon').css('display','none');
-        $('#main').css({'margin-left':'0','margin-top':'-40px'})
-        $('#fixed-box').css('display','block')
-    }else{
-        $('#fixed-box').css('display','none')
-    }
+    return params;
+}
+
+var params = parseQueryString();
+
+Config.params = params;
+
+// 隐藏top/left
+if(params.topnav==0){
+    $('body').addClass("hidden-menu");
+    $('#header').css('display','none');
+    $('#left-panel').css('display','none')
+    $('#ribbon').css('display','none');
+    $('#main').css({'margin-top':'0px'});
+    $('#fixed-box').css('display','none')
+}else{
+    $('body').removeClass("hidden-menu");
+    $('#header').css('display','block');
+    $('#left-panel').css('display','block')
+    $('#ribbon').css('display','block');
+    $('#main').css({'margin-top':'99px'})
+    $('#fixed-box').css('display','none')
+}
+
+
+// Server List
+if($('#server').length) {
+    var $server = $('#server');
 
     for (var j in params.servers) {
         var $li = $('<li><a href="javascript:;">' + params.servers[j].name + '</a></li>');
@@ -1647,6 +1661,8 @@ if($('#server').length) {
             $li.addClass('active');
             $server.find('a:first').text(params.servers[j].name);
             Config.apiPath = params.servers[j].value;
+            // 加载图表页面
+            loadURL('ajax/index.html', $('#content'));
         }
 
         $li.click(function () {
@@ -1655,18 +1671,11 @@ if($('#server').length) {
             if(params.topnav == 1){
                 url += '&topnav=1';
             }
-
             location.href = url;
         });
 
         $li.attr('s', j);
-
         $server.find('ul').append($li);
     }
 
-    // 保存一下params
-    Config.params = params;
-
-    // 加载图表页面
-    loadURL('ajax/index.html', $('#content'));
 }
