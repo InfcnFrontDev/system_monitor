@@ -46,39 +46,33 @@ $(document)
         // COLLAPSE LEFT NAV
         $('.minifyme')
             .click(function (e) {
-                $('body')
-                    .toggleClass("minified");
-                $(this)
-                    .effect("highlight", {}, 500);
-
-                localStorage.bar=$('body').attr('class').length;
+                $('body').toggleClass("minified");
+                localStorage.minifyme = $('body').attr('class').indexOf('minified') > -1;
                 e.preventDefault();
             });
-        if(localStorage.bar==51){
-            $('body')
-                .addClass("minified");
+
+        if(localStorage.minifyme == 'true'){
+            $('body').addClass("minified");
         }
 
         $('#logo')
             .click(function (e) {
-                $('body')
-                    .toggleClass("minified");
+                $('body').toggleClass("minified");
+                localStorage.minifyme = $('body').attr('class').indexOf('minified') > -1;
                 e.preventDefault();
             });
 
         // HIDE MENU
         $('#hide-menu >:first-child > a')
             .click(function (e) {
-                $('body')
-                    .toggleClass("hidden-menu");
-
-                localStorage.nav=$('body').attr('class').length
+                $('body').toggleClass("hidden-menu");
+                localStorage.hide_menu = $('body').attr('class').indexOf('hidden-menu') > -1;
 
                 e.preventDefault();
             });
-        if(localStorage.nav==54){
-            $('body')
-                .addClass("hidden-menu");
+
+        if(localStorage.hide_menu == 'true'){
+            $('body').addClass("hidden-menu");
         }
 
 
@@ -394,10 +388,11 @@ function nav_page_height() {
 
     if (setHeight > windowHeight) { // if content height exceedes actual window height and menuHeight
         $.left_panel.css('min-height', setHeight + 'px');
-        $.root_.css('min-height', setHeight + $.navbar_height + $.navbar_height + 'px');
 
         if($('#header').css('display') == 'none'){
             $.root_.css('min-height', setHeight + 'px');
+        }else{
+            $.root_.css('min-height', setHeight + $.navbar_height + 'px');
         }
     } else {
         $.left_panel.css('min-height', windowHeight + 'px');
@@ -1633,20 +1628,16 @@ var params = parseQueryString();
 Config.params = params;
 
 // 隐藏top/left
-if(params.topnav==0){
-    $('body').addClass("hidden-menu");
-    $('#header').css('display','none');
-    $('#left-panel').css('display','none')
-    $('#ribbon').css('display','none');
-    $('#main').css({'margin-top':'0px'});
-    $('#fixed-box').css('display','none')
-}else{
+if(params.topnav==1){
+
+    $('body').removeClass("hidden-header");
     $('body').removeClass("hidden-menu");
-    $('#header').css('display','block');
-    $('#left-panel').css('display','block')
-    $('#ribbon').css('display','block');
-    $('#main').css({'margin-top':'99px'})
-    $('#fixed-box').css('display','none')
+    $('body').removeClass("hidden-ribbon");
+
+    $('body').addClass("fixed-header");
+    $('body').addClass("fixed-navigation");
+    $('body').addClass("fixed-ribbon");
+
 }
 
 

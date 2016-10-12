@@ -12760,6 +12760,10 @@ aside {
     left: 590px
 }
 
+.fixed-ribbon #content {
+    padding-top: 50px
+}
+
 .minified.fixed-ribbon #ribbon {
     left: 45px
 }
@@ -13892,6 +13896,15 @@ img.away {
     -webkit-box-shadow: inset 0 0 6px 1px rgba(0,0,0,.2);
     box-shadow: inset 0 0 6px 1px rgba(0,0,0,.2)
 }
+
+.hidden-header #header{
+    display: none
+}
+
+.hidden-ribbon #ribbon{
+    display: none
+}
+
 
 .pagination-xs>li>a,.pagination-xs>li>span {
     padding: 4px 9px;
@@ -15613,13 +15626,13 @@ tr.highlight td,tr.unread.highlight td {
     }
 
     #header {
-        background: #fff
+        /*background: #fff*/
     }
 
     #ribbon {
-        border-bottom: 1px solid #CFCFCF;
-        border-top: 1px solid #E6E6E6;
-        background: #F5F5F5
+        /*border-bottom: 1px solid #CFCFCF;*/
+        /*border-top: 1px solid #E6E6E6;*/
+        /*background: #F5F5F5*/
     }
 
     #ribbon .breadcrumb,#ribbon .breadcrumb a {

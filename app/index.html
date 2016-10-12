@@ -36,10 +36,11 @@
 		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
 		
 	</head>
-	<body class="fixed-ribbon fixed-header fixed-navigation"> <!-- possible classes: minified, fixed-ribbon, fixed-header, fixed-width-->
+	<!-- possible classes: minified,fixed-header,fixed-ribbon,fixed-navigation,fixed-width-->
+	<body class="hidden-header hidden-menu hidden-ribbon">
 
 		<!-- HEADER -->
-		<header id="header" style="display: none">
+		<header id="header">
 			<div id="logo-group">
 
 				<!-- PLACE YOUR LOGO HERE -->
@@ -91,7 +92,7 @@
 
 		<!-- Left panel : Navigation area -->
 		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
-		<aside id="left-panel" style="display: none">
+		<aside id="left-panel">
 
 			<!-- User info -->
 			<div class="login-info">
@@ -142,7 +143,7 @@
 		<div id="main" role="main">
 
 			<!-- RIBBON -->
-			<div id="ribbon" style="display: none">
+			<div id="ribbon">
 
 				<span class="ribbon-button-alignment">
 					<div id="server" class="btn-group">
