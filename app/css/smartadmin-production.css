@@ -815,7 +815,7 @@ nav{
     position: relative;
     border-left: 1px solid rgba(0,0,0,.09);
     cursor: pointer;
-    padding: 0 8px;
+    padding: 0 4px 0 0;
     text-align: center;
 }
 
@@ -2849,12 +2849,7 @@ table.fc-border-separate {
     }
 }
 
-@media (max-width:767px) {
 
-    .bootstrap-timepicker,.bootstrap-timepicker .dropdown-menu {
-        width: 100%
-    }
-}
 
 .animated.hinge {
     -webkit-animation-duration: 2s;
@@ -10241,7 +10236,32 @@ textarea.clone {
         width: 150px
     }
 }
+@media (min-width:880px) and (max-width:979px){
+    .hidden-menu.fixed-ribbon #ribbon {
+        left:-70px;
+    }
+}
 
+@media(min-width:479px) and (max-width:979px){
+    .hidden-menu #left-panel{
+        display: none;
+    }
+    .hidden-menu #main{
+       left:0;
+    }
+}
+
+@media(min-width:979px){
+    .fixed-ribbon #ribbon{
+        left:140px;
+    }
+}
+
+@media (max-width:880px) {
+    .hidden-menu.fixed-ribbon #ribbon{
+        left:-60px;
+    }
+}
 @media only screen and (min-width:320px) and (max-width:479px) {
     .chat-body li.message .message-text .chat-file b {
         width: 150px
@@ -12503,7 +12523,7 @@ aside {
 }
 
 .fixed-header #main {
-    margin-top: 49px
+    margin-top: 88px
 }
 
 
@@ -12553,7 +12573,7 @@ aside {
     width: 94px;
     height: auto;
     padding-left: 12px;
-    margin-top: -20px;
+    margin-top: -16px;
 
 }
 #title11 {
@@ -12700,7 +12720,7 @@ aside {
 
 #main {
     display: block;
-    margin-left: 146px;
+    margin-left: 140px;
     padding: 0;
     min-height: 500px
 }
@@ -12741,11 +12761,6 @@ aside {
     width: 944px;
     left: 590px
 }
-
-.fixed-ribbon #content {
-    padding-top: 50px
-}
-
 .minified.fixed-ribbon #ribbon {
     left: 45px
 }
@@ -13794,7 +13809,7 @@ img.away {
 }
 
 .hidden-menu #main {
-    margin-left: 10px
+    margin-left: 0;
 }
 
 .hidden-menu #left-panel:hover {
@@ -15230,7 +15245,6 @@ tr.highlight td,tr.unread.highlight td {
     }
 
     .inbox-data-message>:first-child>:first-child {
-        display: block!important;
         font-size: 14px
     }
 
@@ -15297,15 +15311,7 @@ tr.highlight td,tr.unread.highlight td {
 
     .hidden-menu #main {
         position: relative;
-        left: 210px
-    }
-
-    .hidden-menu.fixed-ribbon #ribbon {
-        left: 140px
-    }
-
-    .fixed-ribbon #ribbon {
-        left: 0
+        left: 140px;
     }
 
     .header-search>input[type=text] {
@@ -15382,23 +15388,42 @@ tr.highlight td,tr.unread.highlight td {
 
     .hidden-menu #main {
         position: relative;
-        left: 146px
-    }
-
-   /* .hidden-menu.fixed-ribbon #ribbon {
-        left: 220px
-    }*/
-
-    .fixed-ribbon #ribbon {
-        left: 0
+        left: 140px;
     }
 
     .header-search>input[type=text] {
         margin-top: 9px
     }
 }
+@media (min-width:679px) and (max-width:767px){
+    .fixed-ribbon #ribbon {
+        left: 0
+    }
+}
+@media (max-width:979px){
+    .fixed-ribbon #ribbon {
+        left: 0
+    }
+    .hidden-menu #main{
+        left: 0
+    }
+}
 
+   /* .fixed-ribbon #ribbon {
+        left: 0
+    }*/
 @media (max-width:767px) {
+    #ribbon{
+    }
+    #hide-menu{
+        display: none;
+    }
+    #search-mobile{
+        display:none;
+    }
+    .bootstrap-timepicker,.bootstrap-timepicker .dropdown-menu {
+        width: 100%
+    }
     #main {
         margin-left: 0
     }
@@ -15491,33 +15516,17 @@ tr.highlight td,tr.unread.highlight td {
         left: 0
     }
 
-    .hidden-menu #main {
+   /* .hidden-menu #main {
         position: relative;
-        left: 210px
-    }
+        left: 140px
+    }*/
 
-    .hidden-menu.fixed-ribbon #ribbon {
+    .hidden-menu.fixed-ribbon {
         left: 0px
-    }
-
-    .fixed-ribbon #ribbon {
-        left: 0
-    }
-
-    .fixed-navigation #left-panel {
-        position: absolute!important
-    }
-
-    .fixed-ribbon #content {
-        padding-top: 52px
     }
 
     .header-search {
         display: none
-    }
-
-    #search-mobile {
-        display: block
     }
 
     .search-mobile .header-search {
@@ -15674,25 +15683,12 @@ tr.highlight td,tr.unread.highlight td {
 
     .hidden-menu #main {
         position: relative;
-        left: 210px
-    }
-
-    .hidden-menu.fixed-ribbon #ribbon {
-        left: 220px
-    }
-
-    .fixed-ribbon #ribbon {
-        left: 0
+        left: 0;
     }
 
     .header-search {
         display: none
     }
-
-    #search-mobile {
-        display: block
-    }
-
     .search-mobile .header-search {
         display: block;
         position: absolute;
@@ -15801,7 +15797,7 @@ tr.highlight td,tr.unread.highlight td {
     }
 
     #logo-group {
-        width: 169px!important
+        width: 340px!important
     }
 
     #sparks {
@@ -15865,20 +15861,12 @@ tr.highlight td,tr.unread.highlight td {
     }
 
     .hidden-menu #left-panel {
-        left: 0
+        display: none;
     }
 
     .hidden-menu #main {
         position: relative;
-        left: 210px
-    }
-
-    .hidden-menu.fixed-ribbon #ribbon {
-        left: 220px
-    }
-
-    .fixed-ribbon #ribbon {
-        left: 0
+        left: 0;
     }
 
     .hidden-mobile {
@@ -15910,11 +15898,6 @@ tr.highlight td,tr.unread.highlight td {
 
     .header-search {
         display: none
-    }
-
-    #search-mobile {
-        display: block;
-        margin-left: 0
     }
 
     .search-mobile .header-search {
@@ -15954,7 +15937,6 @@ tr.highlight td,tr.unread.highlight td {
     }
 
     .jarviswidget header h2 {
-        width: 135px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden

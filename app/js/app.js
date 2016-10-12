@@ -1618,5 +1618,4 @@ if($('#server').length) {
 
     $server.find('a:first').text(Config.apiPath);
     loadURL('ajax/index.html', $('#content'));
-
 }
