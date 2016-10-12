@@ -50,8 +50,14 @@ $(document)
                     .toggleClass("minified");
                 $(this)
                     .effect("highlight", {}, 500);
+
+                localStorage.bar=$('body').attr('class').length;
                 e.preventDefault();
             });
+        if(localStorage.bar==51){
+            $('body')
+                .addClass("minified");
+        }
 
         $('#logo')
             .click(function (e) {
@@ -65,8 +71,16 @@ $(document)
             .click(function (e) {
                 $('body')
                     .toggleClass("hidden-menu");
+
+                localStorage.nav=$('body').attr('class').length
+
                 e.preventDefault();
             });
+        if(localStorage.nav==54){
+            $('body')
+                .addClass("hidden-menu");
+        }
+
 
         // HIGHLIGHT EFFECT
         $(".login-info")
@@ -412,6 +426,9 @@ function check_if_mobile_width() {
         $.root_.removeClass('mobile-view-activated');
     }
 }
+
+
+
 
 /* ~ END: NAV OR #LEFT-BAR RESIZE DETECT */
 
@@ -1362,11 +1379,28 @@ $(window)
     .on('hashchange', function (e) {
         var hash = location.hash.replace(/^#/, '');
         var top = $('#'+hash+"1").offset().top;
-
         var offset = 20;
-        if($('#header').length){
+
+        /*let urlData=[],length=null;
+        let urlArr=location.href.split('&');
+        length=urlArr.length-1;
+        urlData=urlArr[length];
+        if(urlData.indexOf(0)!=-1){
+            offset = 22
+        }
+        if(urlData.indexOf(1)!=-1){
+            offset = 120;
+        }*/
+        if(params.topnav==0){
+            offset = 22
+        }
+        if(params.topnav==1){
             offset = 120;
         }
+
+        // if($('#header').length){
+        //     offset = 120;
+        // }
 
         $('body').stop().animate({scrollTop: top - offset}, 300);
     });
@@ -1374,12 +1408,19 @@ $('#arrows').on('click',function(){
     if(!$('#fixed-ul').height()==0){
         $('#fixed-ul').animate({height:0},500);
         $('#arrows-img').attr("src",'img/jiantou.png');
+
     }else{
         $('#fixed-ul').animate({height:332},500);
         $('#arrows-img').attr("src",'img/jiantouxia.png');
     }
 
+    localStorage.prompt=$('#fixed-ul').height()
+
 })
+if(localStorage.prompt==332){
+    $('#fixed-ul').height(0);
+    $('#arrows-img').attr("src",'img/jiantou.png');
+}
 // CHECK TO SEE IF URL EXISTS
 function checkURL() {
 
