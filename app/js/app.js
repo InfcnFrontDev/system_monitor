@@ -1615,6 +1615,9 @@ if($('#server').length) {
     // s：当前选中的服务器索引， 默认显示第1个，索引为0
     if(params.s){
         params.s = parseInt(params.s);
+        if(params.s >= params.servers.length){
+            params.s = 0;
+        }
     }else{
         params.s = 0;
     }

@@ -815,7 +815,7 @@ nav{
     position: relative;
     border-left: 1px solid rgba(0,0,0,.09);
     cursor: pointer;
-    padding: 0 4px 0 0;
+    padding: 0 8px;
     text-align: center;
 }
 
@@ -12523,10 +12523,8 @@ aside {
 }
 
 .fixed-header #main {
-    margin-top: 88px
+    margin-top: 49px
 }
-
-
 
 #logo-group span#activity {
     border-radius: 2px;
@@ -12761,6 +12759,11 @@ aside {
     width: 944px;
     left: 590px
 }
+
+.fixed-ribbon #content {
+    padding-top: 50px
+}
+
 .minified.fixed-ribbon #ribbon {
     left: 45px
 }

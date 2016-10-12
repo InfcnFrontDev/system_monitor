@@ -32,7 +32,7 @@
             title: {type: String, default: 'My Widget'}
         },
         ready() {
-
+            setup_widgets_desktop();
         },
         methods: {}
     }

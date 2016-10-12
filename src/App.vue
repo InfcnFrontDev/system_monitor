@@ -167,8 +167,6 @@
             WidgetNetThroughput
         },
         ready() {
-            setup_widgets_desktop();
-
             pageSetUp();
         }
     }
