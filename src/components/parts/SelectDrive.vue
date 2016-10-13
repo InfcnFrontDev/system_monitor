@@ -36,28 +36,25 @@
                 });
 
 
-
 //                第一次为空，。。。
 //                if( Storage.get($this.driveId) == null ){
 //                    $this.selected = $this.drives[0].name
 //                }else{
-    //                if( Storage.get($this.driveId) in $this.drives ){
-    //                    $this.selected = Storage.get($this.driveId)
-    //                }else{
-    //                    $this.selected = $this.drives[0].name
-    //                }
+                //                if( Storage.get($this.driveId) in $this.drives ){
+                //                    $this.selected = Storage.get($this.driveId)
+                //                }else{
+                //                    $this.selected = $this.drives[0].name
+                //                }
 //                }
 
-            $this.selected = Storage.get($this.driveId) || $this.drives[0].name;
+                $this.selected = Storage.get($this.driveId) || $this.drives[0].name;
+            });
+        },
+        watch: {
+            selected: function (val, oldVal) {
+                this.$dispatch('onchange', val)
+                Storage.set(this.driveId, val);
+            }
         }
-    )
-    ;
-    },
-    watch: {
-        selected: function (val, oldVal) {
-            this.$dispatch('onchange', val)
-            Storage.set(this.driveId, val);
-        }
-    }
     }
 </script>
