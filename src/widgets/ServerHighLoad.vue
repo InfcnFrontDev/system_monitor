@@ -10,9 +10,9 @@
 
 </style>
 <script>
-    import Widget from './Widget.vue'
-    import SelectDate from './parts/SelectDate.vue'
-    import Chart from './parts/Chart.vue'
+    import Widget from '../components/Widget.vue'
+    import SelectDate from '../components/SelectDate.vue'
+    import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 

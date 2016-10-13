@@ -10,9 +10,9 @@
 
 </style>
 <script>
-    import Widget from './Widget.vue'
-    import SelectDrive from './parts/SelectDrive.vue'
-    import Chart from './parts/Chart.vue'
+    import Widget from '../components/Widget.vue'
+    import SelectDrive from '../components/SelectDrive.vue'
+    import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 

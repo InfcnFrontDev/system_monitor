@@ -9,11 +9,11 @@
 <style>
 </style>
 <script>
-    import Widget from './Widget.vue'
-    import SelectPeriod from './parts/SelectPeriod.vue'
-    import Chart from './parts/Chart.vue'
-    import Monitor from '../common/monitor.api'
-    import Tools from '../common/tools'
+    import Widget from '../components/Widget.vue';
+    import SelectPeriod from '../components/SelectPeriod.vue';
+    import Chart from '../components/Chart.vue'
+    import Monitor from '../common/monitor.api';
+    import Tools from '../common/tools';
 
     export default{
         components: {
@@ -21,18 +21,16 @@
         },
         data(){
             return {
-                id: 'system_load',
-                title: '系统负载',
-
-                yAxisMax: 100
+                id: 'memory_usage',
+                title: '内存使用率'
             }
         },
-        ready(){
+        ready() {
             this.$refs.chart.setOption({
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params, ticket, callback) {
-                        return Tools.formatter(params, '%');
+                        return Tools.formatter(params, 'GB');
                     }
                 },
                 grid: {
@@ -40,7 +38,7 @@
                 },
                 legend: {
                     top: 14,
-                    data: ['系统负载']
+                    data: ['已用', '可用']
                 },
                 xAxis: [{
                     type: 'category',
@@ -48,14 +46,16 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '负载率（%）',
+                    name: '容量（GB）',
                     type: 'value',
                     max: 100
                 }],
                 series: [{
-                    name: '系统负载', type: 'line', data: []
+                    name: '已用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
+                }, {
+                    name: '可用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
                 }]
-            })
+            });
         },
         methods: {
             // 时间段改变时
@@ -85,7 +85,7 @@
             // 抓取数据
             fetchData(){
                 let $this = this;
-                Monitor.getJVMOperatingSystem(this.monitorDate, this.interval).then(function (result) {
+                Monitor.getMem(this.monitorDate, this.interval).then(function (result) {
                     $this.fetchSuccess(result);
                 }, function (error) {
                     $this.fetchError(error);
@@ -123,14 +123,15 @@
             },
             // 实时监控初始化
             realtimeInit() {
-                let xAxisData = [], data1 = [];
+                let xAxisData = [], data1 = [], data2 = [];
                 xAxisData.length = Config.realtimeLen;
                 data1.length = Config.realtimeLen;
+                data2.length = Config.realtimeLen;
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: this.yAxisMax}],
-                    series: [{data: data1}]
+                    series: [{data: data1}, {data: data2}]
                 });
             },
             // 实时监控数据渲染
@@ -138,6 +139,7 @@
                 let option = this.$refs.chart.getOption(),
                         xAxisData = option.xAxis[0].data,
                         data1 = option.series[0].data,
+                        data2 = option.series[1].data,
                         yAxisMax = option.yAxis[0].max;
 
                 let itemData = this.toItemData(result);
@@ -148,6 +150,8 @@
 
                 data1.shift();
                 data1.push(itemData.data1);
+                data2.shift();
+                data2.push(itemData.data2);
 
                 // y轴max值最小为100，否则自动
                 if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
@@ -157,12 +161,12 @@
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}]
+                    series: [{data: data1}, {data: data2}]
                 })
             },
             // 区间展示数据渲染
             intervalRender(result) {
-                let xAxisData = [], data1 = [], yAxisMax = this.yAxisMax;
+                let xAxisData = [], data1 = [], data2 = [], yAxisMax = this.yAxisMax;
 
                 let $this = this;
                 $(result).each(function () {
@@ -170,6 +174,7 @@
 
                     xAxisData.push(itemData.xAxisData);
                     data1.push(itemData.data1);
+                    data2.push(itemData.data2);
 
                     // y轴max值最小为100，否则自动
                     if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
@@ -180,26 +185,28 @@
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}]
+                    series: [{data: data1}, {data: data2}]
                 });
             },
             // 全天展示初始化
             allDayInit(){
                 let len = 60 * 24 / this.interval,
-                        xAxisData = [], data1 = [];
+                        xAxisData = [], data1 = [], data2 = [];
 
                 xAxisData.length = len;
                 data1.length = len;
+                data2.length = len;
 
                 for (let i = 0; i < xAxisData.length; i++) {
                     xAxisData[i] = Tools.numberToTime(i, this.interval);
                     data1[i] = '-';
+                    data2[i] = '-';
                 }
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: this.yAxisMax}],
-                    series: [{data: data1}]
+                    series: [{data: data1}, {data: data2}]
                 });
             },
             // 全天展示数据渲染
@@ -208,6 +215,7 @@
 
                 let option = this.$refs.chart.getOption(),
                         data1 = option.series[0].data,
+                        data2 = option.series[1].data,
                         yAxisMax = this.yAxisMax,
                         interval = this.interval;
 
@@ -217,6 +225,7 @@
                             num = Tools.timeToNumber(itemData.xAxisData, interval);
 
                     data1[num] = itemData.data1;
+                    data2[num] = itemData.data2;
 
                     // y轴max值最小为100，否则自动
                     if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
@@ -226,21 +235,19 @@
 
                 this.$refs.chart.setOption({
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}]
+                    series: [{data: data1}, {data: data2}]
                 });
             },
             // 数据转换
             toItemData(item) {
-                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, yAxisMax = 0,
-                        obj = item.ifcJVMOperatingSystem;
+                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0,
+                        obj = item.ifcMem;
 
-                if (obj.systemLoadAverage < 0) {
-                    obj.systemLoadAverage = 0;
-                }
-                data1 = parseFloat((obj.systemLoadAverage * 100).toFixed(0));
-                yAxisMax = data1;
+                data1 = parseFloat(Tools.byteToGB(obj.used).toFixed(1));
+                data2 = parseFloat(Tools.byteToGB(obj.free).toFixed(1));
+                yAxisMax = parseFloat(Tools.byteToGB(obj.total).toFixed(1));
 
-                return {xAxisData, yAxisMax, data1}
+                return {xAxisData, yAxisMax, data1, data2}
             }
         }
     }

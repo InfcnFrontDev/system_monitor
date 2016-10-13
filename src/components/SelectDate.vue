@@ -8,7 +8,7 @@
 <style>
 </style>
 <script>
-    import Tools from '../../common/tools'
+    import Tools from '../common/tools'
 
     export default{
         data(){

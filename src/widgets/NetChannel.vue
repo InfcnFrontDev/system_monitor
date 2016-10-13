@@ -5,7 +5,7 @@
 
 </style>
 <script>
-    import Widget from './Widget.vue'
+    import Widget from '../components/Widget.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 

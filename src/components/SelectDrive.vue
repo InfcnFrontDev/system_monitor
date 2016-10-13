@@ -15,9 +15,9 @@
 <style>
 </style>
 <script>
-    import Monitor from '../../common/monitor.api'
-    import Tools from '../../common/tools'
-    import Storage from '../../common/storage'
+    import Monitor from '../common/monitor.api'
+    import Tools from '../common/tools'
+    import Storage from '../common/storage'
 
     export default{
         data(){

@@ -9,12 +9,11 @@
 <style>
 </style>
 <script>
-    import Widget from './Widget.vue'
-    import SelectPeriod from './parts/SelectPeriod.vue'
-    import Chart from './parts/Chart.vue'
+    import Widget from '../components/Widget.vue'
+    import SelectPeriod from '../components/SelectPeriod.vue'
+    import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
-
 
     export default{
         components: {
@@ -22,21 +21,29 @@
         },
         data(){
             return {
-                id: 'jvm_thread_active',
-                title: '线程数(活动)'
+                id: 'net_throughput',
+                title: '吞吐量',
+                rxBytes0: undefined,
+                txBytes0: undefined
             }
         },
         ready() {
+            let $this = this;
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {
+                        return Tools.formatter(params, 'Kbps');
+                    }
+
+
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                 },
                 legend: {
                     top: 14,
-                    data:['守护线程', '实时线程']
+                    data: ['发送', '接收']
                 },
                 xAxis: [{
                     type: 'category',
@@ -44,13 +51,13 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '数量',
+                    name: '吞吐量(Kbps)',
                     type: 'value'
                 }],
                 series: [{
-                    name: '守护线程', type: 'line', data: []
+                    name: '发送', type: 'line', data: [], formatter: '{data}%'
                 }, {
-                    name: '实时线程', type: 'line', data: []
+                    name: '接收', type: 'line', data: [], formatter: '{data}%'
                 }]
             });
         },
@@ -69,7 +76,7 @@
                 this.$refs.chart.showLoading();
 
                 // 实时监控初始化
-                if (!this.monitorDate) {
+                if (this.monitorDate == undefined) {
                     this.realtimeInit();
                 }
 
@@ -82,7 +89,7 @@
             // 抓取数据
             fetchData(){
                 let $this = this;
-                Monitor.getJVMThread(this.monitorDate, this.interval).then(function (result) {
+                Monitor.getNets(this.monitorDate, this.interval).then(function (result) {
                     $this.fetchSuccess(result);
                 }, function (error) {
                     $this.fetchError(error);
@@ -125,6 +132,9 @@
                 data1.length = Config.realtimeLen;
                 data2.length = Config.realtimeLen;
 
+                this.rxBytes = undefined;
+                this.txBytes = undefined;
+
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: this.yAxisMax}],
@@ -165,6 +175,9 @@
             intervalRender(result) {
                 let xAxisData = [], data1 = [], data2 = [], yAxisMax = this.yAxisMax;
 
+                this.rxBytes = undefined;
+                this.txBytes = undefined;
+
                 let $this = this;
                 $(result).each(function () {
                     let itemData = $this.toItemData(this);
@@ -199,6 +212,9 @@
                     data1[i] = '-';
                     data2[i] = '-';
                 }
+
+                this.rxBytes = undefined;
+                this.txBytes = undefined;
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
@@ -237,17 +253,41 @@
             },
             // 数据转换
             toItemData(item) {
-                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0,
-                        obj = item.ifcJVMThread;
+                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0;
 
-                if(obj){
-                    data1 = obj.daemonThreadCount;
-                    data2 = obj.threadCount;
+                var rxBytes = 0, txBytes = 0;
+                $(item.ifcNets).each(function () {
+                    rxBytes += this.rxBytes;
+                    txBytes += this.txBytes;
+                });
+
+                let d1 = 0, d2 = 0;
+                if (this.rxBytes != undefined && this.txBytes != undefined) {
+                    d1 = rxBytes - this.rxBytes;
+                    d2 = txBytes - this.txBytes;
                 }
+
+                if ($this.date && Tools.dateParse(item.date) - Tools.dateParse($this.date) > 60000) {
+                    d1 = 0;
+                    d2 = 0;
+                }
+                $this.date = item.date;
+
+                if(this.interval) {
+                    d1 /= this.interval * 60;
+                    d2 /= this.interval * 60;
+                }
+
+                data1 = parseFloat(Tools.byteToKB(d1).toFixed(2));
+                data2 = parseFloat(Tools.byteToKB(d2).toFixed(2));
+
+                yAxisMax = data1 > data2 ? data1 : data2;
+
+                this.rxBytes = rxBytes;
+                this.txBytes = txBytes;
 
                 return {xAxisData, yAxisMax, data1, data2}
             }
         }
-
     }
 </script>

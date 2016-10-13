@@ -9,53 +9,22 @@
 <style>
 </style>
 <script>
-    import Widget from './Widget.vue';
-    import SelectPeriod from './parts/SelectPeriod.vue';
-    import Chart from './parts/Chart.vue'
-    import Monitor from '../common/monitor.api';
-    import Tools from '../common/tools';
+    import Widget from '../components/Widget.vue';
+    import SelectPeriod from '../components/SelectPeriod.vue'
+    import Chart from '../components/Chart.vue'
+    import Monitor from '../common/monitor.api'
+    import Tools from '../common/tools'
 
     export default{
         components: {
             Widget, SelectPeriod, Chart
         },
-        data(){
-            return {
-                id: 'memory_usage',
-                title: '内存使用率'
-            }
+        props: {
+            id: {type: String},
+            title: {type: String}
         },
         ready() {
-            this.$refs.chart.setOption({
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: function (params, ticket, callback) {
-                        return Tools.formatter(params, 'GB');
-                    }
-                },
-                grid: {
-                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
-                },
-                legend: {
-                    top: 14,
-                    data: ['已用', '可用']
-                },
-                xAxis: [{
-                    type: 'category',
-                    boundaryGap: false,
-                    data: []
-                }],
-                yAxis: [{
-                    name: '容量（GB）',
-                    type: 'value',
-                    max: 100
-                }],
-                series: [{
-                    name: '已用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
-                }, {
-                    name: '可用', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
-                }]
-            });
+            this.$refs.chart.setOption(this.$parent.getInitOption());
         },
         methods: {
             // 时间段改变时
@@ -85,7 +54,7 @@
             // 抓取数据
             fetchData(){
                 let $this = this;
-                Monitor.getMem(this.monitorDate, this.interval).then(function (result) {
+                this.$parent.getDataApi()(this.monitorDate, this.interval).then(function (result) {
                     $this.fetchSuccess(result);
                 }, function (error) {
                     $this.fetchError(error);
@@ -240,14 +209,7 @@
             },
             // 数据转换
             toItemData(item) {
-                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0,
-                        obj = item.ifcMem;
-
-                data1 = parseFloat(Tools.byteToGB(obj.used).toFixed(1));
-                data2 = parseFloat(Tools.byteToGB(obj.free).toFixed(1));
-                yAxisMax = parseFloat(Tools.byteToGB(obj.total).toFixed(1));
-
-                return {xAxisData, yAxisMax, data1, data2}
+                return this.$parent.toItemData(item);
             }
         }
     }

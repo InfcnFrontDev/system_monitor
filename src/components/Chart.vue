@@ -4,8 +4,8 @@
 <style>
 </style>
 <script>
-    import Tools from '../../common/tools'
-    import Storage from '../../common/storage'
+    import Tools from '../common/tools'
+    import Storage from '../common/storage'
 
     export default{
         data(){

@@ -16,7 +16,7 @@
         <div class="row">
             <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--服务器高负载日分布情况-->
-                <widget-server-high-load></widget-server-high-load>
+                <server-high-load></server-high-load>
             </article>
         </div>
         <!-- row -->
@@ -34,31 +34,31 @@
         <div class="row">
             <!--<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
                 <!--服务器信息-->
-                <!--<widget-server-message></widget-server-message>-->
+                <!--<server-message></server-message>-->
             <!--</article>-->
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--存储使用情况-->
-                <widget-storage-usage></widget-storage-usage>
+                <storage-usage></storage-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--CPU使用率-->
-                <widget-cpu-usage></widget-cpu-usage>
+                <cpu-usage></cpu-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--内存使用率-->
-                <widget-memory-usage></widget-memory-usage>
+                <memory-usage></memory-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--交换空间（swap）使用率-->
-                <widget-swap-usage></widget-swap-usage>
+                <swap-usage></swap-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--磁盘I/O-->
-                <widget-disk-usage></widget-disk-usage>
+                <disk-usage></disk-usage>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--系统负载-->
-                <widget-system-load></widget-system-load>
+                <system-load></system-load>
             </article>
         </div>
         <!-- row -->
@@ -76,23 +76,23 @@
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--jvm摘要-->
-                <widget-jvm-message></widget-jvm-message>
+                <jvm-message></jvm-message>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--堆内存使用情况-->
-                <widget-jvm-heap-memory></widget-jvm-heap-memory>
+                <jvm-heap-memory></jvm-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--非堆内存使用情况-->
-                <widget-jvm-non-heap-memory></widget-jvm-non-heap-memory>
+                <jvm-non-heap-memory></jvm-non-heap-memory>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--加载类情况-->
-                <widget-jvm-class-load></widget-jvm-class-load>
+                <jvm-class-load></jvm-class-load>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                 <!--线程数情况-->
-                <widget-jvm-thread></widget-jvm-thread>
+                <jvm-thread></jvm-thread>
             </article>
         </div>
         <!-- row -->
@@ -109,10 +109,10 @@
         <!-- row -->
         <div class="row">
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget-net-message></widget-net-message>
+                <net-message></net-message>
             </article>
             <article class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-                <widget-net-throughput></widget-net-throughput>
+                <net-throughput></net-throughput>
             </article>
         </div>
 
@@ -120,51 +120,48 @@
 </template>
 <script>
 
-    import Widget from './components/Widget.vue'
-    import WidgetServerHighLoad from './components/WidgetServerHighLoad.vue'
+    import ServerHighLoad from './widgets/ServerHighLoad.vue'
 
-    import WidgetServerMessage from './components/WidgetServerMessage.vue'
-    import WidgetStorageUsage from './components/WidgetStorageUsage.vue'
-    import WidgetCpuUsage from './components/WidgetCpuUsage.vue'
-    import WidgetMemoryUsage from './components/WidgetMemoryUsage.vue'
-    import WidgetSwapUsage from './components/WidgetSwapUsage.vue'
-    import WidgetDiskUsage from './components/WidgetDiskUsage.vue'
-    import WidgetSystemLoad from './components/WidgetSystemLoad.vue'
+    import ServerMessage from './widgets/ServerMessage.vue'
+    import StorageUsage from './widgets/StorageUsage.vue'
+    import CpuUsage from './widgets/CpuUsage.vue'
+    import MemoryUsage from './widgets/MemoryUsage.vue'
+    import SwapUsage from './widgets/SwapUsage.vue'
+    import DiskUsage from './widgets/DiskUsage.vue'
+    import SystemLoad from './widgets/SystemLoad.vue'
 
-    import WidgetJvmClassLoad from  './components/WidgetJvmClassLoad.vue'
-    import WidgetJvmHeapMemory from  './components/WidgetJvmHeapMemory.vue'
-    import WidgetJvmNonHeapMemory from  './components/WidgetJvmNonHeapMemory.vue'
-    import WidgetJvmMessage from  './components/WidgetJvmMessage.vue'
-    import WidgetJvmThread from  './components/WidgetJvmThread.vue'
-    import WidgetJvmThreadActive from  './components/WidgetJvmThreadActive.vue'
+    import JvmClassLoad from  './widgets/JvmClassLoad.vue'
+    import JvmHeapMemory from  './widgets/JvmHeapMemory.vue'
+    import JvmNonHeapMemory from  './widgets/JvmNonHeapMemory.vue'
+    import JvmMessage from  './widgets/JvmMessage.vue'
+    import JvmThread from  './widgets/JvmThread.vue'
+    import JvmThreadActive from  './widgets/JvmThreadActive.vue'
 
-    import WidgetNetMessage from './components/WidgetNetMessage.vue'
-    import WidgetNetChannel from './components/WidgetNetChannel.vue'
-    import WidgetNetThroughput from './components/WidgetNetThroughput.vue'
+    import NetMessage from './widgets/NetMessage.vue'
+    import NetChannel from './widgets/NetChannel.vue'
+    import NetThroughput from './widgets/NetThroughput.vue'
 
     export default{
         components: {
-            Widget,
+            ServerHighLoad,
 
-            WidgetServerHighLoad,
+            StorageUsage,
+            CpuUsage,
+            MemoryUsage,
+            SwapUsage,
+            DiskUsage,
+            SystemLoad,
+            ServerMessage,
+            JvmMessage,
+            JvmHeapMemory,
+            JvmNonHeapMemory,
+            JvmClassLoad,
+            JvmThread,
+            JvmThreadActive,
 
-            WidgetStorageUsage,
-            WidgetCpuUsage,
-            WidgetMemoryUsage,
-            WidgetSwapUsage,
-            WidgetDiskUsage,
-            WidgetSystemLoad,
-            WidgetServerMessage,
-            WidgetJvmMessage,
-            WidgetJvmHeapMemory,
-            WidgetJvmNonHeapMemory,
-            WidgetJvmClassLoad,
-            WidgetJvmThread,
-            WidgetJvmThreadActive,
-
-            WidgetNetMessage,
-            WidgetNetChannel,
-            WidgetNetThroughput
+            NetMessage,
+            NetChannel,
+            NetThroughput
         },
         ready() {
             pageSetUp();

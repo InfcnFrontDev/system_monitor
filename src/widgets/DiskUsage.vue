@@ -9,12 +9,11 @@
 <style>
 </style>
 <script>
-    import Widget from './Widget.vue'
-    import SelectPeriod from './parts/SelectPeriod.vue'
-    import Chart from './parts/Chart.vue'
+    import Widget from '../components/Widget.vue'
+    import SelectPeriod from '../components/SelectPeriod.vue'
+    import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
-
 
     export default{
         components: {
@@ -22,21 +21,26 @@
         },
         data(){
             return {
-                id: 'jvm_class_load',
-                title: 'jvm类加载'
+                id: 'disk_usage',
+                title: '磁盘I/O'
             }
         },
-        ready() {
+        ready(){
+            let $this = this;
             this.$refs.chart.setOption({
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: function (params, ticket, callback) {
+                        return Tools.formatter(params, 'KB/s');
+
+                    }
                 },
                 grid: {
                     top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                 },
                 legend: {
                     top: 14,
-                    data: ['已加载', '已卸载']
+                    data: ['写入速度', '读取速度']
                 },
                 xAxis: [{
                     type: 'category',
@@ -44,13 +48,13 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '数量',
+                    name: '速度(KB/s)',
                     type: 'value'
                 }],
                 series: [{
-                    name: '已加载', type: 'line', data: []
+                    name: '写入速度', type: 'line', data: []
                 }, {
-                    name: '已卸载', type: 'line', data: []
+                    name: '读取速度', type: 'line', data: []
                 }]
             });
         },
@@ -69,7 +73,7 @@
                 this.$refs.chart.showLoading();
 
                 // 实时监控初始化
-                if (!this.monitorDate) {
+                if (this.monitorDate == undefined) {
                     this.realtimeInit();
                 }
 
@@ -82,7 +86,7 @@
             // 抓取数据
             fetchData(){
                 let $this = this;
-                Monitor.getJVMClassLoading(this.monitorDate, this.interval).then(function (result) {
+                Monitor.getFileSystems(this.monitorDate, this.interval).then(function (result) {
                     $this.fetchSuccess(result);
                 }, function (error) {
                     $this.fetchError(error);
@@ -125,6 +129,9 @@
                 data1.length = Config.realtimeLen;
                 data2.length = Config.realtimeLen;
 
+                this.diskReadBytes = undefined;
+                this.diskWriteBytes = undefined;
+
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: this.yAxisMax}],
@@ -165,6 +172,9 @@
             intervalRender(result) {
                 let xAxisData = [], data1 = [], data2 = [], yAxisMax = this.yAxisMax;
 
+                this.diskReadBytes = undefined;
+                this.diskWriteBytes = undefined;
+
                 let $this = this;
                 $(result).each(function () {
                     let itemData = $this.toItemData(this);
@@ -199,6 +209,9 @@
                     data1[i] = '-';
                     data2[i] = '-';
                 }
+
+                this.diskReadBytes = undefined;
+                this.diskWriteBytes = undefined;
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
@@ -237,14 +250,55 @@
             },
             // 数据转换
             toItemData(item) {
-                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0,
-                        obj = item.ifcJVMClassLoading;
+                let $this = this;
+                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0;
 
-                if (obj) {
-                    data1 = obj.loadedClassCount;
-                    data2 = obj.unloadedClassCount;
-                    yAxisMax = data1 > data2 ? data1 : data2;
+                if ($this.diskReadBytes == undefined && $this.diskWriteBytes == undefined) {
+                    $this.diskReadBytes = new Array(item.ifcFileSystems.length);
+                    $this.diskWriteBytes = new Array(item.ifcFileSystems.length);
                 }
+
+                var diskReadBytes = 0, diskWriteBytes = 0;
+
+                $(item.ifcFileSystems).each(function (i) {
+                    if ($this.diskReadBytes[i]) {
+                        let dr = this.diskReadBytes - $this.diskReadBytes[i];
+                        if (dr < 0) {
+                            dr += 1024 * 1024 * 1024 * 4;
+                        }
+                        diskReadBytes += dr;
+                    }
+                    if(xAxisData == '15:27'){
+                        console.log(xAxisData, this.diskReadBytes , $this.diskReadBytes[i], diskReadBytes)
+                    }
+                    $this.diskReadBytes[i] = this.diskReadBytes;
+
+                    if ($this.diskWriteBytes[i]) {
+                        let dw = this.diskWriteBytes - $this.diskWriteBytes[i];
+                        if (dw < 0) {
+                            dw += 1024 * 1024 * 1024 * 4;
+                        }
+                        diskWriteBytes += dw;
+                    }
+                    $this.diskWriteBytes[i] = this.diskWriteBytes;
+                });
+
+                if ($this.date && Tools.dateParse(item.date) - Tools.dateParse($this.date) > 60000) {
+                    diskWriteBytes = 0;
+                    diskReadBytes = 0;
+                }
+                $this.date = item.date;
+
+
+                if(this.interval) {
+                    diskWriteBytes /= this.interval * 60;
+                    diskReadBytes /= this.interval * 60;
+                }
+
+                data1 = parseFloat(Tools.byteToKB(diskWriteBytes).toFixed(2));
+                data2 = parseFloat(Tools.byteToKB(diskReadBytes).toFixed(2));
+
+                yAxisMax = data1 > data2 ? data1 : data2;
                 return {xAxisData, yAxisMax, data1, data2}
             }
         }
