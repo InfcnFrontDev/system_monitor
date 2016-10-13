@@ -82,12 +82,12 @@
                     case '最近一天':
                         date1 = Tools.dateAdd(date2, -(60 * 60 * 24));
                         monitorDate = Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
-                        interval = Config.dayInterval;
+                        interval = Config.hourInterval;
                         break;
                     default:
                         let date = val.replace(/-/g, '');
                         monitorDate = date + '0000-' + date + '2359';
-                        interval = Config.dayInterval;
+                        interval = Config.hourInterval;
                         isAllDay = true;
                         break;
                 }

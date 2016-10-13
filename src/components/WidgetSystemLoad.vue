@@ -234,6 +234,9 @@
                 let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, yAxisMax = 0,
                         obj = item.ifcJVMOperatingSystem;
 
+                if (obj.systemLoadAverage < 0) {
+                    obj.systemLoadAverage = 0;
+                }
                 data1 = parseFloat((obj.systemLoadAverage * 100).toFixed(0));
                 yAxisMax = data1;
 

@@ -21,6 +21,10 @@
     #jarviswidget-fullscreen-mode .widget-body, #jarviswidget-fullscreen-mode .chart {
         height: 100%;
     }
+    .chart td{
+        padding-left:5px !important;
+        padding-right: 0 !important;
+    }
 </style>
 <script>
     import Tools from '../common/tools'

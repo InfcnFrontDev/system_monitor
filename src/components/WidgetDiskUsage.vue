@@ -26,6 +26,7 @@
             }
         },
         ready(){
+            let $this = this;
             this.$refs.chart.setOption({
                 tooltip: {
                     trigger: 'axis',
@@ -47,7 +48,7 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '速度（KB/s）',
+                    name: '速度(KB/s)',
                     type: 'value'
                 }],
                 series: [{
@@ -72,7 +73,7 @@
                 this.$refs.chart.showLoading();
 
                 // 实时监控初始化
-                if (!this.monitorDate) {
+                if (this.monitorDate == undefined) {
                     this.realtimeInit();
                 }
 
@@ -249,26 +250,55 @@
             },
             // 数据转换
             toItemData(item) {
+                let $this = this;
                 let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0;
 
+                if ($this.diskReadBytes == undefined && $this.diskWriteBytes == undefined) {
+                    $this.diskReadBytes = new Array(item.ifcFileSystems.length);
+                    $this.diskWriteBytes = new Array(item.ifcFileSystems.length);
+                }
+
                 var diskReadBytes = 0, diskWriteBytes = 0;
-                $(item.ifcFileSystems).each(function () {
-                    diskReadBytes += this.diskReadBytes;
-                    diskWriteBytes += this.diskWriteBytes;
+
+                $(item.ifcFileSystems).each(function (i) {
+                    if ($this.diskReadBytes[i]) {
+                        let dr = this.diskReadBytes - $this.diskReadBytes[i];
+                        if (dr < 0) {
+                            dr += 1024 * 1024 * 1024 * 4;
+                        }
+                        diskReadBytes += dr;
+                    }
+                    if(xAxisData == '15:27'){
+                        console.log(xAxisData, this.diskReadBytes , $this.diskReadBytes[i], diskReadBytes)
+                    }
+                    $this.diskReadBytes[i] = this.diskReadBytes;
+
+                    if ($this.diskWriteBytes[i]) {
+                        let dw = this.diskWriteBytes - $this.diskWriteBytes[i];
+                        if (dw < 0) {
+                            dw += 1024 * 1024 * 1024 * 4;
+                        }
+                        diskWriteBytes += dw;
+                    }
+                    $this.diskWriteBytes[i] = this.diskWriteBytes;
                 });
 
-                let d1 = 0, d2 = 0;
-                if (this.diskReadBytes != undefined && this.diskWriteBytes != undefined) {
-                    d1 = diskReadBytes - this.diskReadBytes;
-                    d2 = diskWriteBytes - this.diskWriteBytes;
+                if ($this.date && Tools.dateParse(item.date) - Tools.dateParse($this.date) > 60000) {
+                    diskWriteBytes = 0;
+                    diskReadBytes = 0;
                 }
-                data1 = parseFloat(Tools.byteToKB(d1).toFixed(2));
-                data2 = parseFloat(Tools.byteToKB(d2).toFixed(2));
+                $this.date = item.date;
+
+
+                if(this.interval) {
+                    diskWriteBytes /= this.interval * 60;
+                    diskReadBytes /= this.interval * 60;
+                }
+
+                data1 = parseFloat(Tools.byteToKB(diskWriteBytes).toFixed(2));
+                data2 = parseFloat(Tools.byteToKB(diskReadBytes).toFixed(2));
+
                 yAxisMax = data1 > data2 ? data1 : data2;
-
-                this.diskReadBytes = diskReadBytes;
-                this.diskWriteBytes = diskWriteBytes;
-
                 return {xAxisData, yAxisMax, data1, data2}
             }
         }
