@@ -34,50 +34,11 @@
                 $(result.ifcFileSystems).each(function (i) {
                     $this.drives.push({name: this.devName});
                 });
-                if(Storage.get($this.driveId) == '' ){
-                    $this.selected = $this.drives[0].name
-                }else{
-                   $($this.drives).each(function(){
-                       if($(this)==Storage.get($this.driveId)){
-                           $this.selected = Storage.get($this.driveId)
-                       }else{
-                           $this.selected = $this.drives[0].name
-                       }
-                   })
-                }
 
+                //$this.selected = Storage.get($this.driveId) && $this.drives.includes(Storage.get($this.driveId))
+                //        ? Storage.get($this.driveId) : $this.drives[0].name;
 
-                // 没找到
-                ///$this.drives.indexOf(Storage.get($this.driveId)) == -1
-
-                // 没找到
-                //$this.drives.findIndex(d => d == Storage.get($this.driveId)) == -1
-
-                // 没找到
-                //$this.drives.find(d => d == Storage.get($this.driveId)) == undefined
-
-                // 没找到
-                //$this.drives.includes(Storage.get($this.driveId)) == false
-
-                //
-//                let find = false;
-//                for(let i in $this.drives){
-//                    if(Storage.get($this.driveId) == $this.drives[i]){
-//                        find = true;
-//                        break;
-//                    }
-//                }
-//                if(find){
-//                    // 找到
-//                }
-
-
-
-                // drives = [c:, d:, e:, f:]
-                // Storage = e:
-                // selected = ???
-
-
+                $this.selected = $this.drives[0].name;
             });
         },
         watch: {
