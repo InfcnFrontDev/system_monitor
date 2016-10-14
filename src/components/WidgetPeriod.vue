@@ -24,7 +24,14 @@
             title: {type: String}
         },
         ready() {
-            this.$refs.chart.setOption(this.$parent.getInitOption());
+            let option = this.$parent.getInitOption();
+            this.$refs.chart.setOption(option);
+
+            // yAxis max
+            this.yAxisMax = option.yAxis[0].yAxisMax;
+
+            // series length
+            this.seriesLen = option.series.length;
         },
         methods: {
             // 时间段改变时
@@ -92,61 +99,64 @@
             },
             // 实时监控初始化
             realtimeInit() {
-                let xAxisData = [], data1 = [], data2 = [];
-                xAxisData.length = Config.realtimeLen;
-                data1.length = Config.realtimeLen;
-                data2.length = Config.realtimeLen;
+                let xAxisData = new Array(Config.realtimeLen), yAxisMax = this.yAxisMax,
+                        series = new Array(this.seriesLen);
+
+                series.fill({data: new Array(Config.realtimeLen)});
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
-                    yAxis: [{max: this.yAxisMax}],
-                    series: [{data: data1}, {data: data2}]
+                    yAxis: [{max: yAxisMax}],
+                    series: series
                 });
             },
             // 实时监控数据渲染
             realtimeRender(result) {
                 let option = this.$refs.chart.getOption(),
                         xAxisData = option.xAxis[0].data,
-                        data1 = option.series[0].data,
-                        data2 = option.series[1].data,
+                        series = option.series,
                         yAxisMax = option.yAxis[0].max;
 
                 let itemData = this.toItemData(result);
 
-                let date = new Date();
                 xAxisData.shift();
-                xAxisData.push(Tools.dateFormat(date, Tools.HHmmss_));
+                xAxisData.push(Tools.dateFormat(new Date(), Tools.HHmmss_));
 
-                data1.shift();
-                data1.push(itemData.data1);
-                data2.shift();
-                data2.push(itemData.data2);
+                for (let i in itemData.seriesData) {
+                    series[i].data.shift();
+                    series[i].data.push(itemData.seriesData[i]);
+                }
 
                 // y轴max值最小为100，否则自动
-                if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
+                if (yAxisMax != undefined && yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
                     yAxisMax = 'auto';
                 }
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}, {data: data2}]
+                    series: series
                 })
             },
             // 区间展示数据渲染
             intervalRender(result) {
-                let xAxisData = [], data1 = [], data2 = [], yAxisMax = this.yAxisMax;
+                let xAxisData = [], yAxisMax = this.yAxisMax, series = new Array(this.seriesLen);
+
+                for (let i = 0; i < series.length; i++) {
+                    series[i] = {data: []};
+                }
 
                 let $this = this;
-                $(result).each(function () {
-                    let itemData = $this.toItemData(this);
+                result.forEach((item, i) => {
+                    let itemData = $this.toItemData(item);
 
-                    xAxisData.push(itemData.xAxisData);
-                    data1.push(itemData.data1);
-                    data2.push(itemData.data2);
+                    xAxisData[i] = itemData.xAxisData;
+                    itemData.seriesData.forEach((data, j) => {
+                        series[j].data[i] = data;
+                    });
 
                     // y轴max值最小为100，否则自动
-                    if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
+                    if (yAxisMax != undefined && yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
                         yAxisMax = 'auto';
                     }
                 });
@@ -154,28 +164,30 @@
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}, {data: data2}]
+                    series: series
                 });
             },
             // 全天展示初始化
             allDayInit(){
                 let len = 60 * 24 / this.interval,
-                        xAxisData = [], data1 = [], data2 = [];
+                        xAxisData = new Array(len), yAxisMax = this.yAxisMax,
+                        series = new Array(this.seriesLen);
 
-                xAxisData.length = len;
-                data1.length = len;
-                data2.length = len;
+                for (let i = 0; i < series.length; i++) {
+                    series[i] = {data: []};
+                }
 
                 for (let i = 0; i < xAxisData.length; i++) {
                     xAxisData[i] = Tools.numberToTime(i, this.interval);
-                    data1[i] = '-';
-                    data2[i] = '-';
+                    for (let j = 0; j < series.length; j++) {
+                        series[j].data[i] = '-';
+                    }
                 }
 
                 this.$refs.chart.setOption({
                     xAxis: [{data: xAxisData}],
-                    yAxis: [{max: this.yAxisMax}],
-                    series: [{data: data1}, {data: data2}]
+                    yAxis: [{max: yAxisMax}],
+                    series: series
                 });
             },
             // 全天展示数据渲染
@@ -183,33 +195,34 @@
                 this.allDayInit();
 
                 let option = this.$refs.chart.getOption(),
-                        data1 = option.series[0].data,
-                        data2 = option.series[1].data,
                         yAxisMax = this.yAxisMax,
+                        series = option.series,
                         interval = this.interval;
 
                 let $this = this;
-                $(result).each(function () {
-                    let itemData = $this.toItemData(this),
+                result.forEach((item, i) => {
+                    let itemData = $this.toItemData(item),
                             num = Tools.timeToNumber(itemData.xAxisData, interval);
 
-                    data1[num] = itemData.data1;
-                    data2[num] = itemData.data2;
+                    itemData.seriesData.forEach((data, j) => {
+                        series[j].data[num] = data;
+                    });
 
                     // y轴max值最小为100，否则自动
-                    if (yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
+                    if (yAxisMax != undefined && yAxisMax != 'auto' && itemData.yAxisMax > yAxisMax) {
                         yAxisMax = 'auto';
                     }
                 });
 
                 this.$refs.chart.setOption({
                     yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}, {data: data2}]
+                    series: series
                 });
             },
             // 数据转换
             toItemData(item) {
-                return this.$parent.toItemData(item);
+                let itemData = this.$parent.toItemData(item);
+                return itemData;
             }
         }
     }
