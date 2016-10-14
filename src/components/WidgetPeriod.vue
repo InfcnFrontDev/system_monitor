@@ -28,7 +28,7 @@
             this.$refs.chart.setOption(option);
 
             // yAxis max
-            this.yAxisMax = option.yAxis[0].yAxisMax;
+            this.yAxisMax = option.yAxis[0].max;
 
             // series length
             this.seriesLen = option.series.length;
@@ -200,7 +200,7 @@
                         interval = this.interval;
 
                 let $this = this;
-                result.forEach((item, i) => {
+                result.forEach((item) => {
                     let itemData = $this.toItemData(item),
                             num = Tools.timeToNumber(itemData.xAxisData, interval);
 
@@ -221,7 +221,7 @@
             },
             // 数据转换
             toItemData(item) {
-                let itemData = this.$parent.toItemData(item);
+                let itemData = this.$parent.toItemData(item, this.interval);
                 return itemData;
             }
         }

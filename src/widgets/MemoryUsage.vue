@@ -50,12 +50,12 @@
             },
             // 数据转换
             toItemData(item) {
-                let obj = item.ifcMem, xAxisData = Tools.dateToHHmm(item.date), seriesData;
+                let obj = item.ifcMem, xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0;
 
-                let data1 = parseFloat(Tools.byteToGB(obj.used).toFixed(2));
-                let data2 = parseFloat(Tools.byteToGB(obj.free).toFixed(2));
-                seriesData = Array.of(data1, data2);
+                data1 = parseFloat(Tools.byteToGB(obj.used).toFixed(2));
+                data2 = parseFloat(Tools.byteToGB(obj.free).toFixed(2));
 
+                let seriesData = Array.of(data1, data2);
                 return {xAxisData, seriesData}
             }
         }

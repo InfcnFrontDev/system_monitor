@@ -40,7 +40,7 @@
                     yAxis: [{
                         name: '使用率（%）',
                         type: 'value',
-                        yAxisMax: 100
+                        max: 100
                     }],
                     series: [{
                         name: '系统', type: 'line', stack: '总量', areaStyle: {normal: {}}, data: []
@@ -51,9 +51,8 @@
             },
             // 数据转换
             toItemData(item) {
-                let xAxisData = Tools.dateToHHmm(item.date), seriesData = [], yAxisMax = 0;
+                let xAxisData = Tools.dateToHHmm(item.date), data1 = 0, data2 = 0, yAxisMax = 0;
 
-                let data1 = 0, data2 = 0;
                 $(item.ifcCpus).each(function () {
                     data1 += this.sys;
                     data2 += this.user;
@@ -61,11 +60,9 @@
 
                 data1 = parseInt((data1 * 100).toFixed(0));
                 data2 = parseInt((data2 * 100).toFixed(0));
-                seriesData.push(data1);
-                seriesData.push(data2);
-
                 yAxisMax = data1 + data2;
 
+                let seriesData = Array.of(data1, data2);
                 return {xAxisData, seriesData, yAxisMax}
             }
         }
