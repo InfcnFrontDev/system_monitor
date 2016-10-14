@@ -15,9 +15,9 @@
 <style>
 </style>
 <script>
-    import Monitor from '../common/monitor.api'
-    import Tools from '../common/tools'
-    import Storage from '../common/storage'
+    import Monitor from '../../common/monitor.api'
+    import Tools from '../../common/tools'
+    import Storage from '../../common/storage'
 
     export default{
         data(){
@@ -34,17 +34,11 @@
                 $(result.ifcFileSystems).each(function (i) {
                     $this.drives.push({name: this.devName});
                 });
-                if(Storage.get($this.driveId) == '' ){
-                    $this.selected = $this.drives[0].name
-                }else{
-                   $($this.drives).each(function(){
-                       if($(this)==Storage.get($this.driveId)){
-                           $this.selected = Storage.get($this.driveId)
-                       }else{
-                           $this.selected = $this.drives[0].name
-                       }
-                   })
-                }
+
+                //$this.selected = Storage.get($this.driveId) && $this.drives.includes(Storage.get($this.driveId))
+                //        ? Storage.get($this.driveId) : $this.drives[0].name;
+
+                $this.selected = $this.drives[0].name;
             });
         },
         watch: {
