@@ -45,17 +45,22 @@
         },
         methods: {
             driveChange(drive){
+                this.drive = drive;
+
                 let $this = this;
                 Monitor.getFileSystems().then(function (result) {
                     $this.render(result);
                 });
             },
             render(result) {
-                var useds = 0, frees = 0, data = [];
+                let useds = 0, frees = 0, data = [];
 
+                let $this = this;
                 $(result.ifcFileSystems).each(function () {
-                    useds += this.used;
-                    frees += this.free;
+                    if($this.drive == this.devName){
+                        useds = this.used;
+                        frees = this.free;
+                    }
                 });
                 data = [
                     {value: Tools.byteMbToGB(useds).toFixed(2), name: '已用存储'},

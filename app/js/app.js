@@ -46,6 +46,14 @@ $(document)
         // COLLAPSE LEFT NAV
         $('.minifyme')
             .click(function (e) {
+                // $('#left-panel nav').hide();
+                // $('#left-panel .minifyme').hide();
+                //
+                // setTimeout(function () {
+                //     $('#left-panel nav').fadeIn('fast');
+                //     $('#left-panel .minifyme').fadeIn('fast');
+                // }, 100);
+
                 $('body').toggleClass("minified");
                 localStorage.minifyme = $('body').attr('class').indexOf('minified') > -1;
                 e.preventDefault();

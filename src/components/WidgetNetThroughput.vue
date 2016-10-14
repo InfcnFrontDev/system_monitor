@@ -28,11 +28,12 @@
             }
         },
         ready() {
+            let $this = this;
             this.$refs.chart.setOption({
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params, ticket, callback) {
-                        return Tools.formatter(params, 'Mbps');
+                        return Tools.formatter(params, 'Kbps');
                     }
 
 
@@ -50,7 +51,7 @@
                     data: []
                 }],
                 yAxis: [{
-                    name: '吞吐量(Mbps)',
+                    name: '吞吐量(Kbps)',
                     type: 'value'
                 }],
                 series: [{
@@ -75,7 +76,7 @@
                 this.$refs.chart.showLoading();
 
                 // 实时监控初始化
-                if (!this.monitorDate) {
+                if (this.monitorDate == undefined) {
                     this.realtimeInit();
                 }
 
@@ -266,8 +267,20 @@
                     d2 = txBytes - this.txBytes;
                 }
 
-                data1 = parseFloat(Tools.byteToMB(d1).toFixed(2));
-                data2 = parseFloat(Tools.byteToMB(d2).toFixed(2));
+                if ($this.date && Tools.dateParse(item.date) - Tools.dateParse($this.date) > 60000) {
+                    d1 = 0;
+                    d2 = 0;
+                }
+                $this.date = item.date;
+
+                if(this.interval) {
+                    d1 /= this.interval * 60;
+                    d2 /= this.interval * 60;
+                }
+
+                data1 = parseFloat(Tools.byteToKB(d1).toFixed(2));
+                data2 = parseFloat(Tools.byteToKB(d2).toFixed(2));
+
                 yAxisMax = data1 > data2 ? data1 : data2;
 
                 this.rxBytes = rxBytes;

@@ -166,17 +166,27 @@
                     });
                     combined = combined * 100;
                     data1[num] = combined.toFixed(0);
-                    if (combined > 100) {
-                        yAxisMax = parseInt(combined) + 30;
-                    }
+
                     // 内存使用率
                     let usedPercent = mem.usedPercent;
                     data2[num] = usedPercent.toFixed(0);
 
                     // 服务器负载
+                    if (jvmos.systemLoadAverage < 0) {
+                        jvmos.systemLoadAverage = 0;
+                    }
                     let serverLoad = jvmos.systemLoadAverage * 100;
                     data3[num] = serverLoad.toFixed(0);
+
+                    Array.from([data1[num], data2[num], data3[num]]).forEach(d => {
+                        d = parseInt(d);
+                        if (d > yAxisMax) {
+                            yAxisMax = d;
+                        }
+                    });
                 });
+
+                yAxisMax = (parseInt( yAxisMax / 10) + 1 ) * 10;
 
                 this.$refs.chart.setOption({
                     yAxis: [{max: yAxisMax}],
