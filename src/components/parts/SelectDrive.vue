@@ -22,7 +22,7 @@
     export default{
         data(){
             return {
-                driveId: this.$parent.id + '_drive',
+                // driveId: this.$parent.id + '_drive',
                 drives: [],
                 selected: null
             }
@@ -44,7 +44,7 @@
         watch: {
             selected: function (val, oldVal) {
                 this.$dispatch('onchange', val)
-                Storage.set(this.driveId, val);
+                // Storage.set(this.driveId, val);
             }
         }
     }

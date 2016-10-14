@@ -1665,12 +1665,17 @@ if($('#server').length) {
         }
 
         $li.click(function () {
-            var url = location.pathname + '?servers=' + params._servers + '&s=' + $(this).attr('s');
+            var queryString = '';
 
-            if(params.topnav == 1){
-                url += '&topnav=1';
-            }
-            location.href = url;
+            if(params._servers)
+                queryString += '&servers=' + params._servers;
+            if($(this).attr('s') != '0')
+                queryString += '&s=' + $(this).attr('s');
+            if(params.topnav == 0)
+                queryString += '&topnav=0';
+
+            queryString = queryString.replace(/^&/, '?');
+            location.href = location.pathname + queryString;
         });
 
         $li.attr('s', j);
