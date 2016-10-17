@@ -1,0 +1,49 @@
+{
+  "date": "201609231911",
+  "ifcFileSystems": [
+    {
+      "avail": 38731304,
+      "devName": "C:\\",
+      "dirName": "C:\\",
+      "diskQueue": 0,
+      "diskReadBytes": 171755008,
+      "diskReads": 6971,
+      "diskServiceTime": -1,
+      "diskWriteBytes": 933159424,
+      "diskWrites": 154547,
+      "files": -1,
+      "flags": 0,
+      "free": 38731304,
+      "freeFiles": -1,
+      "options": "rw",
+      "sysTypeName": "NTFS",
+      "total": 52324348,
+      "type": 2,
+      "typeName": "local",
+      "usePercent": 0.26,
+      "used": 13593044
+    },
+    {
+      "avail": 100031072,
+      "devName": "D:\\",
+      "dirName": "D:\\",
+      "diskQueue": 0,
+      "diskReadBytes": 2705408,
+      "diskReads": 470,
+      "diskServiceTime": -1,
+      "diskWriteBytes": 1750456832,
+      "diskWrites": 224647,
+      "files": -1,
+      "flags": 0,
+      "free": 100031072,
+      "freeFiles": -1,
+      "options": "rw",
+      "sysTypeName": "NTFS",
+      "total": 104854524,
+      "type": 2,
+      "typeName": "local",
+      "usePercent": 0.05,
+      "used": 4823452
+    }
+  ]
+}

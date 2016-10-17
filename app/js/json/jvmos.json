@@ -1,0 +1,10 @@
+{
+  "date": "201609301759",
+  "ifcJVMOperatingSystem": {
+    "arch": "amd64",
+    "availableProcessors": 4,
+    "name": "Linux",
+    "systemLoadAverage": 0,
+    "version": "3.8.0-29-generic"
+  }
+}

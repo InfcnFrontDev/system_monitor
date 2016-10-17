@@ -1,8 +1,7 @@
 .idea
 *.log
 *.DS_Store
-/img/*
-webhook.php
-.inviteimg
-node_modules
-application/const.php
+node_modules/
+bower_components/
+npm-debug.log*
+app/js/main.js*
