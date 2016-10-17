@@ -1,6 +1,6 @@
 <template>
     <div class="btn-group">
-        <button id="alternate1" class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown">
+        <button id="alternate1" class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown" style="max-width: 120px;">
             {{selected}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
         </button>
         <ul class="dropdown-menu pull-right js-status-update">
