@@ -4,5 +4,4 @@
 node_modules/
 bower_components/
 npm-debug.log*
-app/js/main.js
-app/ajax/index.html
+app/js/main.js*
