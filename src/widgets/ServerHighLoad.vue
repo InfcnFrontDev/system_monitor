@@ -1,5 +1,5 @@
 <template>
-    <widget :id="id" :title="title">
+    <widget id="server_high_load" title="服务器高负载日分布情况">
         <div slot="toolbar" class="widget-toolbar">
             <select-date @onchange="dateChange"></select-date>
         </div>
@@ -23,9 +23,6 @@
         },
         data(){
             return {
-                id: 'server_high_load',
-                title: '服务器高负载日分布情况',
-                monitorDate: '',
                 interval: Config.dayInterval
             }
         },
@@ -186,7 +183,7 @@
                     });
                 });
 
-                yAxisMax = (parseInt( yAxisMax / 10) + 1 ) * 10;
+                //yAxisMax = (parseInt( yAxisMax / 10)) * 10;
 
                 this.$refs.chart.setOption({
                     yAxis: [{max: yAxisMax}],

@@ -30,9 +30,9 @@
             return {
                 periodId: this.$parent.id + '_period',
                 periods: [
-                    {text: '实时监控', color: 'green', value: 'realtime'},
-                    {text: '最近一小时', color: 'red', value: 'one_hour'},
-                    {text: '最近一天', color: 'orange', value: 'one_day'}
+                    {text: '实时监控', color: 'green' },
+                    {text: '最近一小时', color: 'red' },
+                    {text: '最近一天', color: 'orange' }
                 ],
                 selected: null
             }
@@ -70,29 +70,20 @@
             selected: function (val, oldVal) {
                 Storage.set(this.periodId, val);
 
-                let date1, date2 = new Date(), monitorDate, interval, isAllDay = false;
                 switch (val) {
                     case '实时监控':
+                        this.$dispatch('onrealtime');
                         break;
                     case '最近一小时':
-                        date1 = Tools.dateAdd(date2, -(60 * 60));
-                        monitorDate = Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
-                        interval = Config.hourInterval;
+                        this.$dispatch('onlast', 60 * 60, Config.hourInterval);
                         break;
                     case '最近一天':
-                        date1 = Tools.dateAdd(date2, -(60 * 60 * 24));
-                        monitorDate = Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
-                        interval = Config.hourInterval;
+                        this.$dispatch('onlast', 60 * 60 * 24, Config.hourInterval);
                         break;
                     default:
-                        let date = val.replace(/-/g, '');
-                        monitorDate = date + '0000-' + date + '2359';
-                        interval = Config.hourInterval;
-                        isAllDay = true;
+                        this.$dispatch('onallday', val, Config.hourInterval);
                         break;
                 }
-
-                this.$dispatch('onchange', monitorDate, interval, isAllDay)
             }
         }
     }

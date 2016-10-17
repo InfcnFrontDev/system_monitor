@@ -137,7 +137,6 @@
     import JvmThread from  './widgets/JvmThread.vue'
 
     import NetMessage from './widgets/NetMessage.vue'
-    import NetChannel from './widgets/NetChannel.vue'
     import NetThroughput from './widgets/NetThroughput.vue'
 
     export default{
@@ -158,7 +157,6 @@
             JvmThread,
 
             NetMessage,
-            NetChannel,
             NetThroughput
         },
         ready() {

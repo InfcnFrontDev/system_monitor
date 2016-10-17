@@ -1,5 +1,5 @@
 <template>
-    <widget :id="id" :title="title">
+    <widget id="storage_usage" title="存储使用情况">
         <div slot="toolbar" class="widget-toolbar">
             <select-drive @onchange="driveChange"></select-drive>
         </div>
@@ -19,12 +19,6 @@
     export default{
         components: {
             Widget, SelectDrive, Chart
-        },
-        data(){
-            return {
-                id: 'storage_usage',
-                title: '存储使用情况'
-            }
         },
         ready(){
             // 初始状态

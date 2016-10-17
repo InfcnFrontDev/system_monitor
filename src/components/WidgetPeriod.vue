@@ -1,7 +1,7 @@
 <template>
     <widget :id="id" :title="title">
         <div slot="toolbar" class="widget-toolbar">
-            <select-period @onchange="periodChange"></select-period>
+            <select-period @onrealtime="realtime" @onlast="last" @onallday="allday"></select-period>
         </div>
         <chart v-ref:chart></chart>
     </widget>
@@ -34,6 +34,58 @@
             this.seriesLen = option.series.length;
         },
         methods: {
+            // 实时监控
+            realtime(){
+                // 清除实时监控的定时器
+                if (this.timer != null)
+                    clearInterval(this.timer);
+
+                this.$refs.chart.showLoading();
+
+                this.realtimeInit();
+
+                let $this = this;
+                setTimeout(function () {// 解决先执行一次的问题
+                    $this.fetchRealtimeData();
+                    $this.timer = setInterval($this.fetchRealtimeData, Config.realtimeIntervalTime); // 定时执行数据抓取
+                }, 0);
+            },
+            // 最近一段时间
+            last(time, interval){
+                // 清除实时监控的定时器
+                if (this.timer != null)
+                    clearInterval(this.timer);
+
+                this.time = time;
+                this.interval = interval;
+
+                this.$refs.chart.showLoading();
+
+                let $this = this;
+                setTimeout(function () {// 解决先执行一次的问题
+                    $this.fetchLastData();
+                    $this.timer = setInterval($this.fetchLastData, 1000 * 60 * interval); // 定时执行数据抓取
+                }, 0);
+
+            },
+            // 指定日期
+            allday(date, interval){
+                // 清除实时监控的定时器
+                if (this.timer != null)
+                    clearInterval(this.timer);
+
+                this.date = date;
+                this.interval = interval;
+
+                this.$refs.chart.showLoading();
+
+                let $this = this;
+                setTimeout(function () {// 解决先执行一次的问题
+                    $this.fetchAlldayData();
+                    $this.timer = setInterval($this.fetchAlldayData, 1000 * 60 * interval); // 定时执行数据抓取
+                }, 0);
+
+            },
             // 时间段改变时
             periodChange(monitorDate, interval, isAllDay){
                 // 清除实时监控的定时器
@@ -59,43 +111,44 @@
                 }, 0);
             },
             // 抓取数据
-            fetchData(){
+            fetchRealtimeData(){
                 let $this = this;
-                this.$parent.getDataApi()(this.monitorDate, this.interval).then(function (result) {
-                    $this.fetchSuccess(result);
+                this.$parent.getDataApi()().then(function (result) {
+                    $this.$refs.chart.hideLoading();
+                    $this.realtimeRender(result);
                 }, function (error) {
-                    $this.fetchError(error);
+                    $this.$refs.chart.hideLoading();
+                    $this.realtimeInit();
                 });
             },
-            // 获取数据成功时处理
-            fetchSuccess(result){
-                this.$refs.chart.hideLoading();
+            // 抓取数据
+            fetchLastData(){
+                let date2 = new Date(),
+                        date1 = Tools.dateAdd(date2, -(this.time)),
+                        monitorDate = Tools.dateFormat(date1) + '-' + Tools.dateFormat(date2);
 
-                if (this.monitorDate) {
-                    if (result instanceof Array)
-                        if (this.isAllDay) {
-                            this.allDayRender(result);
-                        } else {
-                            this.intervalRender(result);
-                        }
-                } else {
-                    if (!(result instanceof Array))
-                        this.realtimeRender(result);
-                }
+                let $this = this;
+                this.$parent.getDataApi()(monitorDate, this.interval).then(function (result) {
+                    $this.$refs.chart.hideLoading();
+                    $this.intervalRender(result);
+                }, function (error) {
+                    $this.$refs.chart.hideLoading();
+                    $this.realtimeInit();
+                });
             },
-            // 获取数据出错时处理
-            fetchError(error){
-                this.$refs.chart.hideLoading();
+            // 抓取数据
+            fetchAlldayData(){
+                let date = this.date.replace(/-/g, ''),
+                        monitorDate = date + '0000-' + date + '2359';
 
-                if (this.monitorDate) {
-                    if (this.isAllDay) {
-                        this.allDayInit();
-                    } else {
-                        this.realtimeInit();
-                    }
-                } else {
-                    this.realtimeInit();
-                }
+                let $this = this;
+                this.$parent.getDataApi()(monitorDate, this.interval).then(function (result) {
+                    $this.$refs.chart.hideLoading();
+                    $this.allDayRender(result);
+                }, function (error) {
+                    $this.$refs.chart.hideLoading();
+                    $this.allDayInit();
+                });
             },
             // 实时监控初始化
             realtimeInit() {

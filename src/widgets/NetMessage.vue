@@ -1,5 +1,5 @@
 <template>
-    <widget :id="id" :title="title">
+    <widget id="net_message" title="概要信息">
         <div class="chart no-padding">
             <table id="user" class="table table-bordered table-striped" style="clear: both">
                 <tbody>
@@ -68,8 +68,6 @@
         },
         data(){
             return {
-                id: 'net_message',
-                title: '概要信息',
                 obj: {}
             }
         },

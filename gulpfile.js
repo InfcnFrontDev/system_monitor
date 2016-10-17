@@ -26,13 +26,14 @@ const rename = require("gulp-rename");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var webpackConfig = {
-    devtool: 'source-map',
+    // devtool: 'source-map',
     resolve: {
         root: path.join(__dirname, 'node_modules'),
         alias: {
             common: path.join(__dirname, "src/common"),
             static: path.join(__dirname, "src/static")
         },
+        //当requrie的模块找不到时，添加这些后缀
         extensions: ['', '.js', '.vue', '.scss', '.css']
     },
     module: {
