@@ -42,9 +42,9 @@
                         type: 'value'
                     }],
                     series: [{
-                        name: '发送', type: 'line', data: [], formatter: '{data}%'
+                        name: '发送', type: 'line', data: []
                     }, {
-                        name: '接收', type: 'line', data: [], formatter: '{data}%'
+                        name: '接收', type: 'line', data: []
                     }]
                 };
             },

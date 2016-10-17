@@ -33,10 +33,6 @@
                     <td>虚拟机运行时长：</td>
                     <td class="jvm-td-color">{{obj.uptime}}</td>
                 </tr>
-                <!-- <tr>
-                     <td>进程CPU时间：</td>
-                     <td class="jvm-td-color">{{}}</td>
-                 </tr>-->
                 <tr>
                     <td>JIT编译器：</td>
                     <td class="jvm-td-color">{{obj.jitName}}</td>

@@ -135,7 +135,6 @@
     import JvmNonHeapMemory from  './widgets/JvmNonHeapMemory.vue'
     import JvmMessage from  './widgets/JvmMessage.vue'
     import JvmThread from  './widgets/JvmThread.vue'
-    import JvmThreadActive from  './widgets/JvmThreadActive.vue'
 
     import NetMessage from './widgets/NetMessage.vue'
     import NetChannel from './widgets/NetChannel.vue'
@@ -157,7 +156,6 @@
             JvmNonHeapMemory,
             JvmClassLoad,
             JvmThread,
-            JvmThreadActive,
 
             NetMessage,
             NetChannel,
