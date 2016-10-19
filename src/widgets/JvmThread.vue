@@ -7,7 +7,6 @@
 </style>
 <script>
     import Widget from '../components/Widget.vue'
-    import SelectPeriod from '../components/SelectPeriod.vue'
     import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
@@ -15,7 +14,7 @@
 
     export default{
         components: {
-            Widget, SelectPeriod, Chart
+            Widget, Chart
         },
         data(){
             return {

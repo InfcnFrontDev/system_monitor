@@ -1,17 +1,17 @@
 <template>
-    <widget-period id="memory_usage" title="内存使用率">
-    </widget-period>
+    <period-widget id="memory_usage" title="内存使用率">
+    </period-widget>
 </template>
 <style>
 </style>
 <script>
-    import WidgetPeriod from '../components/WidgetPeriod.vue';
+    import PeriodWidget from '../components/PeriodWidget.vue';
     import Monitor from '../common/monitor.api';
     import Tools from '../common/tools';
 
     export default{
         components: {
-            WidgetPeriod
+            PeriodWidget
         },
         methods: {
             getDataApi(){
