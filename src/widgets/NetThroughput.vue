@@ -1,17 +1,17 @@
 <template>
-    <widget-period id="net_throughput" title="吞吐量">
-    </widget-period>
+    <period-widget id="net_throughput" title="吞吐量">
+    </period-widget>
 </template>
 <style>
 </style>
 <script>
-    import WidgetPeriod from '../components/WidgetPeriod.vue';
+    import PeriodWidget from '../components/PeriodWidget.vue';
     import Monitor from '../common/monitor.api';
     import Tools from '../common/tools';
 
     export default{
         components: {
-            WidgetPeriod
+            PeriodWidget
         },
         methods: {
             getDataApi(){

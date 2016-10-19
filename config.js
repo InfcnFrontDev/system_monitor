@@ -7,21 +7,26 @@ var DefaultWidget = {
     id: 'cup_usage1',
     title: '服务器高负载日分布情况',
     toolbox: {
-        deletebutton: true,
-        fullscreenbutton: true,
-        togglebutton: true,
-        colorbutton: true,
-        editbutton: true,
-        custombutton: true,
-
         dateselect: true,
         periodselected: true
     },
-    chart: {
-        type: 'line',
-        yAxisName: '使用率（%）',
-        yAxisMax: 100,
-        tooltipSuffix: '%'
+    content: {
+        type: 'chart',
+        option: {
+            type: 'line',
+            yAxisName: '使用率（%）',
+            yAxisMax: 100,
+            tooltipSuffix: '%'
+        },
+        dataMap: function (data) {
+            return data;
+        }
+    },
+    content: {
+        type: 'table',
+        dataMap: function (data) {
+            return data;
+        }
     }
 };
 

@@ -1,7 +1,7 @@
 <template>
     <widget :id="id" :title="title">
         <div slot="toolbar" class="widget-toolbar">
-            <select-period @onrealtime="realtime" @onlast="last" @onallday="allday"></select-period>
+            <period-select @onrealtime="realtime" @onlast="last" @onallday="allday"></period-select>
         </div>
         <chart v-ref:chart></chart>
     </widget>
@@ -10,14 +10,14 @@
 </style>
 <script>
     import Widget from '../components/Widget.vue';
-    import SelectPeriod from '../components/SelectPeriod.vue'
+    import PeriodSelect from './PeriodSelect.vue'
     import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 
     export default{
         components: {
-            Widget, SelectPeriod, Chart
+            Widget, PeriodSelect, Chart
         },
         props: {
             id: {type: String},
