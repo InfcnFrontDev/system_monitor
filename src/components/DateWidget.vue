@@ -1,5 +1,5 @@
 <template>
-    <widget id="server_high_load" title="服务器高负载日分布情况">
+    <widget :id="id" :title="title">
         <div slot="toolbar" class="widget-toolbar">
             <select-date @onchange="dateChange"></select-date>
         </div>
@@ -21,99 +21,24 @@
         components: {
             Widget, SelectDate, Chart
         },
-        data(){
-            return {
-                interval: Config.dayInterval
-            }
+        props: {
+            id: {type: String},
+            title: {type: String},
+            dataOptions: {type: Object}
         },
         ready(){
-            // 初始状态
-            this.$refs.chart.setOption({
-                tooltip: {
-                    trigger: 'axis',
-                    formatter: function (params, ticket, callback) {
-                        return Tools.formatter(params, '%');
-                    }
-                },
-                grid: {
-                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
-                },
-                legend: {
-                    top: 14,
-                    data: ['CPU', '内存', '负载']
-                },
-                xAxis: [{
-                    type: 'category',
-                    data: []
-                }],
-                yAxis: [{
-                    name: '使用率（%）',
-                    type: 'value',
-                    max: 100
-                }],
-                series: [
-                    {
-                        name: 'CPU', type: 'line', data: [],
-                        markPoint: {
-                            data: [{type: 'max', name: '最大值'}]
-                        }
-                    },
-                    {
-                        name: '内存', type: 'line', data: [],
-                        markPoint: {
-                            data: [{type: 'max', name: '最大值'}]
-                        }
-                    },
-                    {
-                        name: '负载', type: 'line', data: [],
-                        markPoint: {
-                            data: [{type: 'max', name: '最大值'}]
-                        },
-                        markLine: {
-                            data: [{
-                                name: '高负载标线',
-                                yAxis: 60
-                            }],
-                            lineStyle: {
-                                normal: {
-                                    color: '#f00'
-                                }
-                            }
-                        }
-                    }
-                ]
-            });
+            // 优先使用dataOptions中的id、title
+            this.id = this.dataOptions.id;
+            this.title = this.dataOptions.title;
+            this.interval = this.dataOptions.interval || 5;
 
-            this.init();
+            // 初始状态
+            this.$refs.chart.setOption(this.dataOptions.chartOption);
         },
         methods: {
-            // 初始化图表，清空所有点
-            init(){
-                let len = 60 * 24 / this.interval,
-                        xAxisData = [], data1 = [], data2 = [], data3 = [];
-
-                xAxisData.length = len;
-                data1.length = len;
-                data2.length = len;
-                data3.length = len;
-
-                for (let i = 0; i < xAxisData.length; i++) {
-                    xAxisData[i] = Tools.numberToTime(i, this.interval);
-                    data1[i] = '-';
-                    data2[i] = '-';
-                    data3[i] = '-';
-                }
-
-                this.$refs.chart.setOption({
-                    xAxis: [{data: xAxisData}],
-                    yAxis: [{max: 100}],
-                    series: [{data: data1}, {data: data2}, {data: data3}]
-                });
-            },
             // 选择的日期发生改变时
             dateChange(date){
-                date = date.replace(/-/g, '');
-                this.monitorDate = date + '0000-' + date + '2359';
+                this.date = date;
 
                 // 清除实时监控的定时器
                 if (this.timer != null)
@@ -124,70 +49,71 @@
                 let $this = this;
                 setTimeout(function () {// 解决先执行一次的问题
                     $this.fecthData();
-                    $this.timer = setInterval($this.fecthData, 1000 * 60 * $this.interval);
+                    $this.timer = setInterval($this.fecthData, $this.dataOptions.timerInterval);
                 }, 0);
             },
             fecthData(){
                 let $this = this;
-                Monitor.getCpuAndMemAndLoad(this.monitorDate, this.interval).then(function (result) {
-                    $this.$refs.chart.hideLoading();
-                    $this.init();
+                this.dataOptions.dataApi(this.date).then(function (result) {
                     $this.render(result);
                 }, function (error) {
-                    $this.init();
-                    $this.$refs.chart.hideLoading();
+                    console.error(error);
+                    $this.render();
                 });
             },
             // 日期统计
             render(result){
-                let option = this.$refs.chart.getOption(),
-                        data1 = option.series[0].data,
-                        data2 = option.series[1].data,
-                        data3 = option.series[2].data,
-                        yAxisMax = 100,
-                        interval = this.interval;
+                this.$refs.chart.hideLoading();
 
-                $(result).each(function (i) {
-                    let date = this.date,
-                            cpus = this.ifcCpus,
-                            mem = this.ifcMem,
-                            jvmos = this.ifcJVMOperatingSystem;
+                let data = this.dataOptions.resultMap(result),
+                        seriesLen = data[0].length - 1,
+                        legendData = data[0].filter(d => d != '-'),
+                        xAxisData = data.map(d => d[0]).filter(d => d != '-'),
+                        yAxisMax = 'auto',
+                        series = new Array(seriesLen);
 
-                    let time = Tools.dateFormat(Tools.dateParse(date), Tools.HHmm_),
-                            num = Tools.timeToNumber(time, interval);
-
-                    // CPU使用率
-                    var combined = 0.00;
-                    $(cpus).each(function () {
-                        combined += this.combined;
-                    });
-                    combined = combined * 100;
-                    data1[num] = combined.toFixed(0);
-
-                    // 内存使用率
-                    let usedPercent = mem.usedPercent;
-                    data2[num] = usedPercent.toFixed(0);
-
-                    // 服务器负载
-                    if (jvmos.systemLoadAverage < 0) {
-                        jvmos.systemLoadAverage = 0;
-                    }
-                    let serverLoad = jvmos.systemLoadAverage * 100;
-                    data3[num] = serverLoad.toFixed(0);
-
-                    Array.from([data1[num], data2[num], data3[num]]).forEach(d => {
-                        d = parseInt(d);
-                        if (d > yAxisMax) {
-                            yAxisMax = d;
+                for (let i = 0; i < series.length; i++) {
+                    let serieData = data.map(d => d[i + 1]).filter((d, i) => i > 0);
+                    series[i] = {
+                        name: legendData[i],
+                        type: 'line',
+                        data: serieData,
+                        markPoint: {
+                            data: [{type: 'max', name: '最大值'}]
                         }
-                    });
-                });
+                    };
+                }
 
-                //yAxisMax = (parseInt( yAxisMax / 10)) * 10;
+                console.log(legendData);
+                console.log(xAxisData);
+                console.log(series);
+
 
                 this.$refs.chart.setOption({
-                    yAxis: [{max: yAxisMax}],
-                    series: [{data: data1}, {data: data2}, {data: data3}]
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function (params, ticket, callback) {
+                            return Tools.formatter(params, '%');
+                        }
+                    },
+                    grid: {
+                        top: '15%', left: '5%', right: '5%', bottom: '5%',
+                        containLabel: true
+                    },
+                    legend: {
+                        top: 14,
+                        data: legendData
+                    },
+                    xAxis: [{
+                        type: 'category',
+                        data: xAxisData
+                    }],
+                    yAxis: [{
+                        name: '使用率（%）',
+                        type: 'value',
+                        max: yAxisMax
+                    }],
+                    series: series
                 });
             }
         }
