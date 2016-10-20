@@ -23,7 +23,6 @@ const cssnano = require('cssnano');  //更好用的css压缩!
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const rename = require("gulp-rename");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var webpackConfig = {
     // devtool: 'source-map',

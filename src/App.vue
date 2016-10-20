@@ -119,7 +119,6 @@
     </section>
 </template>
 <script>
-
     import ServerHighLoad from './widgets/ServerHighLoad.vue'
 
     import ServerMessage from './widgets/ServerMessage.vue'
