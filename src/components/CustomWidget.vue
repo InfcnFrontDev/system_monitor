@@ -1,39 +1,57 @@
 <template>
-    <widget :id="id" :title="title">
-        <div slot="toolbar" class="widget-toolbar">
-            <select-date @onchange="dateChange"></select-date>
+    <widget :id="dataOptions.id" :title="dataOptions.title">
+        <div slot="toolbar" class="widget-toolbar" v-if="options.toolbox">
+            <date-select v-if="options.toolbox.dateSelect" @onchange="dateChange"></date-select>
         </div>
-        <chart v-ref:chart></chart>
+        <chart v-if="options.chart" v-ref:chart></chart>
+        <property v-if="options.property" v-ref:property></property>
     </widget>
 </template>
 <style>
-
 </style>
 <script>
     import Widget from '../components/Widget.vue'
-    import SelectDate from '../components/DateSelect.vue'
+    import DateSelect from '../components/DateSelect.vue'
     import Chart from '../components/Chart.vue'
+    import Property from '../components/Property.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 
 
     export default{
         components: {
-            Widget, SelectDate, Chart
+            Widget, DateSelect, Chart, Property
         },
         props: {
-            id: {type: String},
-            title: {type: String},
             dataOptions: {type: Object}
         },
+        data(){
+            return {
+                options: {
+                    id: 'default_widget_id',
+                    title: 'default_widget_title',
+                    toolbox: {
+                        dateSelect: {}
+                    },
+                    chart: {},
+                    property: {}
+                }
+            }
+        },
         ready(){
+            // 默认
+            this.options.property = false;
+
+            // 合并
+            Object.assign(this.options, this.dataOptions);
+
+            console.log(this.options);
+
             // 优先使用dataOptions中的id、title
-            this.id = this.dataOptions.id;
-            this.title = this.dataOptions.title;
-            this.interval = this.dataOptions.interval || 5;
+            //this.interval = this.dataOptions.interval || 5;
 
             // 初始状态
-            this.$refs.chart.setOption(this.dataOptions.chartOption);
+            //this.$refs.chart.setOption(this.dataOptions.chartOption);
         },
         methods: {
             // 选择的日期发生改变时

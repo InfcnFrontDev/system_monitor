@@ -1,19 +1,18 @@
 <template>
-    <date-widget :data-options="dataOptions">
-    </date-widget>
+    <custom-widget :data-options="dataOptions"></custom-widget>
 </template>
 <style>
 
 </style>
 <script>
-    import DateWidget from '../components/DateWidget.vue'
+    import CustomWidget from '../components/CustomWidget.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'
 
 
     export default{
         components: {
-            DateWidget
+            CustomWidget
         },
         data(){
 

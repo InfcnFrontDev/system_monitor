@@ -142,21 +142,21 @@
         components: {
             ServerHighLoad,
 
-            StorageUsage,
-            CpuUsage,
-            MemoryUsage,
-            SwapUsage,
-            DiskUsage,
-            SystemLoad,
-            ServerMessage,
-            JvmMessage,
-            JvmHeapMemory,
-            JvmNonHeapMemory,
-            JvmClassLoad,
-            JvmThread,
-
-            NetMessage,
-            NetThroughput
+//            StorageUsage,
+//            CpuUsage,
+//            MemoryUsage,
+//            SwapUsage,
+//            DiskUsage,
+//            SystemLoad,
+//            ServerMessage,
+//            JvmMessage,
+//            JvmHeapMemory,
+//            JvmNonHeapMemory,
+//            JvmClassLoad,
+//            JvmThread,
+//
+//            NetMessage,
+//            NetThroughput
         },
         ready() {
             pageSetUp();
