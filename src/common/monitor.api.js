@@ -160,5 +160,11 @@ export default {
      */
     getJVMRuntimeAndJVMCompilation(monitorDate, interval) {
         return newPromise('jvmrt,jvmcompilation', monitorDate, interval);
+    },
+	/**
+     * 获取sql
+     */
+    getSql(monitorDate, interval) {
+        return newPromise('sql', monitorDate, interval);
     }
 }
