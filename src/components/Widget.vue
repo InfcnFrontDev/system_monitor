@@ -4,7 +4,7 @@
          data-widget-sortable="false"
          data-widget-togglebutton="false"
          data-widget-deletebutton="false">
-        <header style="overflow: hidden;">
+        <header>
             <span class="widget-icon"> <i class="fa fa-bar-chart-o"></i> </span>
             <h2>{{ title }}</h2>
             <slot name="toolbar"></slot>
