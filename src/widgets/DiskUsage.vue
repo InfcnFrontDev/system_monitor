@@ -1,17 +1,17 @@
 <template>
-    <period-widget id="disk_usage" title="磁盘I/O">
-    </period-widget>
+    <widget-period id="disk_usage" title="磁盘I/O">
+    </widget-period>
 </template>
 <style>
 </style>
 <script>
-    import PeriodWidget from '../components/PeriodWidget.vue';
+    import WidgetPeriod from '../components/WidgetPeriod.vue';
     import Monitor from '../common/monitor.api';
     import Tools from '../common/tools';
 
     export default{
         components: {
-            PeriodWidget
+            WidgetPeriod
         },
         data(){
             return {

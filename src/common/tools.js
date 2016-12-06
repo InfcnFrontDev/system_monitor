@@ -142,17 +142,6 @@ export default {
         }
 
         return str;
-    },
-
-    // json对象合并
-    extends: function (...objs) {
-        let obj = {};
-        for (let i in objs) {
-            for (let [key, value] of objs[i]) {
-                obj[key] = value;
-            }
-        }
-        return obj;
     }
 
 

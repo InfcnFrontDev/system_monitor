@@ -11,7 +11,7 @@
 </style>
 <script>
     import Widget from '../components/Widget.vue'
-    import SelectDrive from '../components/DriveSelect.vue'
+    import SelectDrive from '../components/SelectDrive.vue'
     import Chart from '../components/Chart.vue'
     import Monitor from '../common/monitor.api'
     import Tools from '../common/tools'

@@ -1,17 +1,17 @@
 <template>
-    <period-widget id="jvm_class_load" title="JVM类加载">
-    </period-widget>
+    <widget-period id="jvm_class_load" title="JVM类加载">
+    </widget-period>
 </template>
 <style>
 </style>
 <script>
-    import PeriodWidget from '../components/PeriodWidget.vue';
+    import WidgetPeriod from '../components/WidgetPeriod.vue';
     import Monitor from '../common/monitor.api';
     import Tools from '../common/tools';
 
     export default{
         components: {
-            PeriodWidget
+            WidgetPeriod
         },
         methods: {
             getDataApi(){

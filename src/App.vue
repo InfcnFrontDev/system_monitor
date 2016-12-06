@@ -119,6 +119,7 @@
     </section>
 </template>
 <script>
+
     import ServerHighLoad from './widgets/ServerHighLoad.vue'
 
     import ServerMessage from './widgets/ServerMessage.vue'
@@ -142,21 +143,21 @@
         components: {
             ServerHighLoad,
 
-//            StorageUsage,
-//            CpuUsage,
-//            MemoryUsage,
-//            SwapUsage,
-//            DiskUsage,
-//            SystemLoad,
-//            ServerMessage,
-//            JvmMessage,
-//            JvmHeapMemory,
-//            JvmNonHeapMemory,
-//            JvmClassLoad,
-//            JvmThread,
-//
-//            NetMessage,
-//            NetThroughput
+            StorageUsage,
+            CpuUsage,
+            MemoryUsage,
+            SwapUsage,
+            DiskUsage,
+            SystemLoad,
+            ServerMessage,
+            JvmMessage,
+            JvmHeapMemory,
+            JvmNonHeapMemory,
+            JvmClassLoad,
+            JvmThread,
+
+            NetMessage,
+            NetThroughput
         },
         ready() {
             pageSetUp();
