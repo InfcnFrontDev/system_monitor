@@ -1,6 +1,12 @@
 <template>
     <!-- widget grid -->
     <section id="widget-grid" class=" ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                <system-top></system-top>
+            </div>
+        </div>
+
         <!-- row -->
         <div class="model">
             <div class="row">
@@ -11,6 +17,7 @@
                     </h1>
                 </div>
                 <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+                    <system-control></system-control>
                 </div>
             </div>
             <!-- row -->
@@ -191,8 +198,9 @@
 
     import NetMessage from './widgets/NetMessage.vue'
     import NetThroughput from './widgets/NetThroughput.vue'
-	
-	
+    import SystemTop from './widgets/SystemTop.vue'
+    import SystemControl from './widgets/SystemControl.vue'
+
     import SqlInfo from './widgets/SqlInfo.vue'
 	import HttpRequest from './widgets/HttpRequest.vue'
 	import HttpSession from './widgets/HttpSession.vue'
@@ -200,6 +208,9 @@
     export default{
         components: {
             ServerHighLoad,
+            SystemTop,
+            SystemControl,
+
 
             StorageUsage,
             CpuUsage,

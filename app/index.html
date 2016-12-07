@@ -1,265 +1,109 @@
-
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Cache-Control" content="no-cache">
-		<meta http-equiv="Expires" content="0">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		
-		<title> Infcn系统监控 </title>
-		<meta name="description" content="">
-		<meta name="author" content="">
-		
-		<!-- http://davidbcalhoun.com/2010/viewport-metatag -->
-		<meta name="HandheldFriendly" content="True">
-		<meta name="MobileOptimized" content="320">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		
-		<!-- Basic Styles -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">	
-		<link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-		<!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.css">
-		<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.css">	
-		
-		<!-- SmartAdmin RTL Support is under construction
-			<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.css"> -->
-		
-		<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
-		<link rel="stylesheet" type="text/css" media="screen" href="css/demo.css">
-		
-		<!-- FAVICONS -->
-		<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
-		<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
-		
-	</head>
-	<!-- possible classes: minified,fixed-header,fixed-ribbon,fixed-navigation,fixed-width-->
-	<body class="hidden-header hidden-menu hidden-ribbon">
+	<title> Infcn系统监控 </title>
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-		<!-- HEADER -->
-		<header id="header">
-			<div id="logo-group">
+	<!-- http://davidbcalhoun.com/2010/viewport-metatag -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-				<!-- PLACE YOUR LOGO HERE -->
-				<span id="logo">
-					<img src="img/logo96.png" alt="SmartAdmin">
-				</span>
-				<!-- END LOGO PLACEHOLDER -->
-				<strong id="title11">系统运行监控组件</strong>
-			</div>
+	<!-- Basic Styles -->
+	<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
 
-			<!-- pulled right: nav area -->
-			<div class="pull-right">
+	<!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
+	<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.css">
 
-				<!-- collapse menu button -->
-				<div id="hide-menu" class="btn-header pull-right">
-					<span>
-						<a href="javascript:void(0);" title="Collapse Menu"><i class="fa fa-reorder"></i></a>
-					</span>
-				</div>
-				<!-- end collapse menu -->
+	<!-- SmartAdmin RTL Support is under construction
+        <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.css"> -->
 
+	<!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
+	<link rel="stylesheet" type="text/css" media="screen" href="css/demo.css">
 
-				<!-- end search mobile button -->
-				<ul class="header-dropdown-list hidden-xs">
-					<li>
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img alt="" src="img/skin1.png">
-							<span>Themes</span>
-							<i class="fa fa-angle-down"></i>
-						</a>
-						<ul id="echarts-theme" class="dropdown-menu pull-right">
-							<li><a href="javascript:void(0);">Default</a></li>
-							<li><a href="javascript:void(0);">Westeros</a></li>
-							<li><a href="javascript:void(0);">Shine</a></li>
-							<li><a href="javascript:void(0);">Essos</a></li>
-							<li><a href="javascript:void(0);">Infographic</a></li>
-							<li><a href="javascript:void(0);">Macarons</a></li>
-							<li><a href="javascript:void(0);">Roma</a></li>
-							<li><a href="javascript:void(0);">Vintage</a></li>
-							<li><a href="javascript:void(0);">Walden</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-			<!-- end pulled right: nav area -->
+	<!-- FAVICONS -->
+	<link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="img/favicon/favicon.ico" type="image/x-icon">
 
-		</header>
-		<!-- END HEADER -->
+</head>
+<!-- possible classes: minified,fixed-header,fixed-ribbon,fixed-navigation,fixed-width-->
+<body style="height:auto; background:#fff;padding:20px;">
 
-		<!-- Left panel : Navigation area -->
-		<!-- Note: This width of the aside area can be adjusted through LESS variables -->
-		<aside id="left-panel">
+<app></app>
 
-			<!-- User info -->
-			<div class="login-info">
-				<span>
-					<!-- User image size is adjusted inside CSS, it should stay as it -->
-					<img src="img/fuwuqi1.png" alt="me" class="online" />
-					<a  id="show-shortcut">监控服务器:</a>
-				</span>
-			</div>
-			<!-- end user info -->
+<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+<script src="js/libs/jquery-2.0.2.min.js"></script>
 
-			<!-- NAVIGATION : This navigation is also responsive
+<script src="js/libs/jquery-ui-1.10.3.min.js"></script>
 
-				 To make this navigation dynamic please make sure to link the node
-				 (the reference to the nav > ul) after page load. Or the navigation
-				 will not initialize.
-			-->
-			<nav>
-				<!-- NOTE: Notice the gaps after each icon usage <i></i>..
-					 Please note that these links work a bit different than
-					 traditional hre="" links. See documentation for details.
-					-->
+<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
+<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
 
-				<ul id="nav-ul">
-					<li class="nav-ul-li" id="nav-yunxiang"><a href="running" title="Dashboard"><p class="fa fa-lg fa-fw fa-bar-chart-o"></p><span class="menu-item-parent nav-li-font">运行状态统计</span></a></li>
-					<li class="nav-ul-li" id="nav-caozuo"><a href="os"><p class="fa fa-lg fa-fw fa-desktop"></p><span class="menu-item-parent nav-li-font">操作系统</span></a></li>
-					<li class="nav-ul-li" id="nav-jvm"><a href="jvm"><p class="fa fa-lg fa-fw fa-cogs"></p><span class="menu-item-parent nav-li-font">JVM</span></a></li>
-					<li class="nav-ul-li" id="nav-net"><a href="network"><p class="fa fa-lg fa-fw fa-globe"></p><span class="menu-item-parent nav-li-font">网络</span></a></li>
-					<li class="nav-ul-li hidden" id="nav-sql"><a href="sql"><p class="fa fa-lg fa-fw fa-globe"></p><span class="menu-item-parent nav-li-font">SQL</span></a></li>
-					<li class="nav-ul-li hidden" id="nav-http"><a href="http"><p class="fa fa-lg fa-fw fa-globe"></p><span class="menu-item-parent nav-li-font">HTTP</span></a></li>
-					<!--<li><a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i>  <span class="menu-item-parent">Forms</span></a></li>
-					<li><a href="#"><i class="fa fa-lg fa-fw fa-desktop"></i>  <span class="menu-item-parent">UI Elements</span></a></li>
-					<li><a href="#"><i class="fa fa-lg fa-fw fa-folder-open"></i>  <span class="menu-item-parent">6 Level Navigation</span></a></li>
-					<li><a href="ajax/calendar.html"><i class="fa fa-lg fa-fw fa-calendar"><em>3</em></i>  <span class="menu-item-parent">Calendar</span></a></li>
-					<li><a href="ajax/widgets.html"><i class="fa fa-lg fa-fw fa-list-alt"></i>  <span class="menu-item-parent">Widgets</span></a></li>
-					<li><a href="ajax/gallery.html"><i class="fa fa-lg fa-fw fa-picture-o"></i>  <span class="menu-item-parent">Gallery</span></a></li>
-					<li><a href="ajax/gmap-xml.html"><i class="fa fa-lg fa-fw fa-map-marker"></i>  <span class="menu-item-parent">Google Map Skins</span><span class="badge bg-color-greenLight pull-right inbox-badge">9</span></a></li>
-					<li><a href="#"><i class="fa fa-lg fa-fw fa-windows"></i>  <span class="menu-item-parent">Miscellaneous</span></a></li>-->
-				</ul>
-			</nav>
-			<span class="minifyme">
-				<i class="fa fa-arrow-circle-left hit"></i>
-			</span>
+<!-- BOOTSTRAP JS -->
+<script src="js/bootstrap/bootstrap.min.js"></script>
 
+<!-- CUSTOM NOTIFICATION -->
+<script src="js/notification/SmartNotification.min.js"></script>
 
-		</aside>
-		<!-- END NAVIGATION -->
+<!-- JARVIS WIDGETS -->
+<script src="js/smartwidgets/jarvis.widget.min.js"></script>
 
-		<!-- MAIN PANEL -->
-		<div id="main" role="main">
+<!-- EASY PIE CHARTS -->
+<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
 
-			<!-- RIBBON -->
-			<div id="ribbon">
+<!-- SPARKLINES -->
+<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
 
-				<span class="ribbon-button-alignment">
-					<div id="server" class="btn-group">
-						<a class="btn btn-warning" href="javascript:void(0);" style="padding:6px 16px;">&nbsp;</a>
-						<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
-						<ul class="dropdown-menu" style="">
-						</ul>
-					</div>
-				</span>
+<!-- JQUERY VALIDATE -->
+<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
 
-				<!-- breadcrumb -->
-				<!--<ol class="breadcrumb">
-					&lt;!&ndash; This is auto generated &ndash;&gt;
-				</ol>-->
-				<!-- end breadcrumb -->
+<!-- JQUERY MASKED INPUT -->
+<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
 
-				<!-- You can also add more buttons to the
-					 ribbon for further usability
+<!-- JQUERY SELECT2 INPUT -->
+<script src="js/plugin/select2/select2.min.js"></script>
 
-					 Example below:
+<!-- JQUERY UI + Bootstrap Slider -->
+<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
 
-				<span class="ribbon-button-alignment pull-right">
-					<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
-					<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
-					<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-				</span> -->
+<!-- browser msie issue fix -->
+<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
 
-				<span class="ribbon-button-alignment pull-right" style="padding-top: 10px;">
-					<span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i>
-					警告! 这将重置您的所有窗口小部件的设置。" data-html="true"><i class="fa fa-refresh"></i></span>
-				</span>
-			</div>
-			<!-- END RIBBON -->
+<!-- browser msie issue fix -->
 
-			<!-- MAIN CONTENT -->
-			<div id="content">
+<!--[if IE 7]>
+<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
+<![endif]-->
+<script type="text/javascript" src="js/plugin/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="js/plugin/echarts/echarts-themes.min.js"></script>
 
-			</div>
-			<!-- END MAIN CONTENT -->
+<script src="js/config.js"></script>
 
-		</div>
-		<!-- END MAIN PANEL -->
+<!-- MAIN APP JS FILE -->
+<script src="js/app.js"></script>
 
-		<div id="fixed-box" style="display: none">
-			<ul id='fixed-ul'>
-				<li><a href="#running"><p class="fixed fa fa-lg fa-fw fa-bar-chart-o"></p><span class="fixed-li-font">运行状态</span></a></li>
-				<li><a href="#os"><p class="fixed fa fa-lg fa-fw fa-desktop"></p><span class="fixed-li-font">操作系统</span></a></li>
-				<li><a href="#jvm"><p class="fixed fa fa-lg fa-fw fa-cogs"></p><span class="fixed-li-font">JVM</span></a></li>
-				<li><a href="#network"><p class="fixed fa fa-lg fa-fw fa-globe"></p><span class="fixed-li-font">网络</span></a></li>
-			</ul>
-			<div id="arrows" ><img id="arrows-img"src="img/jiantouxia.png" alt="" style="width:80px; height:80px;"></div>
-		</div>
+<script type="text/javascript">
+	loadScript("js/plugin/mockjs/mock-min.js", loadMonitor);
 
-		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
-			 Note: These tiles are completely responsive,
-			 you can add as many as you like
-			-->
+	function loadMock() {
+		loadScript("js/mock.js", loadMonitor);
+	}
 
-		<!-- END SHORTCUT AREA -->
+	function loadMonitor() {
+		loadScript("js/main.js");
+	}
 
-		<!--================================================== -->
+</script>
 
-		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)
-		<script data-pace-options='{ "restartOnRequestAfter": true }' src="js/plugin/pace/pace.min.js"></script>-->
+</body>
 
-	    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-	    <script src="js/libs/jquery-2.0.2.min.js"></script>
-
-	    <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
-
-		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
-		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
-
-		<!-- BOOTSTRAP JS -->
-		<script src="js/bootstrap/bootstrap.min.js"></script>
-
-		<!-- CUSTOM NOTIFICATION -->
-		<script src="js/notification/SmartNotification.min.js"></script>
-
-		<!-- JARVIS WIDGETS -->
-		<script src="js/smartwidgets/jarvis.widget.min.js"></script>
-
-		<!-- EASY PIE CHARTS -->
-		<script src="js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
-
-		<!-- SPARKLINES -->
-		<script src="js/plugin/sparkline/jquery.sparkline.min.js"></script>
-
-		<!-- JQUERY VALIDATE -->
-		<script src="js/plugin/jquery-validate/jquery.validate.min.js"></script>
-
-		<!-- JQUERY MASKED INPUT -->
-		<script src="js/plugin/masked-input/jquery.maskedinput.min.js"></script>
-
-		<!-- JQUERY SELECT2 INPUT -->
-		<script src="js/plugin/select2/select2.min.js"></script>
-
-		<!-- JQUERY UI + Bootstrap Slider -->
-		<script src="js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
-
-		<!-- browser msie issue fix -->
-		<script src="js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
-
-		<!-- browser msie issue fix -->
-
-		<!--[if IE 7]>
-		<h1>Your browser is out of date, please update your browser by going to www.microsoft.com/download</h1>
-		<![endif]-->
-
-		<script src="js/config.js"></script>
-
-		<!-- MAIN APP JS FILE -->
-		<script src="js/app.js"></script>
-
-	</body>
-	
 </html>
