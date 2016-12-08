@@ -3,20 +3,23 @@
     <section id="widget-grid" class=" ">
         <div class="row">
             <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-                <system-top></system-top>
+
             </div>
         </div>
 
         <!-- row -->
         <div class="model">
             <div class="row">
-                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
                     <h1 id="running1" class="page-title txt-color-blueDark">
                         <i class="fa fa-bar-chart-o fa-fw "></i>
                         运行状态统计
                     </h1>
                 </div>
-                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-3">
+                    <system-top></system-top>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-2">
                     <system-control></system-control>
                 </div>
             </div>

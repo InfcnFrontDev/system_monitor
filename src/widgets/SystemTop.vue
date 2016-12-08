@@ -1,12 +1,19 @@
 <template>
-    <div id="server" class="btn-group">
-        <a class="btn btn-warning" href="javascript:void(0);" style="padding:6px 16px;" >&nbsp;</a>
-        <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
-        <ul class="dropdown-menu" style="" >
-            <!--<li v-for="item in itemArr" @click="queryClick(item)"><a href="javascript:;">{{item.name}}</a></li>-->
-        </ul>
+    <div id="serverbox" style="padding-top:4px;">
+        <div id="server" class="btn-group" style="float:right;">
+            <a class="btn btn-warning" href="javascript:void(0);" style="padding:6px 16px;" >&nbsp;</a>
+            <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+            <ul class="dropdown-menu" >
+                <!--<li v-for="item in itemArr" @click="queryClick(item)"><a href="javascript:;">{{item.name}}</a></li>-->
+            </ul>
+        </div>
+        <div style="float:right; line-height:40px; margin-right:20px;">
+            <span>
+                <img src="../../app/img/fuwuqi1.png" alt="me" class="online" style="width:34px; height:28px; margin-top:-6px;"/>
+                <a style="font-size:14px; color:#999;">监控服务器:</a>
+            </span>
+        </div>
     </div>
-
 </template>
 <script>
     export default{
@@ -16,10 +23,8 @@
             }
         },
         ready(){
-
             var params =this.parseQueryString();
             Config.params = params;
-
 
             if($('#server').length) {
                 var $server = $('#server');
@@ -73,6 +78,7 @@
                 // 例如servers = 服务器一+http://192.168.10.106:8080/ifcmonitor/,服务器二+http://192.168.10.106:8080/ifcmonitor/,[...]
 
                 if (params.servers) {
+                    $('#serverbox').show();
                     params._servers = params.servers;  // 保存一下原始串
 
                     var serArr = params.servers.split(','), serArr2 = [];
@@ -88,6 +94,7 @@
                     }
                     params.servers = serArr2;
                 } else {
+                    $('#serverbox').hide();
                     params.servers = [];
 
                     var loc = location.protocol + '//' + location.host + location.pathname;
@@ -100,7 +107,6 @@
                 // s：当前选中的服务器索引， 默认显示第1个，索引为0
                 if (params.s) {
                     params.s = parseInt(params.s);
-                    console.log(params.s);
                     if (params.s >= params.servers.length) {
                         params.s = 0;
                     }
@@ -114,7 +120,6 @@
                 } else {
                     params.topnav = 1;
                 }
-
                 return params;
             }
 
