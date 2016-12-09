@@ -1,4 +1,8 @@
 <template>
+  <!--  <span class="ribbon-button-alignment pull-right" style="padding-top: 15px;">
+        <span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i>
+        警告! 这将重置您的所有窗口小部件的设置。" data-html="true"><i class="fa fa-refresh"></i></span>
+    </span>-->
     <ul class="header-dropdown-list hidden-xs">
         <li>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -19,10 +23,7 @@
             </ul>
         </li>
     </ul>
-    <span class="ribbon-button-alignment pull-right" style="padding-top: 15px;">
-        <span id="refresh" class="btn btn-ribbon" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i>
-        警告! 这将重置您的所有窗口小部件的设置。" data-html="true"><i class="fa fa-refresh"></i></span>
-    </span>
+
 </template>
 <style>
 
@@ -36,7 +37,7 @@
             }
         },
         ready(){
-            $('#refresh')
+           /* $('#refresh')
                     .click(function (e) {
                         $.SmartMessageBox({
                             title: "<i class='fa fa-refresh' style='color:green'></i> Clear Local Storage",
@@ -49,7 +50,7 @@
                             }
                         });
                         e.preventDefault();
-                    });
+                    });*/
             $("#echarts-theme li").each(function(){
                 $(this).click(function(){
                     localStorage.chartTheme = $(this).text().toLowerCase();
