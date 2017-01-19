@@ -18398,3 +18398,9 @@ a:hover{
 .title-add{
     text-align: right;
 }
+
+@media screen and (max-width: 896px){
+.sys-top{
+    display:none;
+}
+}

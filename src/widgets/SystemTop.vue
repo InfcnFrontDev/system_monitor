@@ -1,5 +1,5 @@
 <template>
-    <div id="serverbox" style="padding-top:4px;">
+    <div id="serverbox" style=" display:inline-block;padding-top:4px; float:right">
         <div id="server" class="btn-group" style="float:right;">
             <a class="btn btn-warning" href="javascript:void(0);" style="padding:6px 16px;" >&nbsp;</a>
             <a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
@@ -7,7 +7,7 @@
                 <!--<li v-for="item in itemArr" @click="queryClick(item)"><a href="javascript:;">{{item.name}}</a></li>-->
             </ul>
         </div>
-        <div style="float:right; line-height:40px; margin-right:20px;">
+        <div class="sys-top" style="float:right; line-height:40px; margin-right:20px;">
             <span>
                 <img src="../../app/img/fuwuqi1.png" alt="me" class="online" style="width:34px; height:28px; margin-top:-6px;"/>
                 <a style="font-size:14px; color:#999;">监控服务器:</a>

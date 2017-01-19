@@ -41,7 +41,8 @@
 <app></app>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
-<script src="js/libs/jquery-2.0.2.min.js"></script>
+<script src="js/libs/jquery-2.1.4.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>-->
 
 <script src="js/libs/jquery-ui-1.10.3.min.js"></script>
 
@@ -87,23 +88,8 @@
 <script type="text/javascript" src="js/plugin/echarts/echarts-themes.min.js"></script>
 
 <script src="js/config.js"></script>
-
-
 <script src="js/app.js"></script>
-
-<script type="text/javascript">
-	loadScript("js/plugin/mockjs/mock-min.js", loadMonitor);
-
-	function loadMock() {
-		loadScript("js/mock.js", loadMonitor);
-	}
-
-	function loadMonitor() {
-		loadScript("js/main.js");
-	}
-
-</script>
+<script src="js/main.js"></script>
 
 </body>
-
 </html>
