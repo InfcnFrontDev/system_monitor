@@ -1,11 +1,11 @@
 <template>
     <div class="btn-group">
-        <button id="alternate1" title={{title}} class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown" style="max-width: 120px;">
+        <button id="alternate1" title="{{title1}}" class="btn dropdown-toggle btn-xs btn-success" data-toggle="dropdown" style="max-width: 120px;">
             {{selected}}&nbsp;&nbsp;<i class="fa fa-caret-down"></i>
         </button>
         <ul class="dropdown-menu pull-right js-status-update">
             <li v-for="item in drives" :class="{active: item.name == selected}">
-                <a href="javascript:void(0);" @click="selected = item.name">
+                <a href="javascript:void(0);" @click="selected = title1 = item.name">
                     <i class="fa fa-circle txt-color-green"></i> {{item.name}}
                 </a>
             </li>
@@ -25,7 +25,7 @@
                 driveId: this.$parent.id + '_drive',
                 drives: [],
                 selected: null,
-                title:null
+                title1:null
             }
         },
         ready(){
@@ -39,31 +39,30 @@
                 //$this.selected = Storage.get($this.driveId) && $this.drives.includes(Storage.get($this.driveId))
 
                 //        ? Storage.get($this.driveId) : $this.drives[0].name;
-                $this.title=$this.drives[0].name;
-                let  str= $this.drives[0].name;//原始字符串
-                let  s="";
+                var str= $this.drives[0].name;//原始字符串
+                $this.title1 = str;
+                var  s="";
                 if(str.length>10){
                     s=str.substring(0,10)+"...";
+                }else{
+                    s=str;
                 }
                 $this.selected = s;
             });
+
         },
         watch: {
             selected: function (val, oldVal) {
-                let str1=val;
-                let str2=oldVal;
-                let  s1="";
+                var str1=val;
+                var  s1="";
                 if(str1.length>10){
-                    this.title=str2;
-                    let x= str1.substring(0,10);
+                    var x= str1.substring(0,10);
                     s1=x+"...";
-
                 }else{
                     s1=str1;
-                    this.title=s1;
-
                 }
                 this.selected = s1;
+
                 this.$dispatch('onchange', str1)
                 Storage.set(this.driveId, str1);
             }
