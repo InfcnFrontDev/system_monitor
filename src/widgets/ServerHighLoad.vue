@@ -36,7 +36,7 @@
                     }
                 },
                 grid: {
-                    top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true
+                    top: '25%', left: '5%', right: '5%', bottom: '5%', containLabel: true
                 },
                 legend: {
                     top: 14,
