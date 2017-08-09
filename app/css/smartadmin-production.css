@@ -12467,9 +12467,9 @@ aside {
     border-right-width: 0!important
 }
 
-.no-padding>.table-bordered tbody tr:last-child td {
+/*.no-padding>.table-bordered tbody tr:last-child td {
     border-bottom-width: 0!important
-}
+}*/
 
 .no-padding .note-editable .table-bordered {
     border: 1px solid #DDD!important
@@ -18397,4 +18397,10 @@ a:hover{
 }
 .title-add{
     text-align: right;
+}
+
+@media screen and (max-width: 896px){
+.sys-top{
+    display:none;
+}
 }

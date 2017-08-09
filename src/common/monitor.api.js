@@ -1,4 +1,5 @@
 let $ajax = function (url, success, error) {
+    jQuery.support.cors = true;
     $.ajax({
         url: url,
         cache: false,
@@ -13,6 +14,19 @@ let $ajax = function (url, success, error) {
     });
 }
 
+let Promise2 = function (url) {
+    this.then = function (successCallback, errorCallback) {
+        $ajax(url, function (result) {
+            if(successCallback)
+                successCallback(result)
+        }, function (error) {
+            console.log(error);
+            if(errorCallback)
+                errorCallback(error)
+        });
+    };
+};
+
 let newPromise = function (type, monitorDate, interval) {
     let apiPath = Config.apiPath.replace(/\/?$/, '');
     let url = apiPath + '/IFCMonitorServlet?type=' + type;
@@ -24,13 +38,7 @@ let newPromise = function (type, monitorDate, interval) {
     }else{
         url += '&realtime=true';
     }
-    return new Promise(function (resolve, reject) {
-        $ajax(url, function (result) {
-            resolve(result)
-        }, function (error) {
-            reject(error)
-        });
-    })
+    return new Promise2(url)
 }
 
 export default {
@@ -160,5 +168,11 @@ export default {
      */
     getJVMRuntimeAndJVMCompilation(monitorDate, interval) {
         return newPromise('jvmrt,jvmcompilation', monitorDate, interval);
+    },
+	/**
+     * 获取sql
+     */
+    getSql(monitorDate, interval) {
+        return newPromise('sql', monitorDate, interval);
     }
 }
