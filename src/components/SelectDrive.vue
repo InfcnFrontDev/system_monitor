@@ -33,7 +33,11 @@
 
             Monitor.getFileSystems().then(function (result) {
                 $(result.ifcFileSystems).each(function (i) {
-                    $this.drives.push({name: this.devName});
+                    let name = this.devName, text = name;
+                    if(text.length > 20){
+                        text = text.substring(0,20) + '...';
+                    }
+                    $this.drives.push({name, text});
                 });
 
                 //$this.selected = Storage.get($this.driveId) && $this.drives.includes(Storage.get($this.driveId))
